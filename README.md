@@ -1,6 +1,6 @@
-# sparta
+# SPARTA
 
-A new Flutter project.
+A new Flutter Frontend Web App for SPARTA HMIF 2021.
 
 ## Getting Started
 
