@@ -7,11 +7,11 @@ class MyRunningLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DeviceType deviceType = UIUtils.getDeviceType(context);
-    double size = deviceType == DeviceType.mobile ? 30 : 50;
+    double size = deviceType == DeviceType.mobile ? 10 : deviceType == DeviceType.tablet? 20 : 40;
 
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.only(top: 7, bottom: 7),
+      padding: const EdgeInsets.only(top: 5, bottom: 5),
       color: Colors.black,
       child: Image.asset(
         'images/PatternSparta.png',
