@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sparta/widgets/my_title.dart';
+import 'package:sparta/widgets/my_running_logo.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);
@@ -17,6 +18,7 @@ class HomePage extends StatelessWidget {
             MyTitle(text: "SPARTA", logo: "?"),
             SizedBox(height: 100),
             MyTitle(text: "Profile"),
+            MyRunningLogo(),
           ],
         ),
       ),
