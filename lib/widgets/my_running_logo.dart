@@ -11,7 +11,10 @@ class MyRunningLogo extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.only(top: 5, bottom: 5),
+      padding: 
+        deviceType == DeviceType.mobile ? 
+        const EdgeInsets.only(top: 1, bottom: 1) : 
+        const EdgeInsets.only(top: 5, bottom: 5),
       color: Colors.black,
       child: Image.asset(
         'images/PatternSparta.png',
