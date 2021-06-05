@@ -37,18 +37,20 @@ class MyCard extends StatelessWidget {
             : (deviceType == DeviceType.tablet)
                 ? 200
                 : 400;
-    
+
     if (this.type == Type.Bottom) {
       var temp = cardWidth;
       cardWidth = cardHeight;
       cardHeight = temp * 0.75;
     }
-        
-    double contentSize = (deviceType == DeviceType.mobile)
-        ? 7
-        : (deviceType == DeviceType.tablet)
-            ? 12
-            : 25;
+
+    double contentSize = this.width != null
+        ? this.width / 32
+        : (deviceType == DeviceType.mobile)
+            ? 7
+            : (deviceType == DeviceType.tablet)
+                ? 12
+                : 25;
 
     return Container(
       width: cardWidth,
@@ -92,10 +94,10 @@ class MyCard extends StatelessWidget {
           Expanded(
               child: Container(
             padding: (deviceType == DeviceType.mobile)
-            ? const EdgeInsets.all(10)
-            : (deviceType == DeviceType.tablet)
-                ? const EdgeInsets.all(20)
-                : const EdgeInsets.all(50),
+                ? const EdgeInsets.all(10)
+                : (deviceType == DeviceType.tablet)
+                    ? const EdgeInsets.all(20)
+                    : const EdgeInsets.all(50),
             child: type == Type.Left
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.start,
