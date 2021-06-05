@@ -38,19 +38,20 @@ class MyCard extends StatelessWidget {
                 ? 200
                 : 400;
 
-    if (this.type == Type.Bottom) {
-      var temp = cardWidth;
-      cardWidth = cardHeight;
-      cardHeight = temp * 0.75;
-    }
-
-    double contentSize = this.width != null
+    double textSize = this.width != null
         ? this.width / 32
         : (deviceType == DeviceType.mobile)
             ? 7
             : (deviceType == DeviceType.tablet)
                 ? 12
                 : 25;
+
+    if (this.type==Type.Bottom && this.height==null){
+      var temp = cardWidth;
+      cardWidth = cardHeight;
+      cardHeight = temp*0.75; 
+      textSize -= 2;
+    }
 
     return Container(
       width: cardWidth,
@@ -85,54 +86,63 @@ class MyCard extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: TextStyle(fontFamily: 'DrukWideBold'),
+                  style:
+                      TextStyle(fontFamily: 'DrukWideBold', fontSize: textSize),
                 ),
                 Icon(Icons.close, color: Colors.black)
               ],
             ),
           ),
           Expanded(
-              child: Container(
-            padding: (deviceType == DeviceType.mobile)
-                ? const EdgeInsets.all(10)
-                : (deviceType == DeviceType.tablet)
-                    ? const EdgeInsets.all(20)
-                    : const EdgeInsets.all(50),
-            child: type == Type.Left
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      image,
-                      SizedBox(
-                          width: (deviceType == DeviceType.mobile) ? 20 : 50),
-                      Expanded(
+            child: Container(
+              padding: (deviceType == DeviceType.mobile)
+                  ? const EdgeInsets.all(15)
+                  : (deviceType == DeviceType.tablet)
+                      ? const EdgeInsets.all(20)
+                      : const EdgeInsets.all(50),
+              child: type == Type.Left
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          alignment: Alignment.center,
+                          child: image,
+                        ),
+                        SizedBox(
+                            width: (deviceType == DeviceType.mobile) ? 20 : 50),
+                        Expanded(
+                            child: Text(
+                          content,
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(
+                              fontFamily: 'Roboto', fontSize: textSize),
+                        ))
+                      ],
+                    )
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          alignment: Alignment.center,
+                          child: image,
+                        ),
+                        SizedBox(
+                          height: (deviceType == DeviceType.mobile) ? 20 : 50,
+                        ),
+                        Expanded(
                           child: Text(
-                        content,
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                            fontFamily: 'Roboto', fontSize: contentSize),
-                      ))
-                    ],
-                  )
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      image,
-                      SizedBox(
-                        height: (deviceType == DeviceType.mobile) ? 20 : 50,
-                      ),
-                      Expanded(
-                          child: Text(
-                        content,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontFamily: 'Roboto', fontSize: contentSize),
-                      ))
-                    ],
-                  ),
-          )),
+                            content,
+                            textAlign: TextAlign.justify,
+                            style: TextStyle(
+                                fontFamily: 'Roboto', fontSize: textSize),
+                          ),
+                        )
+                      ],
+                    ),
+            ),
+          ),
         ],
       ),
     );

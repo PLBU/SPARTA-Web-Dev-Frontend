@@ -17,8 +17,8 @@ class HomePage extends StatelessWidget {
             MyCard(
               title: "Test",
               image: Image.asset('images/PatternSparta.png',width: 50,height: 50,),
-              content: "SPARTA adalah lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-              type: Type.Left,
+              content: "SPARTA adalah lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.SPARTA adalah lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+              type: Type.Bottom,
             ),
             // MyTitle(text: "IKUZO", logo: "!!"),
             // SizedBox(height: 100),
