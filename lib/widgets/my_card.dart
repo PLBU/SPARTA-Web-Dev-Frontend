@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sparta/utils/ui_utils.dart';
 
 enum Type { Left, Bottom }
 
@@ -20,16 +21,45 @@ class MyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DeviceType deviceType = UIUtils.getDeviceType(context);
+
+    var cardWidth = this.width != null
+        ? width
+        : (deviceType == DeviceType.mobile)
+            ? 250
+            : (deviceType == DeviceType.tablet)
+                ? 400
+                : 800;
+    var cardHeight = this.height != null
+        ? height
+        : (deviceType == DeviceType.mobile)
+            ? 100
+            : (deviceType == DeviceType.tablet)
+                ? 200
+                : 400;
+    
+    if (this.type == Type.Bottom) {
+      var temp = cardWidth;
+      cardWidth = cardHeight;
+      cardHeight = temp * 0.75;
+    }
+        
+    double contentSize = (deviceType == DeviceType.mobile)
+        ? 7
+        : (deviceType == DeviceType.tablet)
+            ? 12
+            : 25;
+
     return Container(
-      width: width,
-      height: height,
+      width: cardWidth,
+      height: cardHeight,
       decoration:
           BoxDecoration(border: Border.all(color: Colors.black), boxShadow: [
         BoxShadow(
           color: Colors.black,
           offset: const Offset(
-            5.0,
-            5.0,
+            7.0,
+            7.0,
           ),
           blurRadius: 0.0,
           spreadRadius: 2.0,
@@ -60,17 +90,47 @@ class MyCard extends StatelessWidget {
             ),
           ),
           Expanded(
-              child: type == Type.Left
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [image, Text(content)],
-                    )
-                  : Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [image, Text(content)],
-                    )),
+              child: Container(
+            padding: (deviceType == DeviceType.mobile)
+            ? const EdgeInsets.all(10)
+            : (deviceType == DeviceType.tablet)
+                ? const EdgeInsets.all(20)
+                : const EdgeInsets.all(50),
+            child: type == Type.Left
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      image,
+                      SizedBox(
+                          width: (deviceType == DeviceType.mobile) ? 20 : 50),
+                      Expanded(
+                          child: Text(
+                        content,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontFamily: 'Roboto', fontSize: contentSize),
+                      ))
+                    ],
+                  )
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      image,
+                      SizedBox(
+                        height: (deviceType == DeviceType.mobile) ? 20 : 50,
+                      ),
+                      Expanded(
+                          child: Text(
+                        content,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontFamily: 'Roboto', fontSize: contentSize),
+                      ))
+                    ],
+                  ),
+          )),
         ],
       ),
     );
