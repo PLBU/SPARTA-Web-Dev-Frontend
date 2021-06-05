@@ -46,16 +46,16 @@ class MyCard extends StatelessWidget {
                 ? 20
                 : 25;
 
-    if (this.type == Type.Bottom && this.height == null) {
-      var temp = cardWidth;
-      cardWidth = cardHeight;
-      cardHeight = temp * 0.75;
-      textSize -= 2;
-    }
+    // if (this.type==Type.Bottom && this.height==null){
+    //   var temp = cardWidth;
+    //   cardWidth = cardHeight;
+    //   cardHeight = temp*0.75;
+    //   textSize -= 2;
+    // }
 
     return Container(
       width: cardWidth,
-      height: cardHeight,
+      height: this.type == Type.Bottom ? null : cardHeight,
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black),
         boxShadow: [
@@ -65,14 +65,13 @@ class MyCard extends StatelessWidget {
               7.0,
               7.0,
             ),
-            blurRadius: 0.0,
-            spreadRadius: 2.0,
           ),
           BoxShadow(
             color: Colors.white,
-            offset: const Offset(0.0, 0.0),
-            blurRadius: 0.0,
-            spreadRadius: 0.0,
+            offset: const Offset(
+              0.0,
+              0.0,
+            ),
           ),
         ],
       ),
@@ -82,75 +81,91 @@ class MyCard extends StatelessWidget {
             width: double.infinity,
             padding: const EdgeInsets.only(left: 5, right: 5),
             decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(color: Colors.black)),
+              border: Border(
+                bottom: BorderSide(color: Colors.black),
+              ),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   title,
-                  style:
-                      TextStyle(fontFamily: 'DrukWideBold', fontSize: textSize),
+                  style: TextStyle(
+                    fontFamily: 'DrukWideBold',
+                    fontSize: textSize,
+                  ),
                 ),
-                Icon(Icons.close, color: Colors.black)
+                Icon(
+                  Icons.close,
+                  color: Colors.black,
+                ),
               ],
             ),
           ),
-          Expanded(
-            child: Container(
+          if (this.type == Type.Left)
+            Expanded(
+              child: Container(
+                padding: (deviceType == DeviceType.mobile)
+                    ? const EdgeInsets.all(15)
+                    : (deviceType == DeviceType.tablet)
+                        ? const EdgeInsets.all(20)
+                        : const EdgeInsets.all(50),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      child: image,
+                    ),
+                    SizedBox(
+                      width: (deviceType == DeviceType.mobile) ? 20 : 50,
+                    ),
+                    Expanded(
+                      child: Text(
+                        content,
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: textSize,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          if (this.type == Type.Bottom)
+            Container(
               padding: (deviceType == DeviceType.mobile)
                   ? const EdgeInsets.all(15)
                   : (deviceType == DeviceType.tablet)
                       ? const EdgeInsets.all(20)
                       : const EdgeInsets.all(50),
-              child: type == Type.Left
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          alignment: Alignment.center,
-                          child: image,
-                        ),
-                        SizedBox(
-                            width: (deviceType == DeviceType.mobile) ? 20 : 50),
-                        Expanded(
-                          child: Text(
-                            content,
-                            textAlign: TextAlign.justify,
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: textSize,
-                            ),
-                          ),
-                        )
-                      ],
-                    )
-                  : Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          alignment: Alignment.center,
-                          child: image,
-                        ),
-                        SizedBox(
-                          height: (deviceType == DeviceType.mobile) ? 20 : 50,
-                        ),
-                        Expanded(
-                          child: Text(
-                            content,
-                            textAlign: TextAlign.justify,
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: textSize,
-                            ),
-                          ),
-                        )
-                      ],
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    child: image,
+                  ),
+                  SizedBox(
+                    height: (deviceType == DeviceType.mobile) ? 20 : 50,
+                  ),
+                  Container(
+                    child: Text(
+                      content,
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: textSize,
+                      ),
                     ),
+                  ),
+                ],
+              ),
             ),
-          ),
         ],
       ),
     );
