@@ -41,46 +41,49 @@ class MyCard extends StatelessWidget {
     double textSize = this.width != null
         ? this.width / 32
         : (deviceType == DeviceType.mobile)
-            ? 7
+            ? 15
             : (deviceType == DeviceType.tablet)
-                ? 12
+                ? 20
                 : 25;
 
-    if (this.type==Type.Bottom && this.height==null){
+    if (this.type == Type.Bottom && this.height == null) {
       var temp = cardWidth;
       cardWidth = cardHeight;
-      cardHeight = temp*0.75; 
+      cardHeight = temp * 0.75;
       textSize -= 2;
     }
 
     return Container(
       width: cardWidth,
       height: cardHeight,
-      decoration:
-          BoxDecoration(border: Border.all(color: Colors.black), boxShadow: [
-        BoxShadow(
-          color: Colors.black,
-          offset: const Offset(
-            7.0,
-            7.0,
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black,
+            offset: const Offset(
+              7.0,
+              7.0,
+            ),
+            blurRadius: 0.0,
+            spreadRadius: 2.0,
           ),
-          blurRadius: 0.0,
-          spreadRadius: 2.0,
-        ),
-        BoxShadow(
-          color: Colors.white,
-          offset: const Offset(0.0, 0.0),
-          blurRadius: 0.0,
-          spreadRadius: 0.0,
-        ),
-      ]),
+          BoxShadow(
+            color: Colors.white,
+            offset: const Offset(0.0, 0.0),
+            blurRadius: 0.0,
+            spreadRadius: 0.0,
+          ),
+        ],
+      ),
       child: Column(
         children: [
           Container(
             width: double.infinity,
             padding: const EdgeInsets.only(left: 5, right: 5),
             decoration: BoxDecoration(
-                border: Border(bottom: BorderSide(color: Colors.black))),
+              border: Border(bottom: BorderSide(color: Colors.black)),
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -112,12 +115,15 @@ class MyCard extends StatelessWidget {
                         SizedBox(
                             width: (deviceType == DeviceType.mobile) ? 20 : 50),
                         Expanded(
-                            child: Text(
-                          content,
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(
-                              fontFamily: 'Roboto', fontSize: textSize),
-                        ))
+                          child: Text(
+                            content,
+                            textAlign: TextAlign.justify,
+                            style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: textSize,
+                            ),
+                          ),
+                        )
                       ],
                     )
                   : Column(
@@ -136,7 +142,9 @@ class MyCard extends StatelessWidget {
                             content,
                             textAlign: TextAlign.justify,
                             style: TextStyle(
-                                fontFamily: 'Roboto', fontSize: textSize),
+                              fontFamily: 'Roboto',
+                              fontSize: textSize,
+                            ),
                           ),
                         )
                       ],
