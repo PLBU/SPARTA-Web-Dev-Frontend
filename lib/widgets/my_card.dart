@@ -1,171 +1,223 @@
 import 'package:flutter/material.dart';
 import 'package:sparta/utils/ui_utils.dart';
 
-enum Type { Left, Bottom }
+enum CardType { Right, Bottom }
 
 class MyCard extends StatelessWidget {
-  const MyCard(
-      {this.width,
-      this.height,
-      this.title,
-      this.image,
-      this.content,
-      this.type});
+  const MyCard({
+    this.title,
+    this.image,
+    this.content,
+    this.type,
+  });
 
   final String title;
   final Image image;
   final String content;
-  final Type type;
-  final double width;
-  final double height;
+  final CardType type;
 
   @override
   Widget build(BuildContext context) {
     DeviceType deviceType = UIUtils.getDeviceType(context);
 
-    var cardWidth = this.width != null
-        ? width
-        : (deviceType == DeviceType.mobile)
-            ? 250
+    double cardWidth = (deviceType == DeviceType.mobile)
+        ? 250
+        : (type == CardType.Bottom)
+            ? (deviceType == DeviceType.tablet)
+                ? 300
+                : 320
             : (deviceType == DeviceType.tablet)
-                ? 400
-                : 800;
-    var cardHeight = this.height != null
-        ? height
-        : (deviceType == DeviceType.mobile)
-            ? 100
-            : (deviceType == DeviceType.tablet)
-                ? 200
-                : 400;
+                ? 480
+                : 640;
 
-    double textSize = this.width != null
-        ? this.width / 32
-        : (deviceType == DeviceType.mobile)
-            ? 15
-            : (deviceType == DeviceType.tablet)
-                ? 20
-                : 25;
+    double textSize = (deviceType == DeviceType.mobile)
+        ? 15
+        : (deviceType == DeviceType.tablet)
+            ? 17
+            : 20;
 
-    // if (this.type==Type.Bottom && this.height==null){
-    //   var temp = cardWidth;
-    //   cardWidth = cardHeight;
-    //   cardHeight = temp*0.75;
-    //   textSize -= 2;
-    // }
+    EdgeInsets contentPadding = (deviceType == DeviceType.mobile)
+        ? const EdgeInsets.all(20)
+        : (deviceType == DeviceType.tablet)
+            ? const EdgeInsets.all(28)
+            : const EdgeInsets.all(35);
+
+    BoxDecoration shadowDecoration = BoxDecoration(
+      border: Border.all(color: Colors.black),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black,
+          offset: const Offset(
+            7.0,
+            7.0,
+          ),
+        ),
+        BoxShadow(
+          color: Colors.white,
+          offset: const Offset(
+            0.0,
+            0.0,
+          ),
+        ),
+      ],
+    );
 
     return Container(
       width: cardWidth,
-      height: this.type == Type.Bottom ? null : cardHeight,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black,
-            offset: const Offset(
-              7.0,
-              7.0,
-            ),
+      decoration: shadowDecoration,
+      child: Column(
+        children: [
+          CardTitle(title: title, textSize: textSize),
+          if (this.type == CardType.Right && deviceType != DeviceType.mobile)
+            RightTypeContent(
+              contentPadding: contentPadding,
+              image: image,
+              deviceType: deviceType,
+              content: content,
+              textSize: textSize,
+            )
+          else
+            BottomTypeContent(
+              contentPadding: contentPadding,
+              image: image,
+              deviceType: deviceType,
+              content: content,
+              textSize: textSize,
+            )
+        ],
+      ),
+    );
+  }
+}
+
+class BottomTypeContent extends StatelessWidget {
+  const BottomTypeContent({
+    Key key,
+    @required this.contentPadding,
+    @required this.image,
+    @required this.deviceType,
+    @required this.content,
+    @required this.textSize,
+  }) : super(key: key);
+
+  final EdgeInsets contentPadding;
+  final Image image;
+  final DeviceType deviceType;
+  final String content;
+  final double textSize;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: contentPadding,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            alignment: Alignment.center,
+            child: image,
           ),
-          BoxShadow(
-            color: Colors.white,
-            offset: const Offset(
-              0.0,
-              0.0,
+          SizedBox(
+            height: contentPadding.top, // Same value with contentPadding
+          ),
+          Container(
+            child: Text(
+              content,
+              textAlign: TextAlign.justify,
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: textSize,
+              ),
             ),
           ),
         ],
       ),
-      child: Column(
+    );
+  }
+}
+
+class RightTypeContent extends StatelessWidget {
+  const RightTypeContent({
+    Key key,
+    @required this.contentPadding,
+    @required this.image,
+    @required this.deviceType,
+    @required this.content,
+    @required this.textSize,
+  }) : super(key: key);
+
+  final EdgeInsets contentPadding;
+  final Image image;
+  final DeviceType deviceType;
+  final String content;
+  final double textSize;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: contentPadding,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            width: double.infinity,
-            padding: const EdgeInsets.only(left: 5, right: 5),
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(color: Colors.black),
+            alignment: Alignment.center,
+            child: image,
+          ),
+          SizedBox(
+            width: contentPadding.top, // Same value with contentPadding
+          ),
+          Expanded(
+            child: Text(
+              content,
+              textAlign: TextAlign.justify,
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: textSize,
               ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontFamily: 'DrukWideBold',
-                    fontSize: textSize,
-                  ),
-                ),
-                Icon(
-                  Icons.close,
-                  color: Colors.black,
-                ),
-              ],
             ),
           ),
-          if (this.type == Type.Left)
-            Expanded(
-              child: Container(
-                padding: (deviceType == DeviceType.mobile)
-                    ? const EdgeInsets.all(15)
-                    : (deviceType == DeviceType.tablet)
-                        ? const EdgeInsets.all(20)
-                        : const EdgeInsets.all(50),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      alignment: Alignment.center,
-                      child: image,
-                    ),
-                    SizedBox(
-                      width: (deviceType == DeviceType.mobile) ? 20 : 50,
-                    ),
-                    Expanded(
-                      child: Text(
-                        content,
-                        textAlign: TextAlign.justify,
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: textSize,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+        ],
+      ),
+    );
+  }
+}
+
+class CardTitle extends StatelessWidget {
+  const CardTitle({
+    Key key,
+    @required this.title,
+    @required this.textSize,
+  }) : super(key: key);
+
+  final String title;
+  final double textSize;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(color: Colors.black),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontFamily: 'DrukWideBold',
+              fontSize: textSize,
             ),
-          if (this.type == Type.Bottom)
-            Container(
-              padding: (deviceType == DeviceType.mobile)
-                  ? const EdgeInsets.all(15)
-                  : (deviceType == DeviceType.tablet)
-                      ? const EdgeInsets.all(20)
-                      : const EdgeInsets.all(50),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    alignment: Alignment.center,
-                    child: image,
-                  ),
-                  SizedBox(
-                    height: (deviceType == DeviceType.mobile) ? 20 : 50,
-                  ),
-                  Container(
-                    child: Text(
-                      content,
-                      textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: textSize,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          ),
+          Icon(
+            Icons.close,
+            color: Colors.black,
+          ),
         ],
       ),
     );
