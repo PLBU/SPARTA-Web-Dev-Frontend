@@ -13,21 +13,30 @@ class MyTextList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ///// Get device build
     DeviceType deviceType = UIUtils.getDeviceType(context);
-    
     ////// Style
     //// Widget Size
-    double textListHeight = 400;
-    double textListWidth = 400;
-    double padding = 10;
+    double textListHeight =
+      (deviceType == DeviceType.mobile)
+        ? 400
+        : (deviceType == DeviceType.tablet)
+            ? 600
+            : 760;
+    double textListWidth = textListHeight*0.75;
+    double padding = textListWidth*0.1;
     
     //// Font Styling
     //- Default style
     Color fontColor = Colors.white;
 
     //- Title
-    double titleFontSize = 24;
+    double titleBoxHeight = (textListHeight-(1.5*padding))/8;
+    double titleFontSize = 
+      (deviceType == DeviceType.mobile)
+        ? 22
+        : (deviceType == DeviceType.tablet)
+            ? 28
+            : 32;
     TextAlign titleFontAlign = TextAlign.left;
     TextStyle titleFontStyle = TextStyle(
       fontFamily: 'DrukWideBold',
@@ -36,7 +45,8 @@ class MyTextList extends StatelessWidget {
       );
 
     //- Text
-    double fontSize = 15;
+    double listBoxHeight = (textListHeight-(1.5*padding))-titleBoxHeight-2;
+    double fontSize = titleFontSize/2;
     TextAlign fontAlign = TextAlign.center;
     TextStyle fontStyle = TextStyle(
       fontFamily: 'Roboto',
@@ -51,7 +61,7 @@ class MyTextList extends StatelessWidget {
               border: Border.all(color: Colors.black),
               color: Colors.black,
               ),
-      padding: EdgeInsets.fromLTRB(padding, 0, padding, 0),
+      padding: EdgeInsets.fromLTRB(padding, 0.5*padding, padding, padding),
       // Size
       height: textListHeight,
       width: textListWidth,
@@ -62,25 +72,28 @@ class MyTextList extends StatelessWidget {
         children: [
           // Title
           Container(
-            padding: EdgeInsets.all(padding),
+            alignment: Alignment.centerLeft,
+            height: titleBoxHeight,
+            width: textListWidth-2*padding,
             child: Text(
               title,
               textAlign: titleFontAlign,
               style: titleFontStyle,
-            ),
+              ),
           ),
 
           // List
           Container(
+            height: listBoxHeight,
+            width: textListWidth-2*padding,
             child: Expanded(
-              child: GridView(
+              child: GridView.count(
                 // Style
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: fontSize*0.55,
-                  ),
-                
-                // Scrollbar
+                crossAxisCount: 2,
+                crossAxisSpacing: 5,
+                childAspectRatio: fontSize*0.45,
+
+                // Scroll Control
                 shrinkWrap: true,
                 controller: ScrollController(keepScrollOffset: true),
                 physics: ScrollPhysics(),
@@ -90,7 +103,7 @@ class MyTextList extends StatelessWidget {
                   for(var string in list)
                     Text(
                       string,
-                      textAlign: fontAlign,
+                      textAlign: TextAlign.left,
                       style: fontStyle,
                       )
                   ],
