@@ -19,15 +19,7 @@ class MyContainer extends StatelessWidget {
     return Container(
       width: this.width,
       height: this.height,
-      child:  
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-              child: this.child,
-            ),
-          ],
-        ), 
+      child: this.child,
 
       padding: 
         (deviceType == DeviceType.mobile) ? EdgeInsets.all(5.0)
