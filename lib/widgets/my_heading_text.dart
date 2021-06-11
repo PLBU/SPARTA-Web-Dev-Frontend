@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sparta/utils/ui_utils.dart';
 
 class MyHeadingText extends StatelessWidget {
   const MyHeadingText({ this.content });
@@ -7,11 +8,17 @@ class MyHeadingText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DeviceType deviceType = UIUtils.getDeviceType(context);
+
+
     return Text(
       this.content,
       style: TextStyle(
         fontFamily: 'DrukWideBold',
-        fontSize: 40,
+        fontSize:
+          (deviceType == DeviceType.mobile) ? 20
+          : (deviceType == DeviceType.tablet) ? 30
+          : 50,
       ),
     );
   }
