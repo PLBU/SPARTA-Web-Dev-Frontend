@@ -3,6 +3,7 @@ import 'package:sparta/widgets/my_title.dart';
 import 'package:sparta/widgets/my_running_logo.dart';
 import 'package:sparta/widgets/my_card.dart';
 import 'package:sparta/widgets/my_heading_text.dart';
+import 'package:sparta/widgets/my_footer.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);
@@ -28,7 +29,8 @@ class HomePage extends StatelessWidget {
             // SizedBox(height: 100),
             // MyTitle(text: "Profile"),
             MyHeadingText(content: 'FEATURED'),
-          ],
+            MyFooter(),
+            ],
         ),
       ),
     );
