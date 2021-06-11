@@ -19,21 +19,10 @@ class MyContainer extends StatelessWidget {
     return Container(
       width: this.width,
       height: this.height,
-      child:  
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-              child: this.child,
-            ),
-          ],
-        ), 
-
-      padding: 
-        (deviceType == DeviceType.mobile) ? EdgeInsets.all(5.0)
-        : (deviceType == DeviceType.tablet) ? EdgeInsets.all(8.0)
-        : EdgeInsets.all(15.0),
-
+      child: this.child,
+      padding: (deviceType == DeviceType.desktop)
+          ? EdgeInsets.all(15.0)
+          : EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(
@@ -41,11 +30,11 @@ class MyContainer extends StatelessWidget {
           width: 1.0,
         ),
         borderRadius: BorderRadius.all(Radius.circular(10)),
-        boxShadow: <BoxShadow> [
+        boxShadow: <BoxShadow>[
           BoxShadow(
             color: Colors.black,
             blurRadius: 0.0,
-            offset: Offset(0.0,2.0),
+            offset: Offset(0.0, 2.0),
           ),
         ],
       ),
