@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sparta/utils/ui_utils.dart';
 
 class MyContainer extends StatelessWidget {
   const MyContainer({
@@ -13,6 +14,8 @@ class MyContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DeviceType deviceType = UIUtils.getDeviceType(context);
+
     return Container(
       width: this.width,
       height: this.height,
@@ -26,7 +29,10 @@ class MyContainer extends StatelessWidget {
           ],
         ), 
 
-      padding: EdgeInsets.all(15.0),
+      padding: 
+        (deviceType == DeviceType.mobile) ? EdgeInsets.all(5.0)
+        : (deviceType == DeviceType.tablet) ? EdgeInsets.all(8.0)
+        : EdgeInsets.all(15.0),
 
       decoration: BoxDecoration(
         color: Colors.white,
