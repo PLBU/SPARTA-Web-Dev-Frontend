@@ -16,9 +16,9 @@ class MyHeadingText extends StatelessWidget {
       style: TextStyle(
         fontFamily: 'DrukWideBold',
         fontSize:
-          (deviceType == DeviceType.mobile) ? 20
-          : (deviceType == DeviceType.tablet) ? 30
-          : 50,
+          (deviceType == DeviceType.mobile) ? 18
+          : (deviceType == DeviceType.tablet) ? 25
+          : 40,
       ),
     );
   }
