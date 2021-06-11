@@ -3,17 +3,31 @@ import 'package:flutter/material.dart';
 class MyContainer extends StatelessWidget {
   const MyContainer({
     this.width,
-    this.height
+    this.height,
+    this.child,
   });
 
   final double width;
   final double height;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: this.width,
       height: this.height,
+      child:  
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Expanded(
+              child: this.child,
+            ),
+          ],
+        ), 
+
+      padding: EdgeInsets.all(15.0),
+
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(

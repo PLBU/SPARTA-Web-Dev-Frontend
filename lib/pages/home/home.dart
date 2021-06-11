@@ -27,7 +27,9 @@ class HomePage extends StatelessWidget {
             // MyTitle(text: "SPARTA", logo: "?"),
             // SizedBox(height: 100),
             // MyTitle(text: "Profile"),
-            MyContainer(width: 200.0, height: 100.0),
+            MyContainer(width: 200.0, height: 100.0, child: 
+              Image.asset('assets/icons/sparta_head.png'),
+            ),
           ],
         ),
       ),
