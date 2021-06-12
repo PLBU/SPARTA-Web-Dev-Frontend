@@ -18,11 +18,11 @@ class MyTextList extends StatelessWidget {
     //// Widget Size
     double textListHeight =
       (deviceType == DeviceType.mobile)
-        ? 400
+        ? 200
         : (deviceType == DeviceType.tablet)
-            ? 600
-            : 760;
-    double textListWidth = textListHeight*0.75;
+            ? 300
+            : 380;
+    double textListWidth = textListHeight*1.25;
     double padding = textListWidth*0.1;
     
     //// Font Styling
@@ -30,7 +30,7 @@ class MyTextList extends StatelessWidget {
     Color fontColor = Colors.white;
 
     //- Title
-    double titleBoxHeight = (textListHeight-(1.5*padding))/8;
+    double titleBoxHeight = (textListHeight-(1.5*padding))/5;
     double titleFontSize = 
       (deviceType == DeviceType.mobile)
         ? 22
@@ -45,7 +45,7 @@ class MyTextList extends StatelessWidget {
       );
 
     //- Text
-    double listBoxHeight = (textListHeight-(1.5*padding))-titleBoxHeight-2;
+    // double listBoxHeight = (textListHeight-(1.5*padding))-titleBoxHeight-2;
     double fontSize = titleFontSize/2;
     TextAlign fontAlign = TextAlign.center;
     TextStyle fontStyle = TextStyle(
@@ -83,31 +83,28 @@ class MyTextList extends StatelessWidget {
           ),
 
           // List
-          Container(
-            height: listBoxHeight,
-            width: textListWidth-2*padding,
-            child: Expanded(
-              child: GridView.count(
-                // Style
-                crossAxisCount: 2,
-                crossAxisSpacing: 5,
-                childAspectRatio: fontSize*0.45,
+          Expanded(
+            child: GridView.count(
+              // Style
+              crossAxisCount: 2,
+              crossAxisSpacing: 5,
+              mainAxisSpacing: 5,
+              childAspectRatio: fontSize * ((deviceType == DeviceType.mobile) ? 0.3 : 0.4),
 
-                // Scroll Control
-                shrinkWrap: true,
-                controller: ScrollController(keepScrollOffset: true),
-                physics: ScrollPhysics(),
-                
-                // Text List
-                children: <Widget>[
-                  for(var string in list)
-                    Text(
-                      string,
-                      textAlign: TextAlign.left,
-                      style: fontStyle,
-                      )
-                  ],
-              ),
+              // Scroll Control
+              shrinkWrap: true,
+              controller: ScrollController(keepScrollOffset: true),
+              physics: ScrollPhysics(),
+              
+              // Text List
+              children: <Widget>[
+                for(var string in list)
+                  Text(
+                    string,
+                    textAlign: TextAlign.left,
+                    style: fontStyle,
+                    )
+                ],
             ),
           ),
 
