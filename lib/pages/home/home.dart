@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sparta/widgets/my_title.dart';
 import 'package:sparta/widgets/my_running_logo.dart';
 import 'package:sparta/widgets/my_card.dart';
+import 'package:sparta/widgets/my_text_list.dart';
 import 'package:sparta/widgets/my_heading_text.dart';
 
 class HomePage extends StatelessWidget {
@@ -15,6 +16,12 @@ class HomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            MyTextList(
+              title: "DIVISI",
+              list: [
+                for (int i=0;i<50;i++) "John Doe (13519000)",
+                ],
+            )          
             // MyCard(
             //   title: "Test",
             //   image: Image.asset('images/PatternSparta.png',width: 50,height: 50,),
