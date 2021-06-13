@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sparta/utils/ui_utils.dart';
 
-class MyRunningLogo extends StatelessWidget {
-  const MyRunningLogo();
+class MyPatternDecoration extends StatelessWidget {
+  const MyPatternDecoration();
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class MyRunningLogo extends StatelessWidget {
         const EdgeInsets.only(top: 5, bottom: 5),
       color: Colors.black,
       child: Image.asset(
-        'images/PatternSparta.png',
+        'icons/PatternSparta.png',
         height: size,
         width: size,
         repeat: ImageRepeat.repeatX,
