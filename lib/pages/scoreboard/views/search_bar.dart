@@ -14,50 +14,70 @@ class MySearchBar extends StatelessWidget {
             ? 600
             : 1000;
 
+    double respFont = (deviceType == DeviceType.mobile)
+        ? 10
+        : (deviceType == DeviceType.tablet)
+            ? 13
+            : 18;
+
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+      padding: (deviceType == DeviceType.mobile)
+          ? EdgeInsets.only(top: 2, bottom: 2, left: 5)
+          : EdgeInsets.only(top: 5, bottom: 5, left: 5),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black),
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(10),
         color: Colors.white,
       ),
-      height: 50,
+      height: (deviceType == DeviceType.mobile) ? 30 : 50,
       width: respWidth,
       child: Row(
         children: [
           Container(
             width: respWidth * 0.5,
-            child: searchBar(context),
+            child: searchBar(context, respFont * 2),
           ),
-          SizedBox(width: 18),
-          Text(
-            "Dapat mencari dengan jurusan=IF; nama=test;",
-            style: TextStyle(fontFamily: "Roboto", fontSize: 18),
+          SizedBox(width: respFont),
+          Container(
+            height: 50,
+            width: respWidth * 0.43,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Dapat mencari dengan jurusan=IF; nama=test;",
+                  style: TextStyle(fontFamily: "Roboto", fontSize: respFont),
+                ),
+              ],
+            ),
           )
         ],
       ),
     );
   }
 
-  TextFormField searchBar(BuildContext context) {
+  TextFormField searchBar(BuildContext context, double respFont) {
     return TextFormField(
       controller: this.searchBarTEC,
       decoration: InputDecoration(
-        suffixIcon: new IconButton(
+        contentPadding: EdgeInsets.only(bottom: 0),
+        border: OutlineInputBorder(),
+        prefixIcon: new IconButton(
+          padding: EdgeInsets.only(bottom: 1),
           highlightColor: Colors.transparent,
-          icon: new Container(width: 36.0, child: new Icon(Icons.clear)),
+          icon: new Icon(Icons.search, size: respFont),
+          onPressed: () {},
+          splashColor: Colors.transparent,
+        ),
+        hintText: 'Cari..',
+        suffixIcon: new IconButton(
+          padding: EdgeInsets.only(bottom: 1),
+          highlightColor: Colors.transparent,
+          icon: new Icon(Icons.clear, size: respFont),
           onPressed: () {
             this.searchBarTEC.clear();
           },
           splashColor: Colors.transparent,
-        ),
-        hintText: 'Enter a search term',
-        prefixIcon: new IconButton(
-          icon: Icon(
-            Icons.search,
-            color: Colors.black,
-          ),
-          onPressed: () {},
         ),
       ),
     );
