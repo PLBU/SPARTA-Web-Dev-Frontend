@@ -46,24 +46,26 @@ class TopCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DeviceType deviceType = UIUtils.getDeviceType(context);
-
     double respWidth = (deviceType == DeviceType.mobile)
         ? 100
         : (deviceType == DeviceType.tablet)
             ? 150
             : 250;
-
     double respHeight = (deviceType == DeviceType.mobile)
         ? 150
         : (deviceType == DeviceType.tablet)
             ? 200
             : 350;
-
-    double respFont = (deviceType == DeviceType.mobile)
+    double respText = (deviceType == DeviceType.mobile)
         ? 10
         : (deviceType == DeviceType.tablet)
             ? 15
             : 20;
+    double respID = (deviceType == DeviceType.mobile)
+        ? 15
+        : (deviceType == DeviceType.tablet)
+            ? 24
+            : 30;
 
     return Container(
       width: respWidth,
@@ -88,14 +90,10 @@ class TopCard extends StatelessWidget {
                   "#" + this.num,
                   style: TextStyle(
                     fontFamily: 'DrukWideBold',
-                    fontSize: (deviceType == DeviceType.mobile)
-                        ? 15
-                        : (deviceType == DeviceType.tablet)
-                            ? 24
-                            : 30,
+                    fontSize: respID,
                   ),
                 ),
-                SizedBox(width: respFont - 5),
+                SizedBox(width: respText - 5),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -106,7 +104,7 @@ class TopCard extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontFamily: 'Roboto',
-                          fontSize: respFont,
+                          fontSize: respText,
                         ),
                       ),
                     ),
@@ -114,7 +112,7 @@ class TopCard extends StatelessWidget {
                       this.user.nim.toString(),
                       style: TextStyle(
                         fontFamily: 'Roboto',
-                        fontSize: respFont,
+                        fontSize: respText,
                       ),
                     )
                   ],

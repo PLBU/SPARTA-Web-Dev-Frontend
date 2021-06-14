@@ -7,7 +7,9 @@ class MySearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DeviceType deviceType = UIUtils.getDeviceType(context);
-
+    EdgeInsets respPad = (deviceType == DeviceType.mobile)
+        ? EdgeInsets.symmetric(vertical: 2, horizontal: 5)
+        : EdgeInsets.symmetric(vertical: 5, horizontal: 5);
     double respWidth = (deviceType == DeviceType.mobile)
         ? 355
         : (deviceType == DeviceType.tablet)
@@ -21,9 +23,7 @@ class MySearchBar extends StatelessWidget {
             : 16;
 
     return Container(
-      padding: (deviceType == DeviceType.mobile)
-          ? EdgeInsets.symmetric(vertical: 2, horizontal: 5)
-          : EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+      padding: respPad,
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black),
         borderRadius: BorderRadius.circular(10),
@@ -31,21 +31,7 @@ class MySearchBar extends StatelessWidget {
       ),
       height: (deviceType == DeviceType.mobile) ? 50 : 80,
       width: respWidth,
-      child: Column(
-        children: [
-          Container(
-            width: respWidth,
-            height: (deviceType == DeviceType.mobile) ? 30 : 50,
-            child: searchBar(context, respFont * 2),
-          ),
-          Expanded(
-            child: Text(
-              "Dapat mencari dengan jurusan=IF; nama=test;",
-              style: TextStyle(fontFamily: "Roboto", fontSize: respFont),
-            ),
-          )
-        ],
-      ),
+      child: searchBar(context, respFont * 2),
     );
   }
 
@@ -63,6 +49,9 @@ class MySearchBar extends StatelessWidget {
           splashColor: Colors.transparent,
         ),
         hintText: 'Cari..',
+        hintStyle: TextStyle(fontFamily: "Roboto"),
+        helperText: "Dapat mencari dengan jurusan=IF; nama=test;",
+        helperStyle: TextStyle(fontFamily: "Roboto"),
         suffixIcon: new IconButton(
           padding: EdgeInsets.only(bottom: 1),
           highlightColor: Colors.transparent,
