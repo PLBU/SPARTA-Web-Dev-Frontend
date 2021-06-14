@@ -21,10 +21,10 @@ class TopThree extends StatelessWidget {
               ? 600
               : 1000,
       height: (deviceType == DeviceType.mobile)
-          ? 210
+          ? 200
           : (deviceType == DeviceType.tablet)
-              ? 320
-              : 480,
+              ? 300
+              : 450,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -60,12 +60,13 @@ class TopCard extends StatelessWidget {
             : 350;
 
     double respFont = (deviceType == DeviceType.mobile)
-        ? 8
+        ? 10
         : (deviceType == DeviceType.tablet)
             ? 15
             : 20;
 
     return Container(
+      width: respWidth,
       child: Column(
         children: [
           Container(
@@ -81,7 +82,7 @@ class TopCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
+              mainAxisSize: MainAxisSize.max,
               children: [
                 Text(
                   "#" + this.num,
@@ -99,9 +100,10 @@ class TopCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      width: respWidth * 0.7,
+                      width: respWidth * 0.6,
                       child: Text(
                         this.user.name,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontFamily: 'Roboto',
                           fontSize: respFont,
