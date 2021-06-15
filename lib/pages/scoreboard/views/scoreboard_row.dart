@@ -16,6 +16,8 @@ class ScoreboardRow extends StatelessWidget {
 
     EdgeInsets respPad = EdgeInsets.symmetric(
         horizontal: (deviceType == DeviceType.mobile) ? 10 : 20);
+    EdgeInsets respMargin = EdgeInsets.symmetric(
+        vertical: (deviceType == DeviceType.mobile) ? 5 : 10);
     double respHeight = (deviceType == DeviceType.mobile) ? 40 : 50;
     double respWidth = (deviceType == DeviceType.mobile)
         ? 350
@@ -38,6 +40,7 @@ class ScoreboardRow extends StatelessWidget {
       width: respWidth,
       height: respHeight,
       padding: respPad,
+      margin: respMargin,
       decoration: BoxDecoration(
         color: this.self ? Colors.black : bgColor,
         border: Border.all(color: Colors.black),

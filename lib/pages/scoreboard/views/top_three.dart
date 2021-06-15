@@ -21,9 +21,9 @@ class TopThree extends StatelessWidget {
               ? 600
               : 1000,
       height: (deviceType == DeviceType.mobile)
-          ? 200
+          ? 205
           : (deviceType == DeviceType.tablet)
-              ? 300
+              ? 270
               : 450,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -72,13 +72,14 @@ class TopCard extends StatelessWidget {
       child: Column(
         children: [
           Container(
-              height: respHeight,
-              width: respWidth,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: this.user.photo),
+            height: respHeight,
+            width: respWidth,
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: this.user.photo,
+          ),
           SizedBox(height: (deviceType == DeviceType.mobile) ? 3 : 10),
           Container(
             child: Row(
