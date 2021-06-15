@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sparta/pages/home/home.dart';
 import 'package:sparta/pages/auth/auth.dart';
+import 'package:sparta/pages/scoreboard/scoreboard_page.dart';
 import 'package:sparta/widgets/my_navigation_bar.dart';
 import 'package:sparta/widgets/my_drawer.dart';
 import 'package:sparta/utils/ui_utils.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
             pageBuilder: (_, __, ___) => BasePage((settings.name == '/')
                 ? HomePage()
                 : (settings.name == '/scoreboard')
-                    ? HomePage()
+                    ? ScoreboardPage()
                     : (settings.name == '/upload-tugas')
                         ? HomePage()
                         : (settings.name == '/gallery')
