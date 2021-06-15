@@ -63,15 +63,10 @@ class MyDrawer extends StatelessWidget {
       )
     ];
 
-    return ValueListenableBuilder(
-      valueListenable: RouteState.current,
-      builder: (BuildContext context, dynamic value, Widget child) {
-        return Drawer(
-          child: ListView(
-            children: navBarItems,
-          ),
-        );
-      },
+    return Drawer(
+      child: ListView(
+        children: navBarItems,
+      ),
     );
   }
 }
@@ -90,7 +85,7 @@ class MyDrawerItem extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
-        border: (RouteState.current.value == routeName)
+        border: (RouteState.current == routeName)
             ? Border(bottom: BorderSide(color: Colors.black, width: 2))
             : null,
       ),
@@ -101,7 +96,6 @@ class MyDrawerItem extends StatelessWidget {
         ), //ripple color
         onPressed: () {
           Navigator.pushNamed(context, routeName);
-          RouteState.changeRouteState(routeName);
         },
         child: Text(
           text,

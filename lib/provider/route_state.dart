@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
 
 class RouteState {
-  static final ValueNotifier<String> current = ValueNotifier<String>("/");
+  static String current = "/";
   
   static void changeRouteState(String routeName) {
-    current.value = routeName;
+    current = routeName;
   }
 }
