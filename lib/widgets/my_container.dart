@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:sparta/utils/ui_utils.dart';
 
 class MyContainer extends StatelessWidget {
+
   const MyContainer({
     this.width,
     this.height,
     this.child,
+    this.padding
   });
 
+  final padding;
   final double width;
   final double height;
   final Widget child;
@@ -20,7 +23,9 @@ class MyContainer extends StatelessWidget {
       width: this.width,
       height: this.height,
       child: this.child,
-      padding: (deviceType == DeviceType.desktop)
+      padding: (this.padding != null) 
+          ? this.padding
+          : (deviceType == DeviceType.desktop)
           ? EdgeInsets.all(15.0)
           : EdgeInsets.all(10.0),
       decoration: BoxDecoration(
