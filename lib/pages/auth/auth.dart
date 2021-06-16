@@ -5,6 +5,8 @@ class AuthPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text("This is auth page");
+    return Scaffold(
+      body: Text("This is auth page"),
+    );
   }
 }
