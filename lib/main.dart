@@ -17,7 +17,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primaryColor: Colors.black,
+        colorScheme:
+            ColorScheme.light(primary: Color.fromRGBO(255, 205, 23, 1)),
       ),
       initialRoute: '/',
       onGenerateRoute: (settings) {
@@ -49,9 +50,12 @@ class BasePage extends StatelessWidget {
     DeviceType deviceType = UIUtils.getDeviceType(context);
 
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.primary,
       appBar: MyNavigationBar(),
       endDrawer: (deviceType == DeviceType.desktop) ? null : MyDrawer(),
       body: pageContent,
     );
   }
 }
+
+// TODO PROXY SERVER CONST

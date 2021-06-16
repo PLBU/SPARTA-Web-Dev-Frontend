@@ -25,11 +25,11 @@ class MyTitle extends StatelessWidget {
               alignment: Alignment.center,
               children: [
                 Image.asset(
-                  "assets/icons/spiky_bubble.png",
+                  "assets/icons/leaves.png",
                   height: (deviceType == DeviceType.mobile)
-                      ? 32
+                      ? 40
                       : (deviceType == DeviceType.tablet)
-                          ? 48
+                          ? 56
                           : 80,
                 ),
                 Text(
@@ -37,24 +37,23 @@ class MyTitle extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: 'DrukWideBold',
                     fontSize: (deviceType == DeviceType.mobile)
-                        ? 20
+                        ? 28
                         : (deviceType == DeviceType.tablet)
-                            ? 30
+                            ? 36
                             : 50,
-                    color: Colors.white,
                   ),
                 )
               ],
             ),
-          if (logo != null) SizedBox(width: 10),
+          if (logo != null) SizedBox(width: 24),
           Text(
             text,
             style: TextStyle(
               fontFamily: 'DrukWideBold',
               fontSize: (deviceType == DeviceType.mobile)
-                  ? 20
+                  ? 28
                   : (deviceType == DeviceType.tablet)
-                      ? 30
+                      ? 36
                       : 50,
             ),
           ),

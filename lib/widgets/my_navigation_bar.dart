@@ -12,7 +12,7 @@ class MyNavigationBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   final Size preferredSize;
-  final bool isLoggedIn = true;
+  final bool isLoggedIn = false;
 
   @override
   Widget build(BuildContext context) {
@@ -57,31 +57,27 @@ class MyNavigationBar extends StatelessWidget implements PreferredSizeWidget {
 
     double imageSize = (deviceType == DeviceType.desktop) ? 48 : 36;
 
-    return ValueListenableBuilder(
-        valueListenable: RouteState.current,
-        builder: (BuildContext context, dynamic value, Widget child) {
-          return AppBar(
-            toolbarHeight: 72,
-            backgroundColor: Colors.white,
-            automaticallyImplyLeading: false,
-            title: Container(
-              padding: EdgeInsets.only(left: 12),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset('icons/sparta_head.png', width: imageSize, height: imageSize),
-                  SizedBox(
-                    width: 16,
-                  ),
-                  MyHeadingText(content: "SPARTA", color: Colors.black),
-                ],
-              ),
+    return AppBar(
+      toolbarHeight: 72,
+      backgroundColor: Colors.white,
+      automaticallyImplyLeading: false,
+      title: Container(
+        padding: EdgeInsets.only(left: 12),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset('icons/sparta_head.png',
+                width: imageSize, height: imageSize),
+            SizedBox(
+              width: 16,
             ),
-            actions: (deviceType == DeviceType.desktop)
-                ? navBarItems
-                : [navBarMenuButton],
-          );
-        });
+            MyHeadingText(content: "SPARTA", color: Colors.black),
+          ],
+        ),
+      ),
+      actions:
+          (deviceType == DeviceType.desktop) ? navBarItems : [navBarMenuButton],
+    );
   }
 }
 
@@ -133,7 +129,7 @@ class MyNavBarItem extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
-        border: (RouteState.current.value == routeName)
+        border: (RouteState.current == routeName)
             ? Border(bottom: BorderSide(color: Colors.black, width: 2))
             : null,
       ),
@@ -144,7 +140,6 @@ class MyNavBarItem extends StatelessWidget {
         ), //ripple color
         onPressed: () {
           Navigator.pushNamed(context, routeName);
-          RouteState.changeRouteState(routeName);
         },
         child: Text(
           text,
