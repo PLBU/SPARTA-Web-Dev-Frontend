@@ -11,6 +11,7 @@ class MyTextField extends StatelessWidget {
     this.width,
     this.margin,
     this.controller,
+    this.submitHandler,
     this.prefixIcon,
     this.suffixIcon,
     this.hidden = false,
@@ -20,6 +21,7 @@ class MyTextField extends StatelessWidget {
   final prefixIcon;
   final suffixIcon;
   final controller;
+  final submitHandler;
   final margin;
   final width;
   final minLines;
@@ -40,6 +42,7 @@ class MyTextField extends StatelessWidget {
         minLines: this.minLines,
         maxLines: this.hidden ? 1 : this.maxLines,
         maxLength: this.maxLength,
+        onSubmitted: this.submitHandler,
         decoration: InputDecoration(
           hintText: this.hintText,
           hintStyle: TextStyle(fontFamily: 'Roboto'),
