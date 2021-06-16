@@ -13,7 +13,6 @@ class MyTextField extends StatelessWidget {
     this.controller,
     this.prefixIcon,
     this.suffixIcon,
-    this.hidden = false,
   });
 
   final helperText;
@@ -26,7 +25,6 @@ class MyTextField extends StatelessWidget {
   final maxLines;
   final maxLength;
   final hintText;
-  final bool hidden;
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +32,10 @@ class MyTextField extends StatelessWidget {
       margin: this.margin,
       width: this.width,
       child: TextField(
-        obscureText: this.hidden,
         controller: this.controller,
         cursorColor: Colors.black,
         minLines: this.minLines,
-        maxLines: this.hidden ? 1 : this.maxLines,
+        maxLines: this.maxLines,
         maxLength: this.maxLength,
         decoration: InputDecoration(
           hintText: this.hintText,
