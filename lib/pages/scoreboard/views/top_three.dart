@@ -78,7 +78,9 @@ class TopCard extends StatelessWidget {
               border: Border.all(color: Colors.black),
               borderRadius: BorderRadius.circular(20),
             ),
-            child: this.user.photo,
+            child: this.user.foto == null
+                ? Image.asset('images/blank_profile.jpg')
+                : Image.memory(this.user.foto),
           ),
           SizedBox(height: (deviceType == DeviceType.mobile) ? 3 : 10),
           Container(
@@ -101,7 +103,7 @@ class TopCard extends StatelessWidget {
                     Container(
                       width: respWidth * 0.6,
                       child: Text(
-                        this.user.name,
+                        this.user.namaPanggilan,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontFamily: 'Roboto',
@@ -110,7 +112,7 @@ class TopCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      this.user.nim.toString(),
+                      this.user.nim,
                       style: TextStyle(
                         fontFamily: 'Roboto',
                         fontSize: respText,
