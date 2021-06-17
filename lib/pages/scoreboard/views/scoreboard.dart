@@ -5,29 +5,55 @@ import 'package:sparta/pages/scoreboard/views/scoreboard_row.dart';
 import 'package:sparta/models/user.dart';
 
 class Scoreboard extends StatelessWidget {
-  const Scoreboard({this.users, this.ranks});
+  const Scoreboard({this.users, this.ranks, this.curUser});
 
   final List<User> users;
   final Map<String, int> ranks;
+  final User curUser;
 
   @override
   Widget build(BuildContext context) {
-    var usersScoreboard = this.users.asMap().entries.map((entry) {
-      // if (entry.value.nim!=currentUser.nim)
-      return ScoreboardRow(
-        id: (ranks[entry.value.nim]).toString(),
-        text: entry.value.skor.toString() +
-            " - " +
-            entry.value.nim +
-            " " +
-            entry.value.namaLengkap,
-        nickname: entry.value.namaPanggilan,
-        bgColor: entry.value.skor < 50 ? Colors.red : Colors.green,
-        self: false,
-      );
-    }).toList();
+    var usersScoreboard = curUser != null
+        ? this
+            .users
+            .where((user) => user.nim != curUser.nim)
+            .toList()
+            .map((entry) {
+            return ScoreboardRow(
+              id: (ranks[entry.nim]).toString(),
+              text: entry.skor.toString() +
+                  " - " +
+                  entry.nim +
+                  " " +
+                  entry.namaLengkap,
+              nickname: entry.namaPanggilan,
+              bgColor:
+                  Colors.white, //entry.skor < 50 ? Colors.red : Colors.green,
+              self: false,
+            );
+          }).toList()
+        : this.users.map((entry) {
+            return ScoreboardRow(
+              id: (ranks[entry.nim]).toString(),
+              text: entry.skor.toString() +
+                  " - " +
+                  entry.nim +
+                  " " +
+                  entry.namaLengkap,
+              nickname: entry.namaPanggilan,
+              bgColor:
+                  Colors.white, //entry.skor < 50 ? Colors.red : Colors.green,
+              self: false,
+            );
+          }).toList();
 
-    // usersScoreboard.insert(0, currentUser)
+    if (curUser != null)
+      usersScoreboard.insert(
+          0,
+          ScoreboardRow(
+            id: ranks[curUser.nim].toString(),
+            self: true,
+          ));
 
     return Column(
       children: usersScoreboard,

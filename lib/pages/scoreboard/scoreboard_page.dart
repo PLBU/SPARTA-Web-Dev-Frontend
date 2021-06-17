@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sparta/provider/auth_state.dart';
 import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/models/user.dart';
 import 'package:sparta/widgets/my_title.dart';
@@ -29,6 +31,7 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
 
     users.then((allUser) {
       this.allUser = allUser;
+      inspect(allUser);
       ranks = Map.fromIterable(allUser,
           key: (u) => u.nim, value: (u) => allUser.indexOf(u) + 1);
     });
@@ -77,46 +80,59 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
             ? 13
             : 16;
 
-    return FutureBuilder(
-      future: users,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return GestureDetector(
-            onTap: () {
-              FocusScope.of(context).requestFocus(new FocusNode());
-            },
-            child: ListView(
-              shrinkWrap: true,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(height: space * 2),
-                    MyTitle(text: "SCOREBOARD", logo: "#"),
-                    SizedBox(height: space),
-                    TopThree(this.allUser[0], this.allUser[1], this.allUser[2]),
-                    SizedBox(height: space),
-                    SizedBox(height: space),
-                    ScoreboardSearch(
+    return Consumer(builder: (context, watch, child) {
+      final currentUser = watch(AuthState.currentUser).state;
+
+      return FutureBuilder(
+        future: users,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return GestureDetector(
+              onTap: () {
+                FocusScope.of(context).requestFocus(new FocusNode());
+              },
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(height: space * 2),
+                      MyTitle(text: "SCOREBOARD", logo: "#"),
+                      SizedBox(height: space),
+                      TopThree(
+                        this.allUser[0],
+                        this.allUser[1],
+                        this.allUser[2],
+                      ),
+                      SizedBox(height: space),
+                      SizedBox(height: space),
+                      ScoreboardSearch(
                         submitHandler: configureSearch,
                         searchBarTEC: searchBarTEC,
-                        respFont: respFont),
-                    SizedBox(height: space),
-                    Scoreboard(users: snapshot.data, ranks: this.ranks),
-                    SizedBox(height: space),
-                  ],
-                ),
-              ],
+                        respFont: respFont,
+                      ),
+                      SizedBox(height: space),
+                      Scoreboard(
+                        users: snapshot.data,
+                        ranks: this.ranks,
+                        curUser: currentUser,
+                      ),
+                      SizedBox(height: space),
+                    ],
+                  ),
+                ],
+              ),
+            );
+          }
+
+          return Center(
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.black), //,
             ),
           );
-        }
-
-        return Center(
-          child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.black), //,
-          ),
-        );
-      },
-    );
+        },
+      );
+    });
   }
 }
