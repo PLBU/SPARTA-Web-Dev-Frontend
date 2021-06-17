@@ -18,10 +18,12 @@ class ScoreboardRow extends StatelessWidget {
     DeviceType deviceType = UIUtils.getDeviceType(context);
 
     EdgeInsets respPad = EdgeInsets.symmetric(
-        horizontal: (deviceType == DeviceType.mobile) ? 10 : 20);
+      horizontal: (deviceType == DeviceType.mobile) ? 10 : 20,
+      vertical: (deviceType == DeviceType.mobile) ? 5 : 15,
+    );
     EdgeInsets respMargin = EdgeInsets.symmetric(
         vertical: (deviceType == DeviceType.mobile) ? 5 : 10);
-    double respHeight = (deviceType == DeviceType.mobile) ? 40 : 50;
+    double respHeight = (deviceType == DeviceType.mobile) ? 50 : 70;
     double respWidth = (deviceType == DeviceType.mobile)
         ? 350
         : (deviceType == DeviceType.tablet)
