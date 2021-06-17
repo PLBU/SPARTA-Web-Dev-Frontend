@@ -21,6 +21,7 @@ class Scoreboard extends StatelessWidget {
             entry.value.nim +
             " " +
             entry.value.namaLengkap,
+        nickname: entry.value.namaPanggilan,
         bgColor: entry.value.skor < 50 ? Colors.red : Colors.green,
         self: false,
       );

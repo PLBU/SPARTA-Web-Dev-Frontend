@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/widgets/my_button.dart';
+import 'package:sparta/widgets/my_support_dialog.dart';
 
 class ScoreboardRow extends StatelessWidget {
-  const ScoreboardRow({this.id, this.text, this.bgColor, this.self});
+  const ScoreboardRow(
+      {this.id, this.text, this.bgColor, this.self, this.nickname});
 
   final String id;
   final String text;
+  final String nickname;
   final Color bgColor;
   final bool self;
 
@@ -63,6 +66,7 @@ class ScoreboardRow extends StatelessWidget {
               respText: respText,
               mult: (deviceType == DeviceType.mobile) ? 0.15 : 0.1,
               fontColor: fontColor,
+              nickname: this.nickname,
             ),
     );
   }
@@ -77,9 +81,11 @@ class OtherRow extends StatelessWidget {
     @required this.width,
     @required this.mult,
     @required this.text,
+    @required this.nickname,
   });
 
   final String id;
+  final String nickname;
   final double respID;
   final double respText;
   final double width;
@@ -89,8 +95,6 @@ class OtherRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DeviceType deviceType = UIUtils.getDeviceType(context);
-
     return Row(
       children: [
         Container(
@@ -122,7 +126,9 @@ class OtherRow extends StatelessWidget {
               MyButton(
                 text: "Support",
                 buttonType: ButtonType.black,
-                handler: () {},
+                handler: () {
+                  showMySupportDialog(context, this.nickname);
+                },
               ),
             ],
           ),
