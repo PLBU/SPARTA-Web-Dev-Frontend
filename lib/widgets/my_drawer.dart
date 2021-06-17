@@ -1,72 +1,79 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sparta/provider/auth_state.dart';
 import 'package:sparta/provider/route_state.dart';
 import 'package:sparta/widgets/my_button.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({Key key}) : super(key: key);
 
-  final bool isLoggedIn = false;
-
   @override
   Widget build(BuildContext context) {
-    List<Widget> navBarItems = [
-      if (isLoggedIn)
-        DrawerHeader(
-          decoration: BoxDecoration(
-            color: Colors.yellow[800],
-          ),
-          child: RawMaterialButton(
-            shape: CircleBorder(),
-            elevation: 4.0,
-            onPressed: () {},
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              backgroundImage: AssetImage('images/blank_profile.jpg'),
-              radius: 50,
-            ),
-          ),
-        ),
-      MyDrawerItem(
-        text: "home",
-        routeName: "/",
-      ),
-      MyDrawerItem(
-        text: "scoreboard",
-        routeName: "/scoreboard",
-      ),
-      MyDrawerItem(
-        text: "upload tugas",
-        routeName: "/upload-tugas",
-      ),
-      MyDrawerItem(
-        text: "gallery",
-        routeName: "/gallery",
-      ),
-      Container(
-        margin: EdgeInsets.all(24),
-        padding: EdgeInsets.symmetric(horizontal: 48),
-        child: (isLoggedIn)
-            ? MyButton(
-                handler: () {
-                  Navigator.pushNamed(context, '/auth');
-                },
-                text: "Logout",
-                buttonType: ButtonType.white,
-              )
-            : MyButton(
-                handler: () {
-                  Navigator.pushNamed(context, '/auth');
-                },
-                text: "Login",
-                buttonType: ButtonType.white,
+    return Consumer(
+      builder: (context, watch, child) {
+      final currentUser = watch(AuthState.currentUser).state;
+        
+        List<Widget> navBarItems = [
+          if (currentUser != null)
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary,
               ),
-      )
-    ];
+              child: RawMaterialButton(
+                shape: CircleBorder(),
+                elevation: 4.0,
+                onPressed: () {},
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  backgroundImage: AssetImage('images/blank_profile.jpg'),
+                  radius: 50,
+                ),
+              ),
+            ),
+          MyDrawerItem(
+            text: "home",
+            routeName: "/",
+          ),
+          MyDrawerItem(
+            text: "scoreboard",
+            routeName: "/scoreboard",
+          ),
+          if (currentUser != null) MyDrawerItem(
+            text: "upload tugas",
+            routeName: "/upload-tugas",
+          ),
+          MyDrawerItem(
+            text: "gallery",
+            routeName: "/gallery",
+          ),
+          Container(
+            margin: EdgeInsets.all(24),
+            padding: EdgeInsets.symmetric(horizontal: 48),
+            child: (currentUser != null)
+                ? MyButton(
+                    handler: () {
+                      AuthState.logout(context);
+                      Navigator.pushNamed(context, '/');
+                    },
+                    text: "Logout",
+                    buttonType: ButtonType.white,
+                  )
+                : MyButton(
+                    handler: () {
+                      Navigator.pushNamed(context, '/auth');
+                    },
+                    text: "Login",
+                    buttonType: ButtonType.white,
+                  ),
+          )
+        ];
 
-    return Drawer(
-      child: ListView(
-        children: navBarItems,
-      ),
+        return Drawer(
+          child: ListView(
+            children: navBarItems,
+          ),
+        );
+      },
     );
   }
 }
