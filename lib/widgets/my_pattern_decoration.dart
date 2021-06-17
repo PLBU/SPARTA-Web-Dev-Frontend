@@ -17,7 +17,7 @@ class MyPatternDecoration extends StatelessWidget {
         const EdgeInsets.only(top: 5, bottom: 5),
       color: Colors.black,
       child: Image.asset(
-        'icons/PatternSparta.png',
+        'assets/icons/PatternSparta.png',
         height: size,
         width: size,
         repeat: ImageRepeat.repeatX,
