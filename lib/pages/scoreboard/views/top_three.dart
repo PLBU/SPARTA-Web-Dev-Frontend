@@ -104,7 +104,7 @@ class TopCard extends StatelessWidget {
                     Container(
                       width: respWidth * 0.6,
                       child: Text(
-                        this.user.namaPanggilan,
+                        this.user.namaLengkap,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontFamily: 'Roboto',
