@@ -27,6 +27,7 @@ class TopThree extends StatelessWidget {
               : 450,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           TopCard(num: "1", user: user1),
           TopCard(num: "2", user: user2),

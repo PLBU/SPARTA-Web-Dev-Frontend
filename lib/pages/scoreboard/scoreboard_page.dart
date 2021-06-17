@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/models/user.dart';
 import 'package:sparta/widgets/my_title.dart';
-import 'package:sparta/widgets/my_button.dart';
-import 'package:sparta/widgets/my_text_field.dart';
 import 'package:sparta/pages/scoreboard/services/index.dart';
 import 'package:sparta/pages/scoreboard/views/top_three.dart';
-import 'package:sparta/pages/scoreboard/views/scoreboard_row.dart';
 import 'package:sparta/pages/scoreboard/views/scoreboard.dart';
+import 'package:sparta/pages/scoreboard/views/scoreboard_search.dart';
 
 class ScoreboardPage extends StatefulWidget {
   ScoreboardPage();
@@ -44,7 +42,7 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
 
   void configureSearch(String input) {
     var temp = {};
-    if (input.indexOf('=') >= 0) {
+    if (input != null && input.indexOf('=') >= 0) {
       input = input.replaceAll(" ", "");
       var filters = input.split(';');
       for (var filter in filters) {
@@ -88,6 +86,7 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
               FocusScope.of(context).requestFocus(new FocusNode());
             },
             child: ListView(
+              shrinkWrap: true,
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -98,50 +97,10 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
                     TopThree(this.allUser[0], this.allUser[1], this.allUser[2]),
                     SizedBox(height: space),
                     SizedBox(height: space),
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black),
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
-                      ),
-                      child: MyTextField(
-                        minLines: 1,
-                        maxLines: 1,
-                        hintText: "Cari..",
-                        helperText:
-                            "Dapat mencari dengan jurusan=IF; nama=test;",
-                        width: (deviceType == DeviceType.mobile)
-                            ? 350
-                            : (deviceType == DeviceType.tablet)
-                                ? 600
-                                : 1000,
-                        margin: (deviceType == DeviceType.mobile)
-                            ? EdgeInsets.symmetric(vertical: 2, horizontal: 5)
-                            : EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                        controller: this.searchBarTEC,
-                        submitHandler: (text) {
-                          this.configureSearch(text);
-                        },
-                        prefixIcon: new IconButton(
-                          padding: EdgeInsets.only(bottom: 1),
-                          highlightColor: Colors.transparent,
-                          icon: new Icon(Icons.search, size: respFont * 2),
-                          onPressed: () {
-                            this.configureSearch(this.searchBarTEC.text);
-                          },
-                          splashColor: Colors.transparent,
-                        ),
-                        suffixIcon: new IconButton(
-                          padding: EdgeInsets.only(bottom: 1),
-                          highlightColor: Colors.transparent,
-                          icon: new Icon(Icons.clear, size: respFont * 2),
-                          onPressed: () {
-                            this.searchBarTEC.clear();
-                          },
-                          splashColor: Colors.transparent,
-                        ),
-                      ),
-                    ),
+                    ScoreboardSearch(
+                        submitHandler: configureSearch,
+                        searchBarTEC: searchBarTEC,
+                        respFont: respFont),
                     SizedBox(height: space),
                     Scoreboard(users: snapshot.data, ranks: this.ranks),
                     SizedBox(height: space),
@@ -152,8 +111,10 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
           );
         }
 
-        return new CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(Colors.black), //,
+        return Center(
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.black), //,
+          ),
         );
       },
     );
