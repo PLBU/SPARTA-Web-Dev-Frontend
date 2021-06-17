@@ -9,6 +9,7 @@ import 'package:sparta/widgets/my_navigation_bar.dart';
 import 'package:sparta/widgets/my_drawer.dart';
 import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/provider/auth_state.dart';
+import 'package:sparta/provider/route_state.dart';
 
 void main() async {
   await AuthState.init();
@@ -72,5 +73,3 @@ class BasePage extends StatelessWidget {
     );
   }
 }
-
-// TODO PROXY SERVER CONST
