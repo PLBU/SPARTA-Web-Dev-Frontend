@@ -31,9 +31,15 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
 
     users.then((allUser) {
       this.allUser = allUser;
-      inspect(allUser);
-      ranks = Map.fromIterable(allUser,
-          key: (u) => u.nim, value: (u) => allUser.indexOf(u) + 1);
+      // inspect(allUser);
+
+      print("test1");
+      configureRanks(allUser);
+      print("test3");
+      inspect(ranks);
+
+      // ranks = Map.fromIterable(allUser,
+      //     key: (u) => u.nim, value: (u) => allUser.indexOf(u) + 1);
     });
   }
 
@@ -64,6 +70,29 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
       nim: temp["nim"],
       kelompok: temp["kelompok"],
     );
+  }
+
+  void configureRanks(List<User> users) {
+    int curRank = 1, idx = 1;
+    int prevScore;
+
+    ranks = Map.fromIterable(users,
+      key: (u) => u.nim, value: (u){
+        if (prevScore != null && prevScore!=u.skor) curRank = idx;
+        prevScore=u.skor;
+        idx++;
+        return curRank;
+      },
+    );
+
+    // for (User user in users) {
+    //   inspect(user);
+    //   if (prevScore != null && prevScore != user.skor) curRank = idx;
+    //   this.ranks[user.nim] = curRank;
+    //   prevScore = user.skor;
+    //   idx++;
+    // }
+    inspect(ranks);
   }
 
   @override
