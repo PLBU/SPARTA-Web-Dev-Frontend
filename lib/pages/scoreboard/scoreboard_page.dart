@@ -113,7 +113,7 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(height: space * 2),
+                      SizedBox(height: space),
                       MyTitle(text: "SCOREBOARD", logo: "#"),
                       SizedBox(height: space),
                       TopThree(
@@ -122,13 +122,12 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
                         this.allUser[2],
                       ),
                       SizedBox(height: space),
-                      SizedBox(height: space),
                       ScoreboardSearch(
                         submitHandler: configureSearch,
                         searchBarTEC: searchBarTEC,
                         respFont: respFont,
                       ),
-                      SizedBox(height: space),
+                      SizedBox(height: space / 2),
                       if (snapshot.connectionState == ConnectionState.done)
                         Scoreboard(
                           users: snapshot.data,
@@ -137,12 +136,12 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
                         )
                       else
                         Container(
-                          width:
-                              (deviceType == DeviceType.mobile) ? 200 : 400,
-                          child: LinearProgressIndicator(
-                            valueColor:
-                                AlwaysStoppedAnimation<Color>(Colors.black),
-                          )),
+                            width:
+                                (deviceType == DeviceType.mobile) ? 200 : 400,
+                            child: LinearProgressIndicator(
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.black),
+                            )),
                       SizedBox(height: space),
                     ],
                   ),

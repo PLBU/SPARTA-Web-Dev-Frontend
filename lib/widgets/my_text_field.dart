@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sparta/utils/ui_utils.dart';
 
 class MyTextField extends StatelessWidget {
-
   const MyTextField({
     this.minLines,
     this.maxLines,
@@ -32,6 +32,14 @@ class MyTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DeviceType deviceType = UIUtils.getDeviceType(context);
+
+    double respText = (deviceType == DeviceType.mobile)
+        ? 10
+        : (deviceType == DeviceType.tablet)
+            ? 12
+            : 16;
+
     return Container(
       margin: this.margin,
       width: this.width,
@@ -47,7 +55,7 @@ class MyTextField extends StatelessWidget {
           hintText: this.hintText,
           hintStyle: TextStyle(fontFamily: 'Roboto'),
           helperText: this.helperText,
-          helperStyle: TextStyle(fontFamily: 'Roboto'),
+          helperStyle: TextStyle(fontFamily: 'Roboto', fontSize: respText),
           border: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.black),
             borderRadius: BorderRadius.circular(16),

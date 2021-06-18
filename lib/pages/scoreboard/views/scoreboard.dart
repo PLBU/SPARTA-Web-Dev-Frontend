@@ -46,6 +46,8 @@ class Scoreboard extends StatelessWidget {
           0,
           ScoreboardRow(
             id: ranks[curUser.nim].toString(),
+            text: curUser.nim + " " + curUser.namaLengkap,
+            skor: curUser.skor,
             self: true,
           ));
 

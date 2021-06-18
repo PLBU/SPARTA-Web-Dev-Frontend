@@ -58,32 +58,24 @@ class ScoreboardRow extends StatelessWidget {
         border: Border.all(color: Colors.black),
         borderRadius: BorderRadius.circular(10),
       ),
-      child: this.self
-          ? SelfRow(
-              id: id,
-              width: respWidth,
-              respID: respID,
-              respText: respText,
-              mult: (deviceType == DeviceType.mobile) ? 0.15 : 0.1,
-              fontColor: fontColor,
-            )
-          : OtherRow(
-              id: id,
-              text: text,
-              skor: skor,
-              width: respWidth,
-              respID: respID,
-              respText: respText,
-              mult: (deviceType == DeviceType.mobile) ? 0.15 : 0.1,
-              fontColor: fontColor,
-              nickname: this.nickname,
-            ),
+      child: MyRow(
+        id: id,
+        text: text,
+        skor: skor,
+        width: respWidth,
+        respID: respID,
+        respText: respText,
+        mult: (deviceType == DeviceType.mobile) ? 0.15 : 0.1,
+        fontColor: fontColor,
+        nickname: this.nickname,
+        self: this.self,
+      ),
     );
   }
 }
 
-class OtherRow extends StatelessWidget {
-  const OtherRow({
+class MyRow extends StatelessWidget {
+  const MyRow({
     @required this.id,
     @required this.respID,
     @required this.respText,
@@ -93,6 +85,7 @@ class OtherRow extends StatelessWidget {
     @required this.mult,
     @required this.text,
     @required this.nickname,
+    @required this.self,
   });
 
   final String id;
@@ -104,6 +97,7 @@ class OtherRow extends StatelessWidget {
   final double mult;
   final Color fontColor;
   final String text;
+  final bool self;
 
   @override
   Widget build(BuildContext context) {
@@ -140,18 +134,20 @@ class OtherRow extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: "DrukWideBold",
                   fontSize: respText - 5,
+                  color: this.self ? Colors.white : Colors.black,
                 ),
               ),
               SizedBox(
                 width: respText - 5,
               ),
-              MyButton(
-                text: "Support",
-                buttonType: ButtonType.black,
-                handler: () {
-                  showMySupportDialog(context, this.nickname);
-                },
-              ),
+              if (!this.self)
+                MyButton(
+                  text: "Support",
+                  buttonType: ButtonType.black,
+                  handler: () {
+                    showMySupportDialog(context, this.nickname);
+                  },
+                ),
             ],
           ),
         )

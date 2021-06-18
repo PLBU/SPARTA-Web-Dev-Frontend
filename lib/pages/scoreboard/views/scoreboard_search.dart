@@ -20,7 +20,7 @@ class ScoreboardSearch extends StatelessWidget {
     return FocusScope(
       child: Focus(
         onFocusChange: (focus) {
-          if(!focus && searchBarTEC.text==""){
+          if (!focus && searchBarTEC.text == "") {
             this.submitHandler(null);
           }
         },
@@ -30,7 +30,8 @@ class ScoreboardSearch extends StatelessWidget {
             minLines: 1,
             maxLines: 1,
             hintText: "Cari..",
-            helperText: "Dapat mencari dengan jurusan=IF; nama=test;",
+            helperText:
+                "Dapat mencari dengan \"jurusan=IF; nama=test; nim=113; kelompok=15;\"",
             width: (deviceType == DeviceType.mobile)
                 ? 350
                 : (deviceType == DeviceType.tablet)
@@ -59,6 +60,7 @@ class ScoreboardSearch extends StatelessWidget {
               ),
               onPressed: () {
                 this.searchBarTEC.clear();
+                this.submitHandler(null);
               },
             ),
           ),
