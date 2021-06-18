@@ -4,12 +4,19 @@ import 'package:sparta/widgets/my_button.dart';
 import 'package:sparta/widgets/my_support_dialog.dart';
 
 class ScoreboardRow extends StatelessWidget {
-  const ScoreboardRow(
-      {this.id, this.text, this.bgColor, this.self, this.nickname});
+  const ScoreboardRow({
+    this.id,
+    this.text,
+    this.bgColor,
+    this.self,
+    this.nickname,
+    this.skor,
+  });
 
   final String id;
   final String text;
   final String nickname;
+  final int skor;
   final Color bgColor;
   final bool self;
 
@@ -63,6 +70,7 @@ class ScoreboardRow extends StatelessWidget {
           : OtherRow(
               id: id,
               text: text,
+              skor: skor,
               width: respWidth,
               respID: respID,
               respText: respText,
@@ -79,6 +87,7 @@ class OtherRow extends StatelessWidget {
     @required this.id,
     @required this.respID,
     @required this.respText,
+    @required this.skor,
     @required this.fontColor,
     @required this.width,
     @required this.mult,
@@ -88,6 +97,7 @@ class OtherRow extends StatelessWidget {
 
   final String id;
   final String nickname;
+  final int skor;
   final double respID;
   final double respText;
   final double width;
@@ -111,7 +121,7 @@ class OtherRow extends StatelessWidget {
           ),
         ),
         Container(
-          width: width * 0.4,
+          width: width * 0.35,
           child: Text(
             text,
             style: TextStyle(
@@ -125,6 +135,16 @@ class OtherRow extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              Text(
+                skor.toString() + " pts",
+                style: TextStyle(
+                  fontFamily: "DrukWideBold",
+                  fontSize: respText - 5,
+                ),
+              ),
+              SizedBox(
+                width: respText - 5,
+              ),
               MyButton(
                 text: "Support",
                 buttonType: ButtonType.black,

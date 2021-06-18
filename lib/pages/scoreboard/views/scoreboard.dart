@@ -21,12 +21,9 @@ class Scoreboard extends StatelessWidget {
             .map((entry) {
             return ScoreboardRow(
               id: (ranks[entry.nim]).toString(),
-              text: entry.skor.toString() +
-                  " - " +
-                  entry.nim +
-                  " " +
-                  entry.namaLengkap,
+              text: entry.nim + " " + entry.namaLengkap,
               nickname: entry.namaPanggilan,
+              skor: entry.skor,
               bgColor:
                   Colors.white, //entry.skor < 50 ? Colors.red : Colors.green,
               self: false,
@@ -35,12 +32,9 @@ class Scoreboard extends StatelessWidget {
         : this.users.map((entry) {
             return ScoreboardRow(
               id: (ranks[entry.nim]).toString(),
-              text: entry.skor.toString() +
-                  " - " +
-                  entry.nim +
-                  " " +
-                  entry.namaLengkap,
+              text: entry.nim + " " + entry.namaLengkap,
               nickname: entry.namaPanggilan,
+              skor: entry.skor,
               bgColor:
                   Colors.white, //entry.skor < 50 ? Colors.red : Colors.green,
               self: false,
