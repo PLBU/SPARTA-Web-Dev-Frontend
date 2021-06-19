@@ -24,45 +24,52 @@ class _ScoreboardViewState extends State<ScoreboardView> {
   Widget build(BuildContext context) {
     DeviceType deviceType = UIUtils.getDeviceType(context);
     final PageController controller = PageController(initialPage: 0);
-    int nPages = 50;
+    int nUsers = 50;
     List<dynamic> usersScoreboard = [];
+    List<User> orderedUser = (widget.curUser != null)
+        ? widget.users
+            .where((element) => element.nim != widget.curUser.nim)
+            .toList()
+        : widget.users;
+    if (widget.curUser != null) orderedUser.insert(0, widget.curUser);
 
-    for (int i = 0; i <= widget.users.length ~/ nPages; i++) {
-      if (i == widget.users.length ~/ nPages)
-        usersScoreboard.add(
-            widget.users.sublist(i * nPages, widget.users.length).map((entry) {
-          return ScoreboardRow(
-            id: (widget.ranks[entry.nim]).toString(),
-            text: entry.nim + " " + entry.namaLengkap,
-            nickname: entry.namaPanggilan,
-            skor: entry.skor,
-            bgColor:
-                Colors.white, //entry.skor < 50 ? Colors.red : Colors.green,
-            self: false,
-          );
-        }).toList());
+    for (int i = 0; i <= orderedUser.length ~/ nUsers; i++) {
+      if (i == orderedUser.length ~/ nUsers)
+        usersScoreboard
+          .add(orderedUser.sublist(i * nUsers, orderedUser.length).map(
+            (entry) {
+              return ScoreboardRow(
+                id: (widget.ranks[entry.nim]).toString(),
+                text: entry.nim + " " + entry.namaLengkap,
+                nickname: entry.namaPanggilan,
+                skor: entry.skor,
+                bgColor: Colors.white,
+                self: (widget.curUser != null && entry.nim == widget.curUser.nim),
+              );
+            },
+          ).toList(),
+        );
       else
-        usersScoreboard.add(
-            widget.users.sublist(i * nPages, (i + 1) * nPages).map((entry) {
-          return ScoreboardRow(
-            id: (widget.ranks[entry.nim]).toString(),
-            text: entry.nim + " " + entry.namaLengkap,
-            nickname: entry.namaPanggilan,
-            skor: entry.skor,
-            bgColor:
-                Colors.white, //entry.skor < 50 ? Colors.red : Colors.green,
-            self: false,
-          );
-        }).toList());
+        usersScoreboard
+          .add(orderedUser.sublist(i * nUsers, (i + 1) * nUsers).map(
+            (entry) {
+              return ScoreboardRow(
+                id: (widget.ranks[entry.nim]).toString(),
+                text: entry.nim + " " + entry.namaLengkap,
+                nickname: entry.namaPanggilan,
+                skor: entry.skor,
+                bgColor: Colors.white,
+                self: (widget.curUser != null && entry.nim == widget.curUser.nim),
+              );
+            },
+          ).toList(),
+        );
     }
 
     return Column(
       children: [
         PageButton(
           handler1: () {
-            setState(() {
-              pageNum = (pageNum - 1) < 0 ? pageNum : (pageNum - 1);
-            });
             controller.animateToPage(
               controller.page.toInt() - 1,
               duration: Duration(milliseconds: 500),
@@ -70,11 +77,6 @@ class _ScoreboardViewState extends State<ScoreboardView> {
             );
           },
           handler2: () {
-            setState(() {
-              pageNum = (pageNum + 1) < ((widget.users.length ~/ nPages) + 1)
-                  ? (pageNum + 1)
-                  : pageNum;
-            });
             controller.animateToPage(
               controller.page.toInt() + 1,
               duration: Duration(milliseconds: 750),
@@ -84,12 +86,19 @@ class _ScoreboardViewState extends State<ScoreboardView> {
         ),
         Container(
           height: (deviceType == DeviceType.mobile)
-              ? (usersScoreboard[pageNum].length + 2) * 50.0
-              : (usersScoreboard[pageNum].length + 2) * 70.0,
+              ? (usersScoreboard[pageNum % usersScoreboard.length].length) *
+                  60.0
+              : (usersScoreboard[pageNum % usersScoreboard.length].length) *
+                  90.0,
           child: PageView.builder(
+            onPageChanged: (pageID) {
+              setState(() {
+                pageNum = pageID;
+              });
+            },
             controller: controller,
             scrollDirection: Axis.horizontal,
-            itemCount: (widget.users.length ~/ nPages) + 1,
+            itemCount: (orderedUser.length ~/ nUsers) + 1,
             itemBuilder: ((context, index) {
               return Column(
                 children: usersScoreboard[index],
@@ -99,9 +108,6 @@ class _ScoreboardViewState extends State<ScoreboardView> {
         ),
         PageButton(
           handler1: () {
-            setState(() {
-              pageNum = (pageNum - 1) < 0 ? pageNum : (pageNum - 1);
-            });
             controller.animateToPage(
               controller.page.toInt() - 1,
               duration: Duration(milliseconds: 750),
@@ -109,11 +115,6 @@ class _ScoreboardViewState extends State<ScoreboardView> {
             );
           },
           handler2: () {
-            setState(() {
-              pageNum = (pageNum + 1) < ((widget.users.length ~/ nPages) + 1)
-                  ? (pageNum + 1)
-                  : pageNum;
-            });
             controller.animateToPage(
               controller.page.toInt() + 1,
               duration: Duration(milliseconds: 750),
