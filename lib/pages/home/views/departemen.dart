@@ -24,21 +24,28 @@ class Departemen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
+    DeviceType deviceType = UIUtils.getDeviceType(context);
+    double objectSpacing = 40;
     return Container(
       child: Column(
         children: [
             MyHeadingText(content: namaDepartemen),
-            SizedBox(height: 20),
+            SizedBox(height: objectSpacing),
             MyCard(
               content: namaKetua,
               image: foto,
               title: "Kepala Dept.",
+              type: CardType.Bottom,
+              height: (deviceType == DeviceType.mobile) 
+                      ? 190
+                      : (deviceType == DeviceType.tablet)
+                        ? 250
+                        :330,
               ),
             
             for (Divisi i in divisi) Column(
                 children: [
-                  SizedBox(height: 20),
+                  SizedBox(height: objectSpacing),
                   i,
                 ],
               ),

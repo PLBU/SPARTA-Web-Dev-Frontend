@@ -33,6 +33,7 @@ class Divisi extends StatelessWidget {
               image: foto,
               title: jabatan,
               type: CardType.Bottom,
+              height: 190,
               ),
             SizedBox(height: 20),
             MyTextList(
@@ -50,6 +51,7 @@ class Divisi extends StatelessWidget {
               image: foto,
               title: jabatan,
               type: CardType.Bottom,
+              height: (deviceType == DeviceType.tablet) ? 250 :330,
               ),
             SizedBox(width: 20),
             MyTextList(
