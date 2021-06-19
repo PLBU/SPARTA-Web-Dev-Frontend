@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/pages/scoreboard/views/scoreboard_row.dart';
 import 'package:sparta/models/user.dart';
+import 'package:sparta/widgets/my_button.dart';
 
 class Scoreboard extends StatelessWidget {
   const Scoreboard({this.users, this.ranks, this.curUser});
@@ -15,59 +16,85 @@ class Scoreboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DeviceType deviceType = UIUtils.getDeviceType(context);
+    final PageController controller = PageController(initialPage: 0);
+    int nPages = 50;
+    List<dynamic> usersScoreboard = [];
 
-    var usersScoreboard = curUser != null
-        ? this
-            .users
-            .where((user) => user.nim != curUser.nim)
-            .toList()
-            .map((entry) {
-            return ScoreboardRow(
-              id: (ranks[entry.nim]).toString(),
-              text: entry.nim + " " + entry.namaLengkap,
-              nickname: entry.namaPanggilan,
-              skor: entry.skor,
-              bgColor:
-                  Colors.white, //entry.skor < 50 ? Colors.red : Colors.green,
-              self: false,
-            );
-          }).toList()
-        : this.users.map((entry) {
-            return ScoreboardRow(
-              id: (ranks[entry.nim]).toString(),
-              text: entry.nim + " " + entry.namaLengkap,
-              nickname: entry.namaPanggilan,
-              skor: entry.skor,
-              bgColor:
-                  Colors.white, //entry.skor < 50 ? Colors.red : Colors.green,
-              self: false,
-            );
-          }).toList();
-
-    if (curUser != null)
-      usersScoreboard.insert(
-          0,
-          ScoreboardRow(
-            id: ranks[curUser.nim].toString(),
-            text: curUser.nim + " " + curUser.namaLengkap,
-            skor: curUser.skor,
-            self: true,
-          ));
+    for (int i = 0; i <= users.length ~/ nPages; i++) {
+      if (i == users.length ~/ nPages)
+        usersScoreboard
+            .add(this.users.sublist(i * nPages, users.length).map((entry) {
+          return ScoreboardRow(
+            id: (ranks[entry.nim]).toString(),
+            text: entry.nim + " " + entry.namaLengkap,
+            nickname: entry.namaPanggilan,
+            skor: entry.skor,
+            bgColor:
+                Colors.white, //entry.skor < 50 ? Colors.red : Colors.green,
+            self: false,
+          );
+        }).toList());
+      else
+        usersScoreboard
+            .add(this.users.sublist(i * nPages, (i + 1) * nPages).map((entry) {
+          return ScoreboardRow(
+            id: (ranks[entry.nim]).toString(),
+            text: entry.nim + " " + entry.namaLengkap,
+            nickname: entry.namaPanggilan,
+            skor: entry.skor,
+            bgColor:
+                Colors.white, //entry.skor < 50 ? Colors.red : Colors.green,
+            self: false,
+          );
+        }).toList());
+    }
 
     return Column(
-      children: usersScoreboard.length > 0
-          ? usersScoreboard
-          : [
-              Center(
-                child: Text(
-                  "User tidak ditemukan!",
-                  style: TextStyle(
-                    fontFamily: "DrukWideBold",
-                    fontSize: (deviceType == DeviceType.mobile) ? 15 : 18,
-                  ),
-                ),
-              ),
-            ],
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            MyButton(
+              text: "Previous",
+              buttonType: ButtonType.black,
+              handler: () {
+                controller.animateToPage(
+                  controller.page.toInt() - 1,
+                  duration: Duration(milliseconds: 750),
+                  curve: Curves.easeInOut,
+                );
+              },
+            ),
+            SizedBox(
+              width: 50,
+            ),
+            MyButton(
+              text: "Next",
+              buttonType: ButtonType.black,
+              handler: () {
+                controller.animateToPage(
+                  controller.page.toInt() + 1,
+                  duration: Duration(milliseconds: 750),
+                  curve: Curves.easeInOut,
+                );
+              },
+            ),
+          ],
+        ),
+        Container(
+          height: (deviceType == DeviceType.mobile) ? 51 * 50.0 : 51 * 70.0,
+          child: PageView.builder(
+            controller: controller,
+            scrollDirection: Axis.horizontal,
+            itemCount: (users.length ~/ nPages) + 1,
+            itemBuilder: ((context, index) {
+              return Column(
+                children: usersScoreboard[index],
+              );
+            }),
+          ),
+        ),
+      ],
     );
   }
 }
