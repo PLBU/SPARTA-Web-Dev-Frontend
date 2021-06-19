@@ -126,22 +126,14 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
                         submitHandler: configureSearch,
                         searchBarTEC: searchBarTEC,
                         respFont: respFont,
+                        connectionState: snapshot.connectionState,
                       ),
                       SizedBox(height: space / 2),
-                      if (snapshot.connectionState == ConnectionState.done)
                         Scoreboard(
                           users: snapshot.data,
                           ranks: this.ranks,
                           curUser: currentUser,
-                        )
-                      else
-                        Container(
-                            width:
-                                (deviceType == DeviceType.mobile) ? 200 : 400,
-                            child: LinearProgressIndicator(
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(Colors.black),
-                            )),
+                        ),
                       SizedBox(height: space),
                     ],
                   ),

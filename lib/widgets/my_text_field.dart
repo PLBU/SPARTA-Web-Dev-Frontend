@@ -43,6 +43,7 @@ class MyTextField extends StatelessWidget {
     return Container(
       margin: this.margin,
       width: this.width,
+      height: (deviceType == DeviceType.mobile) ? 60 : 80,
       child: TextField(
         obscureText: this.hidden,
         controller: this.controller,
@@ -51,11 +52,15 @@ class MyTextField extends StatelessWidget {
         maxLines: this.hidden ? 1 : this.maxLines,
         maxLength: this.maxLength,
         onSubmitted: this.submitHandler,
+        style: TextStyle(
+          fontSize: respText,
+        ),
         decoration: InputDecoration(
           hintText: this.hintText,
           hintStyle: TextStyle(fontFamily: 'Roboto'),
           helperText: this.helperText,
           helperStyle: TextStyle(fontFamily: 'Roboto', fontSize: respText),
+          contentPadding: EdgeInsets.symmetric(vertical: 0),
           border: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.black),
             borderRadius: BorderRadius.circular(16),
