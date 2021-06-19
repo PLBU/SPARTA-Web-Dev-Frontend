@@ -29,17 +29,20 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       onGenerateRoute: (settings) {
         return PageRouteBuilder(
-            pageBuilder: (_, __, ___) => BasePage((settings.name == '/')
-                ? HomePage()
-                : (settings.name == '/scoreboard')
-                    ? ScoreboardPage()
-                    : (settings.name == '/upload-tugas')
-                        ? HomePage()
-                        : (settings.name == '/gallery')
-                            ? HomePage()
-                            : (settings.name == 'auth')
-                                ? AuthPage()
-                                : null),
+            pageBuilder: (_, __, ___) {
+              RouteState.changeRouteState(settings.name);
+              return BasePage((settings.name == '/')
+                  ? HomePage()
+                  : (settings.name == '/scoreboard')
+                      ? ScoreboardPage()
+                      : (settings.name == '/upload-tugas')
+                          ? HomePage()
+                          : (settings.name == '/gallery')
+                              ? HomePage()
+                              : (settings.name == '/auth')
+                                  ? AuthPage()
+                                  : null);
+            },
             settings: settings);
       },
     );

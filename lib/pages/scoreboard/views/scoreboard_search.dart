@@ -35,6 +35,7 @@ class ScoreboardSearch extends StatelessWidget {
                   : 1050,
           padding: EdgeInsets.only(
             bottom: 0,
+            top: 5,
             left: 5,
             right: 5,
           ),

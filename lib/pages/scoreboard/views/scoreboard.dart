@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/pages/scoreboard/views/scoreboard_row.dart';
 import 'package:sparta/models/user.dart';
 
@@ -13,6 +14,8 @@ class Scoreboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DeviceType deviceType = UIUtils.getDeviceType(context);
+
     var usersScoreboard = curUser != null
         ? this
             .users
@@ -52,7 +55,19 @@ class Scoreboard extends StatelessWidget {
           ));
 
     return Column(
-      children: usersScoreboard,
+      children: usersScoreboard.length > 0
+          ? usersScoreboard
+          : [
+              Center(
+                child: Text(
+                  "User tidak ditemukan!",
+                  style: TextStyle(
+                    fontFamily: "DrukWideBold",
+                    fontSize: (deviceType == DeviceType.mobile) ? 15 : 18,
+                  ),
+                ),
+              ),
+            ],
     );
   }
 }

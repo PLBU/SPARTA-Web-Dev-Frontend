@@ -109,6 +109,7 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
               },
               child: ListView(
                 shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -129,11 +130,11 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
                         connectionState: snapshot.connectionState,
                       ),
                       SizedBox(height: space / 2),
-                        Scoreboard(
-                          users: snapshot.data,
-                          ranks: this.ranks,
-                          curUser: currentUser,
-                        ),
+                      Scoreboard(
+                        users: snapshot.data,
+                        ranks: this.ranks,
+                        curUser: currentUser,
+                      ),
                       SizedBox(height: space),
                     ],
                   ),
