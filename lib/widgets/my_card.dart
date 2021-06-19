@@ -9,12 +9,14 @@ class MyCard extends StatelessWidget {
     this.image,
     this.content,
     this.type,
+    this.height,
   });
 
   final String title;
   final Image image;
   final String content;
   final CardType type;
+  final height;
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +77,7 @@ class MyCard extends StatelessWidget {
               deviceType: deviceType,
               content: content,
               textSize: textSize,
+              height: height,
             )
           else
             BottomTypeContent(
@@ -83,6 +86,7 @@ class MyCard extends StatelessWidget {
               deviceType: deviceType,
               content: content,
               textSize: textSize,
+              height: height,
             )
         ],
       ),
@@ -98,6 +102,7 @@ class BottomTypeContent extends StatelessWidget {
     @required this.deviceType,
     @required this.content,
     @required this.textSize,
+    this.height,
   }) : super(key: key);
 
   final EdgeInsets contentPadding;
@@ -105,11 +110,13 @@ class BottomTypeContent extends StatelessWidget {
   final DeviceType deviceType;
   final String content;
   final double textSize;
+  final height;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: contentPadding,
+      height: height,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -145,6 +152,7 @@ class RightTypeContent extends StatelessWidget {
     @required this.deviceType,
     @required this.content,
     @required this.textSize,
+    this.height,
   }) : super(key: key);
 
   final EdgeInsets contentPadding;
@@ -152,11 +160,13 @@ class RightTypeContent extends StatelessWidget {
   final DeviceType deviceType;
   final String content;
   final double textSize;
+  final height;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: contentPadding,
+      height: height,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
