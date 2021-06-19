@@ -10,8 +10,10 @@ class MyButton extends StatelessWidget {
   final Function handler;
   final String text;
   final ButtonType buttonType;
+  final isLoading;
 
-  const MyButton({this.handler, this.text, this.buttonType});
+  const MyButton(
+      {this.handler, this.text, this.buttonType, this.isLoading = false});
 
   @override
   Widget build(BuildContext context) {
@@ -28,29 +30,40 @@ class MyButton extends StatelessWidget {
 
     return Container(
       child: ElevatedButton(
-        style: ButtonStyle(
-          padding: MaterialStateProperty.all<EdgeInsets>(
-            EdgeInsets.symmetric(vertical: paddingVertical, horizontal: paddingHorizontal),
-          ),
-          overlayColor: MaterialStateProperty.all<Color>(overlayColor),
-          backgroundColor: MaterialStateProperty.all<Color>(color),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-              side: BorderSide(color: Colors.black, width: 2),
+          style: ButtonStyle(
+            padding: MaterialStateProperty.all<EdgeInsets>(
+              EdgeInsets.symmetric(
+                  vertical: paddingVertical, horizontal: paddingHorizontal),
+            ),
+            overlayColor: MaterialStateProperty.all<Color>(overlayColor),
+            backgroundColor: MaterialStateProperty.all<Color>(color),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+                side: BorderSide(color: Colors.black, width: 2),
+              ),
             ),
           ),
-        ),
-        onPressed: this.handler,
-        child: Text(
-          text,
-          style: TextStyle(
-            color: textColor,
-            fontFamily: 'DrukWideBold',
-            fontSize: fontSize
-          ),
-        ),
-      ),
+          onPressed: this.handler,
+          child: AnimatedSwitcher(
+            key: ValueKey<bool>(isLoading),
+            transitionBuilder: (Widget child, Animation<double> animation) {
+              return ScaleTransition(child: child, scale: animation);
+            },
+            duration: const Duration(seconds: 1),
+            child: (this.isLoading)
+                ? CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(textColor),
+                    strokeWidth: 2,
+                  )
+                : Text(
+                    text,
+                    style: TextStyle(
+                        color: textColor,
+                        fontFamily: 'DrukWideBold',
+                        fontSize: fontSize),
+                  ),
+          )),
     );
   }
 }

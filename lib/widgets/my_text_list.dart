@@ -33,10 +33,10 @@ class MyTextList extends StatelessWidget {
     double titleBoxHeight = (textListHeight-(1.5*padding))/5;
     double titleFontSize = 
       (deviceType == DeviceType.mobile)
-        ? 22
+        ? 16
         : (deviceType == DeviceType.tablet)
-            ? 28
-            : 32;
+            ? 24
+            : 28;
     TextAlign titleFontAlign = TextAlign.left;
     TextStyle titleFontStyle = TextStyle(
       fontFamily: 'DrukWideBold',
@@ -46,7 +46,7 @@ class MyTextList extends StatelessWidget {
 
     //- Text
     // double listBoxHeight = (textListHeight-(1.5*padding))-titleBoxHeight-2;
-    double fontSize = titleFontSize/2;
+    double fontSize = titleFontSize/1.75;
     TextAlign fontAlign = TextAlign.center;
     TextStyle fontStyle = TextStyle(
       fontFamily: 'Roboto',
@@ -89,7 +89,7 @@ class MyTextList extends StatelessWidget {
               crossAxisCount: 2,
               crossAxisSpacing: 5,
               mainAxisSpacing: 5,
-              childAspectRatio: fontSize * ((deviceType == DeviceType.mobile) ? 0.3 : 0.4),
+              childAspectRatio: fontSize * 0.3,
 
               // Scroll Control
               shrinkWrap: true,
