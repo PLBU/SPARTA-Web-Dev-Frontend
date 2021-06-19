@@ -130,7 +130,7 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
                         connectionState: snapshot.connectionState,
                       ),
                       SizedBox(height: space / 2),
-                      Scoreboard(
+                      ScoreboardView(
                         users: snapshot.data,
                         ranks: this.ranks,
                         curUser: currentUser,
