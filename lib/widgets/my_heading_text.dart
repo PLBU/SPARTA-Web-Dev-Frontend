@@ -21,6 +21,7 @@ class MyHeadingText extends StatelessWidget {
           : (deviceType == DeviceType.tablet) ? 30
           : 36,
       ),
+      textAlign: TextAlign.center,
     );
   }
 }
