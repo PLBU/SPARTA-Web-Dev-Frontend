@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sparta/pages/home/home.dart';
-import 'package:sparta/pages/auth/auth_page.dart';
-import 'package:sparta/pages/scoreboard/scoreboard_page.dart';
+import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/provider/route_state.dart';
+import 'package:sparta/provider/auth_state.dart';
 import 'package:sparta/widgets/my_footer.dart';
 import 'package:sparta/widgets/my_navigation_bar.dart';
 import 'package:sparta/widgets/my_drawer.dart';
-import 'package:sparta/utils/ui_utils.dart';
-import 'package:sparta/provider/auth_state.dart';
-import 'package:sparta/provider/route_state.dart';
+import 'package:sparta/pages/home/home.dart';
+import 'package:sparta/pages/auth/auth_page.dart';
+import 'package:sparta/pages/scoreboard/scoreboard_page.dart';
 
 void main() async {
   await AuthState.init();

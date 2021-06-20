@@ -1,10 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:sparta/utils/ui_utils.dart';
-import 'package:sparta/pages/scoreboard/views/scoreboard_row.dart';
 import 'package:sparta/models/user.dart';
 import 'package:sparta/widgets/my_button.dart';
+import 'package:sparta/pages/scoreboard/views/scoreboard_row.dart';
 
 class ScoreboardView extends StatefulWidget {
   ScoreboardView({this.users, this.ranks, this.curUser});
@@ -27,10 +25,10 @@ class _ScoreboardViewState extends State<ScoreboardView> {
     int nUsers = 50;
     List<dynamic> usersScoreboard = [];
     List<User> orderedUser = (widget.curUser != null)
-        ? widget.users
-            .where((element) => element.nim != widget.curUser.nim)
-            .toList()
-        : widget.users;
+      ? widget.users
+          .where((element) => element.nim != widget.curUser.nim)
+          .toList()
+      : widget.users;
     if (widget.curUser != null) orderedUser.insert(0, widget.curUser);
 
     for (int i = 0; i <= orderedUser.length ~/ nUsers; i++) {
@@ -66,7 +64,8 @@ class _ScoreboardViewState extends State<ScoreboardView> {
         );
     }
 
-    return Column(
+    return (widget.users.length>0) 
+    ? Column(
       children: [
         PageButton(
           handler1: () {
@@ -122,6 +121,18 @@ class _ScoreboardViewState extends State<ScoreboardView> {
             );
           },
         ),
+      ],
+    )
+    : Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          "User tidak ditemukan!",
+          style: TextStyle(
+            fontFamily: "DrukWideBold",
+            fontSize: (deviceType == DeviceType.mobile) ? 16 : 20,
+          )
+        )
       ],
     );
   }
