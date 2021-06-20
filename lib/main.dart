@@ -6,7 +6,7 @@ import 'package:sparta/provider/auth_state.dart';
 import 'package:sparta/widgets/my_footer.dart';
 import 'package:sparta/widgets/my_navigation_bar.dart';
 import 'package:sparta/widgets/my_drawer.dart';
-import 'package:sparta/pages/home/home.dart';
+import 'package:sparta/pages/home/home_page.dart';
 import 'package:sparta/pages/auth/auth_page.dart';
 import 'package:sparta/pages/scoreboard/scoreboard_page.dart';
 

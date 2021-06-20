@@ -25,7 +25,7 @@ class MyDrawer extends StatelessWidget {
                 onPressed: () {},
                 child: CircleAvatar(
                   backgroundColor: Colors.white,
-                  backgroundImage: AssetImage('images/blank_profile.jpg'),
+                  backgroundImage: AssetImage('assets/images/blank_profile.jpg'),
                   radius: 50,
                 ),
               ),

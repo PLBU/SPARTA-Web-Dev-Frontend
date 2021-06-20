@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -69,7 +67,7 @@ class MyNavigationBar extends StatelessWidget implements PreferredSizeWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset('icons/sparta_head.png',
+              Image.asset('assets/icons/sparta_head.png',
                   width: imageSize, height: imageSize),
               SizedBox(
                 width: 16,
@@ -114,7 +112,7 @@ class MyNavBarItemAuth extends StatelessWidget {
                 backgroundColor: Colors.white,
                 backgroundImage: (currentUser.foto != null)
                     ? MemoryImage(currentUser.foto)
-                    : AssetImage('images/blank_profile.jpg'),
+                    : AssetImage('assets/images/blank_profile.jpg'),
                 radius: 50,
               ),
             ),
