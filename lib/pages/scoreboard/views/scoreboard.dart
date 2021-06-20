@@ -69,10 +69,8 @@ class _ScoreboardViewState extends State<ScoreboardView> {
     }
 
     setState(() {
-      next = pageNum + 1 < usersScoreboard.length;
-      prev = pageNum > 0;
-      print(next);
-      print(prev);
+      next = (pageNum + 1) % usersScoreboard.length > 0;
+      prev = pageNum % usersScoreboard.length > 0;
     });
 
     return (widget.users.length > 0)
