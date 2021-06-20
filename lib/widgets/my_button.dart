@@ -24,9 +24,21 @@ class MyButton extends StatelessWidget {
     Color overlayColor =
         (buttonType == ButtonType.black) ? Colors.grey[850] : Colors.grey[200];
     DeviceType deviceType = UIUtils.getDeviceType(context);
-    double fontSize = (deviceType == DeviceType.mobile) ? 12 : 15;
-    double paddingVertical = (deviceType == DeviceType.mobile) ? 16 : 18;
-    double paddingHorizontal = (deviceType == DeviceType.mobile) ? 20 : 24;
+    double fontSize = (deviceType == DeviceType.mobile)
+        ? 10
+        : (deviceType == DeviceType.tablet)
+            ? 13
+            : 15;
+    double paddingVertical = (deviceType == DeviceType.mobile)
+        ? 10
+        : (deviceType == DeviceType.tablet)
+            ? 16
+            : 18;
+    double paddingHorizontal = (deviceType == DeviceType.mobile)
+        ? 14
+        : (deviceType == DeviceType.tablet)
+            ? 20
+            : 24;
 
     return Container(
       child: ElevatedButton(
