@@ -7,14 +7,17 @@ class MyPatternDecoration extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DeviceType deviceType = UIUtils.getDeviceType(context);
-    double size = deviceType == DeviceType.mobile ? 10 : deviceType == DeviceType.tablet? 20 : 40;
+    double size = deviceType == DeviceType.mobile
+        ? 24
+        : deviceType == DeviceType.tablet
+            ? 32
+            : 40;
 
     return Container(
       width: double.infinity,
-      padding: 
-        deviceType == DeviceType.mobile ? 
-        const EdgeInsets.only(top: 1, bottom: 1) : 
-        const EdgeInsets.only(top: 5, bottom: 5),
+      padding: deviceType == DeviceType.mobile
+          ? const EdgeInsets.only(top: 1, bottom: 1)
+          : const EdgeInsets.only(top: 5, bottom: 5),
       color: Colors.black,
       child: Image.asset(
         'assets/icons/PatternSparta.png',
