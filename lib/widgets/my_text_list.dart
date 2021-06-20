@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sparta/utils/ui_utils.dart';
-import 'package:sparta/widgets/my_title.dart';
 
 class MyTextList extends StatelessWidget {
   const MyTextList ({
@@ -47,7 +46,6 @@ class MyTextList extends StatelessWidget {
     //- Text
     // double listBoxHeight = (textListHeight-(1.5*padding))-titleBoxHeight-2;
     double fontSize = titleFontSize/1.75;
-    TextAlign fontAlign = TextAlign.center;
     TextStyle fontStyle = TextStyle(
       fontFamily: 'Roboto',
       fontSize: fontSize,

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/widgets/my_text_list.dart';
-
-import 'package:sparta/widgets/my_title.dart';
 import 'package:sparta/widgets/my_card.dart';
 
 class Divisi extends StatelessWidget {

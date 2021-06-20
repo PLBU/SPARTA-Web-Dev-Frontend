@@ -80,7 +80,7 @@ class TopCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
             ),
             child: this.user.foto == null
-                ? Image.asset('images/blank_profile.jpg')
+                ? Image.asset('assets/images/blank_profile.jpg')
                 : Image.memory(this.user.foto),
           ),
           SizedBox(height: (deviceType == DeviceType.mobile) ? 3 : 10),

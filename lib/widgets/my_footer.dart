@@ -1,9 +1,7 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:sparta/utils/ui_utils.dart';
 
 class MyFooter extends StatelessWidget {
-  String text = "© SPARTA 2020";
+  final String text = "© SPARTA 2020";
 
   @override
   Widget build(BuildContext context) {
