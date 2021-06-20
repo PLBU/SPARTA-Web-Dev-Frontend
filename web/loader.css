@@ -1,0 +1,92 @@
+body {
+    background: 'white';
+  }
+  .example {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    height: 1rem;
+    width: 1rem;
+    transform: translateX(-50%) translateY(-50%);
+  }
+  .container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1rem;
+    width: 1rem;
+  }
+  .block {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1rem;
+    width: 1rem;
+  }
+  .block > .item {
+    position: absolute;
+    height: 1rem;
+    width: 1rem;
+    background: black;
+    animation: move 2s linear infinite;
+  }
+  .block > .item:nth-of-type(1) {
+    top: -1rem;
+    left: -1rem;
+    animation-delay: -1.75s;
+  }
+  .block > .item:nth-of-type(2) {
+    top: -1rem;
+    left: 0;
+    animation-delay: -1.5s;
+  }
+  .block > .item:nth-of-type(3) {
+    top: -1rem;
+    left: 1rem;
+    animation-delay: -1.25s;
+  }
+  .block > .item:nth-of-type(4) {
+    top: 0;
+    left: 1rem;
+    animation-delay: -1s;
+  }
+  .block > .item:nth-of-type(5) {
+    top: 1rem;
+    left: 1rem;
+    animation-delay: -0.75s;
+  }
+  .block > .item:nth-of-type(6) {
+    top: 1rem;
+    left: 0;
+    animation-delay: -0.5s;
+  }
+  .block > .item:nth-of-type(7) {
+    top: 1rem;
+    left: -1rem;
+    animation-delay: -0.25s;
+  }
+  .block > .item:nth-of-type(8) {
+    top: 0;
+    left: -1rem;
+    animation-delay: 0s;
+  }
+  @keyframes move {
+    0% {
+      transform: rotate(0) scale(1);
+      animation-timing-function: ease-in;
+    }
+    10% {
+      transform: rotate(90deg) scale(0);
+    }
+    50% {
+      transform: rotate(90deg) scale(0);
+      animation-timing-function: ease-out;
+    }
+    60% {
+      transform: rotate(180deg) scale(1);
+    }
+    100% {
+      transform: rotate(180deg) scale(1);
+    }
+  }
+  
