@@ -4,7 +4,7 @@ import 'package:sparta/models/user.dart';
 import 'package:sparta/widgets/my_button.dart';
 import 'package:sparta/pages/scoreboard/views/scoreboard_row.dart';
 
-const userPerPage = 5;
+const userPerPage = 40;
 class ScoreboardView extends StatefulWidget {
   ScoreboardView({this.users, this.ranks, this.curUser});
 

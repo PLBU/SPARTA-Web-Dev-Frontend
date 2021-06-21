@@ -3,12 +3,13 @@ import 'package:sparta/utils/ui_utils.dart';
 
 class MyTextField extends StatelessWidget {
   const MyTextField({
-    this.minLines,
+    this.minLines = 1,
     this.maxLines,
     this.maxLength,
     this.hintText,
     this.helperText,
     this.width,
+    this.height,
     this.margin,
     this.controller,
     this.submitHandler,
@@ -24,6 +25,7 @@ class MyTextField extends StatelessWidget {
   final submitHandler;
   final margin;
   final width;
+  final height;
   final minLines;
   final maxLines;
   final maxLength;
@@ -43,7 +45,7 @@ class MyTextField extends StatelessWidget {
     return Container(
       margin: this.margin,
       width: this.width,
-      height: (deviceType == DeviceType.mobile) ? 60 : 80,
+      height: (minLines > 1) ? null : (deviceType == DeviceType.mobile) ? 60 : 80,
       child: TextField(
         obscureText: this.hidden,
         controller: this.controller,
@@ -60,7 +62,6 @@ class MyTextField extends StatelessWidget {
           hintStyle: TextStyle(fontFamily: 'Roboto'),
           helperText: this.helperText,
           helperStyle: TextStyle(fontFamily: 'Roboto', fontSize: respText),
-          contentPadding: EdgeInsets.symmetric(vertical: 0),
           border: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.black),
             borderRadius: BorderRadius.circular(16),
