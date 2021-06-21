@@ -9,6 +9,7 @@ import 'package:sparta/widgets/my_drawer.dart';
 import 'package:sparta/pages/home/home_page.dart';
 import 'package:sparta/pages/auth/auth_page.dart';
 import 'package:sparta/pages/scoreboard/scoreboard_page.dart';
+import 'dart:html';
 
 void main() async {
   await AuthState.init();
@@ -19,6 +20,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final loader = document.getElementsByClassName('loader');
+    if(loader.isNotEmpty) {
+      loader.first.remove();
+    }
+    
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
