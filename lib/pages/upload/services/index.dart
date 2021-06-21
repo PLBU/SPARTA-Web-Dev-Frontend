@@ -15,9 +15,14 @@ Future<List<Assignment>> fetchAssignments(String token) async {
   );
   final response = await http.get(uri, headers: headers);
 
-  var list = jsonDecode(response.body) as List;
-  List<Assignment> assignments =
-      list.map((obj) => Assignment.fromJson(obj)).toList();
+  if (response.statusCode != 400) {
+    var list = jsonDecode(response.body) as List;
+    List<Assignment> assignments =
+        list.map((obj) => Assignment.fromJson(obj)).toList();
 
-  return assignments;
+    return assignments;
+  } else {
+    inspect(response);
+    return null;
+  }
 }
