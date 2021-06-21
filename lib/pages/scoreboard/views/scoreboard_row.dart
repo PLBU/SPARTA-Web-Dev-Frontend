@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/widgets/my_button.dart';
-import 'package:sparta/widgets/my_support_dialog.dart';
+import 'package:sparta/pages/send_support/support_dialog.dart';
 
 class ScoreboardRow extends StatelessWidget {
   const ScoreboardRow({
@@ -102,6 +102,7 @@ class MyRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
           width: width * this.mult,
@@ -127,6 +128,7 @@ class MyRow extends StatelessWidget {
         ),
         Expanded(
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
@@ -145,7 +147,7 @@ class MyRow extends StatelessWidget {
                   text: "Support",
                   buttonType: ButtonType.black,
                   handler: () {
-                    showMySupportDialog(context, this.nickname);
+                    showSupportDialog(context, this.nickname, id);
                   },
                 ),
             ],
