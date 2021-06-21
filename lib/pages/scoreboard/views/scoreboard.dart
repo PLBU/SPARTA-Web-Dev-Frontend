@@ -39,6 +39,7 @@ class _ScoreboardViewState extends State<ScoreboardView> {
           orderedUser.sublist(i * nUsers, orderedUser.length).map(
             (entry) {
               return ScoreboardRow(
+                objectId: entry.id,
                 id: (widget.ranks[entry.nim]).toString(),
                 text: entry.nim + " " + entry.namaLengkap,
                 nickname: entry.namaPanggilan,
@@ -55,6 +56,7 @@ class _ScoreboardViewState extends State<ScoreboardView> {
           orderedUser.sublist(i * nUsers, (i + 1) * nUsers).map(
             (entry) {
               return ScoreboardRow(
+                objectId: entry.id,
                 id: (widget.ranks[entry.nim]).toString(),
                 text: entry.nim + " " + entry.namaLengkap,
                 nickname: entry.namaPanggilan,
