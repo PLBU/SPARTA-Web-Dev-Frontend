@@ -20,11 +20,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final loader = document.getElementsByClassName('loader');
-    if(loader.isNotEmpty) {
-      loader.first.remove();
-    }
-    
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -35,18 +30,23 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: (settings) {
         return PageRouteBuilder(
             pageBuilder: (_, __, ___) {
-              RouteState.changeRouteState(settings.name);
-              return BasePage((settings.name == '/')
-                  ? HomePage()
-                  : (settings.name == '/scoreboard')
-                      ? ScoreboardPage()
-                      : (settings.name == '/upload-tugas')
-                          ? HomePage()
-                          : (settings.name == '/gallery')
-                              ? HomePage()
-                              : (settings.name == '/auth')
-                                  ? AuthPage()
-                                  : null);
+              var routeName = settings.name;
+              if (context.read(AuthState.jwt).state != null &&
+                  routeName == '/auth') routeName = '/';
+              RouteState.changeRouteState(routeName);
+              return BasePage(
+                (routeName == '/')
+                    ? HomePage()
+                    : (routeName == '/scoreboard')
+                        ? ScoreboardPage()
+                        : (routeName == '/upload-tugas')
+                            ? HomePage()
+                            : (routeName == '/gallery')
+                                ? HomePage()
+                                : (routeName == '/auth')
+                                    ? AuthPage()
+                                    : null,
+              );
             },
             settings: settings);
       },
@@ -62,6 +62,10 @@ class BasePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DeviceType deviceType = UIUtils.getDeviceType(context);
+    final loader = document.getElementsByClassName('loader');
+    if (loader.isNotEmpty) {
+      loader.first.remove();
+    }
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
