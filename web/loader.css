@@ -31,7 +31,7 @@
   content: '';
   position: absolute;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: lightgrey;
   animation: indeterminate_second 1.5s infinite ease-in;
 }
 

@@ -15,7 +15,7 @@ Future<bool> sendSupport(String penerima, String text, String jwt) async {
     encoding: encoding,
   );
 
-  if (response.statusCode == 200) {
+  if (response.statusCode == 201) {
     return true;
   } else return false;
 }
