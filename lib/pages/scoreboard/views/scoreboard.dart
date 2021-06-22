@@ -4,7 +4,7 @@ import 'package:sparta/models/user.dart';
 import 'package:sparta/widgets/my_button.dart';
 import 'package:sparta/pages/scoreboard/views/scoreboard_row.dart';
 
-const userPerPage = 5;
+const userPerPage = 40;
 class ScoreboardView extends StatefulWidget {
   ScoreboardView({this.users, this.ranks, this.curUser});
 
@@ -39,6 +39,7 @@ class _ScoreboardViewState extends State<ScoreboardView> {
           orderedUser.sublist(i * nUsers, orderedUser.length).map(
             (entry) {
               return ScoreboardRow(
+                objectId: entry.id,
                 id: (widget.ranks[entry.nim]).toString(),
                 text: entry.nim + " " + entry.namaLengkap,
                 nickname: entry.namaPanggilan,
@@ -55,6 +56,7 @@ class _ScoreboardViewState extends State<ScoreboardView> {
           orderedUser.sublist(i * nUsers, (i + 1) * nUsers).map(
             (entry) {
               return ScoreboardRow(
+                objectId: entry.id,
                 id: (widget.ranks[entry.nim]).toString(),
                 text: entry.nim + " " + entry.namaLengkap,
                 nickname: entry.namaPanggilan,

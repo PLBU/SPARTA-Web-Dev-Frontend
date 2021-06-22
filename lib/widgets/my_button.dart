@@ -64,10 +64,14 @@ class MyButton extends StatelessWidget {
             },
             duration: const Duration(seconds: 1),
             child: (this.isLoading)
-                ? CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(textColor),
-                    strokeWidth: 2,
-                  )
+                ? SizedBox(
+                  width: 1.5*fontSize,
+                  height: 1.5*fontSize,
+                  child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(textColor),
+                      strokeWidth: 2,
+                    ),
+                )
                 : Text(
                     text,
                     style: TextStyle(

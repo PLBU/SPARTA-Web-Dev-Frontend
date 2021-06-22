@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/widgets/my_button.dart';
-import 'package:sparta/widgets/my_support_dialog.dart';
+import 'package:sparta/pages/send_support/support_dialog.dart';
 
 class ScoreboardRow extends StatelessWidget {
   const ScoreboardRow({
+    this.objectId,
     this.id,
     this.text,
     this.bgColor,
@@ -13,6 +14,7 @@ class ScoreboardRow extends StatelessWidget {
     this.skor,
   });
 
+  final String objectId;
   final String id;
   final String text;
   final String nickname;
@@ -59,6 +61,7 @@ class ScoreboardRow extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: MyRow(
+        objectId: objectId,
         id: id,
         text: text,
         skor: skor,
@@ -76,6 +79,7 @@ class ScoreboardRow extends StatelessWidget {
 
 class MyRow extends StatelessWidget {
   const MyRow({
+    @required this.objectId,
     @required this.id,
     @required this.respID,
     @required this.respText,
@@ -88,6 +92,7 @@ class MyRow extends StatelessWidget {
     @required this.self,
   });
 
+  final String objectId;
   final String id;
   final String nickname;
   final int skor;
@@ -102,6 +107,7 @@ class MyRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
           width: width * this.mult,
@@ -127,6 +133,7 @@ class MyRow extends StatelessWidget {
         ),
         Expanded(
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
@@ -145,7 +152,7 @@ class MyRow extends StatelessWidget {
                   text: "Support",
                   buttonType: ButtonType.black,
                   handler: () {
-                    showMySupportDialog(context, this.nickname);
+                    showSupportDialog(context, this.nickname, this.objectId);
                   },
                 ),
             ],
