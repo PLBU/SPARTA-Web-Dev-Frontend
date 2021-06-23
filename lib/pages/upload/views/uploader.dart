@@ -38,9 +38,8 @@ class _UploaderState extends State<Uploader> {
   Submission _curSubmission;
   bool _submitted;
   List<PlatformFile> _paths;
-  String _extension;
   String _fileName;
-  bool _loadingPath = false;
+  bool _loading = false;
 
   @override
   void initState() {
@@ -61,7 +60,6 @@ class _UploaderState extends State<Uploader> {
   }
 
   void _openFileExplorer() async {
-    setState(() => _loadingPath = true);
     try {
       var temp = await FilePicker.platform.pickFiles(
         type: pickingType,
@@ -76,7 +74,6 @@ class _UploaderState extends State<Uploader> {
     }
     if (!mounted) return;
     setState(() {
-      _loadingPath = false;
       _fileName = _paths != null
           ? _paths
               .map((e) => e.name)
@@ -136,19 +133,20 @@ class _UploaderState extends State<Uploader> {
             fileName: this._fileName,
             submitted: this._submitted,
             submission: this._curSubmission,
+            loading: this._loading,
             submitHandler: () async {
-              if (_submitted) {
-                if (_curSubmission == null) return;
-
+              if (_loading) return;
+              if (_submitted)
                 setState(() {
                   _submitted = false;
                   _paths = null;
                 });
-              } else if (_paths != null) {
+              else if (_paths != null) {
                 setState(() {
                   unfinished.remove(_curAssignment);
                   _curSubmission = null;
                   _submitted = true;
+                  _loading = true;
                 });
 
                 await uploadFile(
@@ -160,6 +158,7 @@ class _UploaderState extends State<Uploader> {
 
                 var temp = await fetchSubmissions(widget.jwtToken);
                 setState(() {
+                  _loading = false;
                   submissions = temp;
                   _curSubmission = submissions
                       .firstWhere((element) => element.assignment == _idTugas);

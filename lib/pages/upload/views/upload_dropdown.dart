@@ -20,13 +20,17 @@ class UploadDropdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DeviceType deviceType = UIUtils.getDeviceType(context);
+
     return Container(
       width: this.width,
       child: Row(
         children: [
           Text(
             "Pilih Tugas:",
-            style: TextStyle(fontSize: size),
+            style: TextStyle(
+              fontSize: size,
+              fontFamily: "Roboto",
+            ),
           ),
           SizedBox(width: 10),
           Container(
@@ -55,6 +59,9 @@ class UploadDropdown extends StatelessWidget {
                         child: Text(
                           assingment.name,
                           overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontFamily: "Roboto",
+                          ),
                         ),
                       );
                     },
