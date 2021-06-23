@@ -17,12 +17,15 @@ class AuthState {
 
     if (storage.containsKey('jwt') && storage.containsKey('currentUser')) {
       String savedJwt = storage.getString('jwt');
-      User savedUser = User.fromJson(json.decode(storage.getString('currentUser')));
-      String savedType = storage.getString('type');
-
       jwt = StateProvider((ref) => savedJwt);
-      currentUser = StateProvider((ref) => savedUser);
+
+      String savedType = storage.getString('type');
       type = StateProvider((ref) => savedType);
+
+      if (savedType == 'admin') return;
+
+      User savedUser = User.fromJson(json.decode(storage.getString('currentUser')));
+      currentUser = StateProvider((ref) => savedUser);
     }
   }
 
@@ -44,12 +47,15 @@ class AuthState {
 
     if (response.statusCode == 200) {
       context.read(jwt).state = responseBody['token'];
-      context.read(currentUser).state = (responseBody['user'] != null) ? User.fromJson(responseBody['user']) : null;
-      context.read(type).state = responseBody['type'];
-
       storage.setString('jwt', responseBody['token']);
-      storage.setString('currentUser', json.encode(responseBody['user']));
+
+      context.read(type).state = responseBody['type'];
       storage.setString('type', responseBody['type']);
+
+      if (responseBody['type'] == 'admin') return;
+
+      context.read(currentUser).state = User.fromJson(responseBody['user']);
+      storage.setString('currentUser', json.encode(responseBody['user']));
     } else {
       throw Exception(responseBody['error']);
     }
