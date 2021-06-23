@@ -10,6 +10,7 @@ import 'package:sparta/widgets/my_drawer.dart';
 import 'package:sparta/pages/home/home_page.dart';
 import 'package:sparta/pages/auth/auth_page.dart';
 import 'package:sparta/pages/scoreboard/scoreboard_page.dart';
+import 'package:sparta/pages/upload/upload_page.dart';
 import 'package:sparta/pages/gallery/gallery_page.dart';
 import 'dart:html';
 
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
                     : (routeComponents[1] == 'scoreboard')
                         ? ScoreboardPage()
                         : (routeComponents[1] == 'upload-tugas')
-                            ? HomePage()
+                            ? UploadPage()
                             : (routeComponents[1] == 'gallery')
                                 ? GalleryPage()
                                 : (routeComponents[1] == 'auth')
