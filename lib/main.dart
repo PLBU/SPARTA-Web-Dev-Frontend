@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
                     : (routeName == '/scoreboard')
                         ? ScoreboardPage()
                         : (routeName == '/upload-tugas')
-                            ? HomePage()
+                            ? UploadPage()
                             : (routeName == '/gallery')
                                 ? HomePage()
                                 : (routeName == '/auth')

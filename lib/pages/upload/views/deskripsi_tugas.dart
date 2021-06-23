@@ -14,8 +14,10 @@ class DeskripsiTugas extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String deadline =
+    String date =
         "Deadline: ${this.assignment.deadline.year.toString()}-${this.assignment.deadline.month.toString().padLeft(2, '0')}-${this.assignment.deadline.day.toString().padLeft(2, '0')}";
+    String time =
+        "${this.assignment.deadline.hour.toString().padLeft(2, '0')}:${this.assignment.deadline.minute.toString().padLeft(2, '0')}:${this.assignment.deadline.second.toString().padLeft(2, '0')}";
 
     DeviceType deviceType = UIUtils.getDeviceType(context);
     double respFont = (deviceType == DeviceType.mobile) ? 16 : 20;
@@ -39,7 +41,7 @@ class DeskripsiTugas extends StatelessWidget {
             textAlign: TextAlign.left,
           ),
           Text(
-            deadline,
+            date + " " + time,
             style: TextStyle(
               fontFamily: "Roboto",
               fontSize: size,

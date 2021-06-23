@@ -27,21 +27,36 @@ class UploadDropdown extends StatelessWidget {
             style: TextStyle(fontSize: size),
           ),
           SizedBox(width: 10),
-          DropdownButton(
-            style: TextStyle(
-              fontFamily: 'Roboto',
-              fontSize: size,
+          Container(
+            height: 35,
+            width: 300,
+            alignment: Alignment.centerRight,
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black),
+              borderRadius: BorderRadius.circular(10),
             ),
-            value: this.value,
-            onChanged: this.onChange,
-            items: this.items.map(
-              (Assignment assingment) {
-                return DropdownMenuItem<String>(
-                  value: assingment.id,
-                  child: Text(assingment.name),
-                );
-              },
-            ).toList(),
+            child: DropdownButtonHideUnderline(
+              child: ButtonTheme(
+                alignedDropdown: true,
+                child: DropdownButton(
+                  isExpanded: true,
+                  style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: size,
+                  ),
+                  value: this.value,
+                  onChanged: this.onChange,
+                  items: this.items.map(
+                    (Assignment assingment) {
+                      return DropdownMenuItem<String>(
+                        value: assingment.id,
+                        child: Text(assingment.name),
+                      );
+                    },
+                  ).toList(),
+                ),
+              ),
+            ),
           ),
         ],
       ),
