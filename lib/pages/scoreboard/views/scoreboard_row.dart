@@ -50,28 +50,36 @@ class ScoreboardRow extends StatelessWidget {
             : 25;
     Color fontColor = this.self ? Colors.white : Colors.black;
 
-    return Container(
-      width: respWidth,
-      height: respHeight,
-      padding: respPad,
-      margin: respMargin,
-      decoration: BoxDecoration(
-        color: this.self ? Colors.black : bgColor,
-        border: Border.all(color: Colors.black),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: MyRow(
-        objectId: objectId,
-        id: id,
-        text: text,
-        skor: skor,
-        width: respWidth,
-        respID: respID,
-        respText: respText,
-        mult: (deviceType == DeviceType.mobile) ? 0.15 : 0.1,
-        fontColor: fontColor,
-        nickname: this.nickname,
-        self: this.self,
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(context, '/profile/${this.objectId}');
+        },
+        child: Container(
+          width: respWidth,
+          height: respHeight,
+          padding: respPad,
+          margin: respMargin,
+          decoration: BoxDecoration(
+            color: this.self ? Colors.black : bgColor,
+            border: Border.all(color: Colors.black),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: MyRow(
+            objectId: objectId,
+            id: id,
+            text: text,
+            skor: skor,
+            width: respWidth,
+            respID: respID,
+            respText: respText,
+            mult: (deviceType == DeviceType.mobile) ? 0.15 : 0.1,
+            fontColor: fontColor,
+            nickname: this.nickname,
+            self: this.self,
+          ),
+        ),
       ),
     );
   }
