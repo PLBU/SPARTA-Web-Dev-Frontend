@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sparta/provider/auth_state.dart';
@@ -33,7 +31,6 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
       this.allUser = allUser;
 
       configureRanks(allUser);
-      inspect(ranks);
     });
   }
 
