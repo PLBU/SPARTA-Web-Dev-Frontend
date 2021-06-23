@@ -11,8 +11,9 @@ class MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, watch, child) {
-      final currentUser = watch(AuthState.currentUser).state;
-        
+        final currentUser = watch(AuthState.currentUser).state;
+        final type = watch(AuthState.type).state;
+
         List<Widget> navBarItems = [
           if (currentUser != null)
             DrawerHeader(
@@ -25,7 +26,8 @@ class MyDrawer extends StatelessWidget {
                 onPressed: () {},
                 child: CircleAvatar(
                   backgroundColor: Colors.white,
-                  backgroundImage: AssetImage('assets/images/blank_profile.jpg'),
+                  backgroundImage:
+                      AssetImage('assets/images/blank_profile.jpg'),
                   radius: 50,
                 ),
               ),
@@ -38,10 +40,11 @@ class MyDrawer extends StatelessWidget {
             text: "scoreboard",
             routeName: "/scoreboard",
           ),
-          if (currentUser != null) MyDrawerItem(
-            text: "upload tugas",
-            routeName: "/upload-tugas",
-          ),
+          if (currentUser != null || type == 'admin')
+            MyDrawerItem(
+              text: "upload tugas",
+              routeName: "/upload-tugas",
+            ),
           MyDrawerItem(
             text: "gallery",
             routeName: "/gallery",
@@ -49,11 +52,10 @@ class MyDrawer extends StatelessWidget {
           Container(
             margin: EdgeInsets.all(24),
             padding: EdgeInsets.symmetric(horizontal: 48),
-            child: (currentUser != null)
+            child: (currentUser != null || type == 'admin')
                 ? MyButton(
                     handler: () {
                       AuthState.logout(context);
-                      Navigator.pushNamed(context, '/');
                     },
                     text: "Logout",
                     buttonType: ButtonType.white,

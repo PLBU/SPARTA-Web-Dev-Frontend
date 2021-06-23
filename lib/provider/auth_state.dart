@@ -10,17 +10,19 @@ class AuthState {
   static SharedPreferences storage;
   static StateProvider<dynamic> jwt = StateProvider((ref) => null);
   static StateProvider<dynamic> currentUser = StateProvider((ref) => null);
+  static StateProvider<dynamic> type = StateProvider((ref) => null);
 
   static Future<void> init() async {
     storage = await SharedPreferences.getInstance();
 
     if (storage.containsKey('jwt') && storage.containsKey('currentUser')) {
       String savedJwt = storage.getString('jwt');
-      User savedUser =
-          User.fromJson(json.decode(storage.getString('currentUser')));
+      User savedUser = User.fromJson(json.decode(storage.getString('currentUser')));
+      String savedType = storage.getString('type');
 
       jwt = StateProvider((ref) => savedJwt);
       currentUser = StateProvider((ref) => savedUser);
+      type = StateProvider((ref) => savedType);
     }
   }
 
@@ -42,19 +44,25 @@ class AuthState {
 
     if (response.statusCode == 200) {
       context.read(jwt).state = responseBody['token'];
-      context.read(currentUser).state = User.fromJson(responseBody['user']);
+      context.read(currentUser).state = (responseBody['user'] != null) ? User.fromJson(responseBody['user']) : null;
+      context.read(type).state = responseBody['type'];
+
       storage.setString('jwt', responseBody['token']);
       storage.setString('currentUser', json.encode(responseBody['user']));
+      storage.setString('type', responseBody['type']);
     } else {
       throw Exception(responseBody['error']);
     }
   }
 
   static void logout(BuildContext context) {
+    Navigator.pushNamed(context, '/');
     context.read(jwt).state = null;
     context.read(currentUser).state = null;
+    context.read(type).state = null;
 
     storage.remove('jwt');
     storage.remove('currentUser');
+    storage.remove('type');
   }
 }

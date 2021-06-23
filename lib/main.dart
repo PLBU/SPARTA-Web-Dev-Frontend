@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sparta/pages/profile/profile_page.dart';
 import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/provider/route_state.dart';
 import 'package:sparta/provider/auth_state.dart';
@@ -11,6 +12,8 @@ import 'package:sparta/pages/auth/auth_page.dart';
 import 'package:sparta/pages/scoreboard/scoreboard_page.dart';
 import 'package:sparta/pages/gallery/gallery_page.dart';
 import 'dart:html';
+
+import 'package:sparta/widgets/my_title.dart';
 
 void main() async {
   await AuthState.init();
@@ -31,22 +34,28 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: (settings) {
         return PageRouteBuilder(
             pageBuilder: (_, __, ___) {
-              var routeName = settings.name;
+              var routeComponents = settings.name.split('/');
               if (context.read(AuthState.jwt).state != null &&
-                  routeName == '/auth') routeName = '/';
-              RouteState.changeRouteState(routeName);
+                  routeComponents[1] == 'auth') routeComponents[1] = '';
+              RouteState.changeRouteState('/' + routeComponents[1]);
               return BasePage(
-                (routeName == '/')
+                (routeComponents[1] == '')
                     ? HomePage()
-                    : (routeName == '/scoreboard')
+                    : (routeComponents[1] == 'scoreboard')
                         ? ScoreboardPage()
-                        : (routeName == '/upload-tugas')
+                        : (routeComponents[1] == 'upload-tugas')
                             ? HomePage()
                             : (routeName == '/gallery')
                                 ? GalleryPage()
                                 : (routeName == '/auth')
                                     ? AuthPage()
-                                    : null,
+                                    : (routeComponents[1] == 'profile')
+                                        ? ProfilePage(id: routeComponents.last)
+                                        : Center(
+                                            child: MyTitle(
+                                              text: "404 Not Found",
+                                            ),
+                                          ),
               );
             },
             settings: settings);
@@ -76,7 +85,7 @@ class BasePage extends StatelessWidget {
         children: [
           ConstrainedBox(
             constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height,
+              minHeight: MediaQuery.of(context).size.height - MyNavigationBar().preferredSize.height,
             ),
             child: pageContent,
           ),
