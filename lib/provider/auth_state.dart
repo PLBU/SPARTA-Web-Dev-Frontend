@@ -51,6 +51,7 @@ class AuthState {
   }
 
   static void logout(BuildContext context) {
+    Navigator.pushNamed(context, '/');
     context.read(jwt).state = null;
     context.read(currentUser).state = null;
 
