@@ -196,6 +196,7 @@ class ImgFullScreen extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: double.infinity,
+        color: Color.fromARGB(127, 0, 0, 0),
         child: Hero(
           transitionOnUserGestures: true,
           tag: 'imageHero' + this.tag,
