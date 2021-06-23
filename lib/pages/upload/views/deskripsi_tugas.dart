@@ -36,7 +36,7 @@ class DeskripsiTugas extends StatelessWidget {
             this.assignment.name,
             style: TextStyle(
               fontFamily: "DrukWideBold",
-              fontSize: respFont,
+              fontSize: respFont * 1.2,
             ),
             textAlign: TextAlign.left,
           ),

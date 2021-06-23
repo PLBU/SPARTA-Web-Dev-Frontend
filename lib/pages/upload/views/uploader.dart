@@ -31,6 +31,7 @@ class _UploaderState extends State<Uploader> {
   List<Assignment> assignments;
   List<Submission> submissions;
   List<Assignment> unfinished;
+  FileType pickingType = FileType.any;
 
   String _idTugas;
   Assignment _curAssignment;
@@ -40,11 +41,12 @@ class _UploaderState extends State<Uploader> {
   String _extension;
   String _fileName;
   bool _loadingPath = false;
-  FileType _pickingType = FileType.any;
 
   @override
   void initState() {
     super.initState();
+    _paths = null;
+    _fileName = null;
     assignments = widget.data[0];
     submissions = widget.data[1];
     unfinished = widget.data[2];
@@ -62,7 +64,7 @@ class _UploaderState extends State<Uploader> {
     setState(() => _loadingPath = true);
     try {
       var temp = await FilePicker.platform.pickFiles(
-        type: _pickingType,
+        type: pickingType,
         allowMultiple: false,
         allowedExtensions: null,
       );
@@ -96,12 +98,7 @@ class _UploaderState extends State<Uploader> {
     double respFont = (deviceType == DeviceType.mobile) ? 14 : 18;
 
     return MyContainer(
-      width: (deviceType == DeviceType.mobile)
-          ? 350
-          : (deviceType == DeviceType.tablet)
-              ? 550
-              : 800,
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all((deviceType == DeviceType.mobile) ? 25 : 32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -141,7 +138,7 @@ class _UploaderState extends State<Uploader> {
             submission: this._curSubmission,
             submitHandler: () async {
               if (_submitted) {
-                if (_curSubmission==null) return;
+                if (_curSubmission == null) return;
 
                 setState(() {
                   _submitted = false;
@@ -150,7 +147,7 @@ class _UploaderState extends State<Uploader> {
               } else if (_paths != null) {
                 setState(() {
                   unfinished.remove(_curAssignment);
-                  _curSubmission = null;              
+                  _curSubmission = null;
                   _submitted = true;
                 });
 
@@ -161,7 +158,7 @@ class _UploaderState extends State<Uploader> {
                   _idTugas,
                 );
 
-                var temp  = await fetchSubmissions(widget.jwtToken);
+                var temp = await fetchSubmissions(widget.jwtToken);
                 setState(() {
                   submissions = temp;
                   _curSubmission = submissions

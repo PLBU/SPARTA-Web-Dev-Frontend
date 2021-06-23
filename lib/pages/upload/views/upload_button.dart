@@ -72,7 +72,7 @@ class UploadButton extends StatelessWidget {
               ],
             ),
           ),
-          if (this.submission != null)
+          if (!this.submitted || this.submission != null)
             MyButton(
               handler: this.submitHandler,
               text: this.submitted ? "Resubmit" : "Submit",
