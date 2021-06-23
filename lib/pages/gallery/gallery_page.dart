@@ -76,7 +76,7 @@ class _GalleryPageState extends State<GalleryPage> {
     }
 
     return FutureBuilder(
-        future: imgLinksResp,
+        future: Future.wait([imgLinksResp , featuredResp]),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Column(children: <Widget>[
@@ -110,22 +110,29 @@ class _GalleryPageState extends State<GalleryPage> {
                                 : allImgLinks.length - currFirstIdx);
                         i++)
                       GestureDetector(
-                        child: MyContainer(
-                          child: FittedBox(
-                            child: (!isPrevBtnExist) ? Image.network(featuredLinks[i]) : Image.network(currImgLinks[i]),
-                            fit: BoxFit.fitHeight,
-                            clipBehavior: Clip.antiAlias,
+                        child: Hero(
+                          transitionOnUserGestures: true,
+                          tag: 'imageHero' + i.toString(),
+                          child: MyContainer(
+                            child: FittedBox(
+                              child: (!isPrevBtnExist) ? Image.network(featuredLinks[i]) : Image.network(currImgLinks[i]),
+                              fit: BoxFit.cover,
+                              clipBehavior: Clip.antiAlias,
+                            ),
+                            width: 128,
+                            height: 128,
                           ),
-                          width: 128,
-                          height: 128,
                         ),
                         onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (_) {
-                            return ImgFullScreen(
-                              linkSource: currImgLinks[i],
-                            );
-                          }));
+                          Navigator.of(context).push(PageRouteBuilder(
+                            opaque: false,
+                            pageBuilder: (BuildContext context, _, __) {
+                                return ImgFullScreen(
+                                  linkSource: (!isPrevBtnExist) ? featuredLinks[i] : currImgLinks[i],
+                                  tag: i.toString(),
+                                );
+                            }
+                          ));
                         },
                       )
                   ],
@@ -177,19 +184,25 @@ class _GalleryPageState extends State<GalleryPage> {
 class ImgFullScreen extends StatelessWidget {
   const ImgFullScreen({
     this.linkSource,
+    this.tag,
   });
 
   final String linkSource;
+  final String tag;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
+        width: double.infinity,
+        height: double.infinity,
         child: Hero(
-          tag: 'imageHero',
-          child: Image.network(linkSource),
+          transitionOnUserGestures: true,
+          tag: 'imageHero' + this.tag,
+          child: FittedBox(
+            child: Image.network(linkSource),
+            fit: BoxFit.contain,
+          ),
         ),
       ),
       onTap: () {
