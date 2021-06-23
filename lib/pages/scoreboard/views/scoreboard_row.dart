@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/widgets/my_button.dart';
 import 'package:sparta/pages/send_support/support_dialog.dart';
+import 'package:flutter/rendering.dart';
 
 class ScoreboardRow extends StatelessWidget {
   const ScoreboardRow({
