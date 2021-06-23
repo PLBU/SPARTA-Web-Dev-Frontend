@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/widgets/my_button.dart';
 import 'package:sparta/pages/send_support/support_dialog.dart';
+import 'package:flutter/rendering.dart';
 
 class ScoreboardRow extends StatelessWidget {
   const ScoreboardRow({
@@ -50,35 +51,33 @@ class ScoreboardRow extends StatelessWidget {
             : 25;
     Color fontColor = this.self ? Colors.white : Colors.black;
 
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: () {
-          Navigator.pushNamed(context, '/profile/${this.objectId}');
-        },
-        child: Container(
+    return InkWell(
+      hoverColor: Color.fromRGBO(0, 0, 0, 0.01),
+      onTap: () {
+        Navigator.pushNamed(context, '/profile/${this.objectId}');
+      },
+      child: Container(
+        width: respWidth,
+        height: respHeight,
+        padding: respPad,
+        margin: respMargin,
+        decoration: BoxDecoration(
+          color: this.self ? Colors.black : bgColor,
+          border: Border.all(color: Colors.black),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: MyRow(
+          objectId: objectId,
+          id: id,
+          text: text,
+          skor: skor,
           width: respWidth,
-          height: respHeight,
-          padding: respPad,
-          margin: respMargin,
-          decoration: BoxDecoration(
-            color: this.self ? Colors.black : bgColor,
-            border: Border.all(color: Colors.black),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: MyRow(
-            objectId: objectId,
-            id: id,
-            text: text,
-            skor: skor,
-            width: respWidth,
-            respID: respID,
-            respText: respText,
-            mult: (deviceType == DeviceType.mobile) ? 0.15 : 0.1,
-            fontColor: fontColor,
-            nickname: this.nickname,
-            self: this.self,
-          ),
+          respID: respID,
+          respText: respText,
+          mult: (deviceType == DeviceType.mobile) ? 0.15 : 0.1,
+          fontColor: fontColor,
+          nickname: this.nickname,
+          self: this.self,
         ),
       ),
     );
