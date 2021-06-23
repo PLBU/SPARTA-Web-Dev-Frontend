@@ -32,7 +32,7 @@ class _UploaderState extends State<Uploader> {
   List<Submission> submissions;
   List<Assignment> unfinished;
 
-  String _tugas;
+  String _idTugas;
   Assignment _curAssignment;
   Submission _curSubmission;
   bool _submitted;
@@ -49,11 +49,11 @@ class _UploaderState extends State<Uploader> {
     submissions = widget.data[1];
     unfinished = widget.data[2];
 
-    _tugas = assignments.first.id;
+    _idTugas = assignments.first.id;
     _curAssignment = assignments.first;
     _submitted = !unfinished.contains(_curAssignment);
     _curSubmission = _submitted
-        ? submissions.firstWhere((element) => element.assignment == _tugas)
+        ? submissions.firstWhere((element) => element.assignment == _idTugas)
         : null;
     inspect(_curAssignment);
   }
@@ -61,12 +61,12 @@ class _UploaderState extends State<Uploader> {
   void _openFileExplorer() async {
     setState(() => _loadingPath = true);
     try {
-      _paths = (await FilePicker.platform.pickFiles(
+      var temp = await FilePicker.platform.pickFiles(
         type: _pickingType,
         allowMultiple: false,
         allowedExtensions: null,
-      ))
-          .files;
+      );
+      _paths = temp != null ? temp.files : null;
     } on PlatformException catch (e) {
       print("Unsupported operation" + e.toString());
     } catch (ex) {
@@ -83,7 +83,6 @@ class _UploaderState extends State<Uploader> {
               .replaceAll(")", "")
           : 'Pilih File..';
     });
-    inspect(_paths);
   }
 
   @override
@@ -110,19 +109,19 @@ class _UploaderState extends State<Uploader> {
             width: respWidth,
             onChange: (dynamic newValue) {
               setState(() {
-                this._tugas = newValue;
+                this._idTugas = newValue;
                 this._curAssignment =
                     assignments.firstWhere((el) => el.id == newValue);
                 this._submitted = !unfinished.contains(_curAssignment);
                 this._curSubmission = _submitted
                     ? submissions
-                        .firstWhere((element) => element.assignment == _tugas)
+                        .firstWhere((element) => element.assignment == _idTugas)
                     : null;
                 this._paths = null;
                 this._fileName = 'Pilih File..';
               });
             },
-            value: this._tugas,
+            value: this._idTugas,
             items: assignments,
           ),
           SizedBox(height: 10),
@@ -142,18 +141,33 @@ class _UploaderState extends State<Uploader> {
             submission: this._curSubmission,
             submitHandler: () async {
               if (_submitted) {
+                if (_curSubmission==null) return;
+
                 setState(() {
                   _submitted = false;
                   _paths = null;
                 });
-              } else if (_paths != null)
+              } else if (_paths != null) {
+                setState(() {
+                  unfinished.remove(_curAssignment);
+                  _curSubmission = null;              
+                  _submitted = true;
+                });
+
                 await uploadFile(
                   _paths.first.bytes,
                   _paths.first.name,
                   widget.jwtToken,
-                  _curAssignment.id,
+                  _idTugas,
                 );
-              else
+
+                var temp  = await fetchSubmissions(widget.jwtToken);
+                setState(() {
+                  submissions = temp;
+                  _curSubmission = submissions
+                      .firstWhere((element) => element.assignment == _idTugas);
+                });
+              } else
                 setState(() {
                   _fileName = "Pilih File terlebih dahulu!";
                 });

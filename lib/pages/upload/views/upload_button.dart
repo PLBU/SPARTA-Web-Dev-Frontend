@@ -39,16 +39,23 @@ class UploadButton extends StatelessWidget {
                 Container(
                   width: this.submitted ? width * 0.65 : width * 0.4,
                   child: this.submitted
-                      ? InkWell(
-                          onTap: () => launch(this.submission.submissionLink),
-                          child: Text(
-                            this.submission.submissionLink,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              color: Colors.blueAccent,
-                            ),
-                          ),
-                        )
+                      ? this.submission != null
+                          ? InkWell(
+                              onTap: () =>
+                                  launch(this.submission.submissionLink),
+                              child: Text(
+                                this.submission.submissionLink,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Colors.blueAccent,
+                                ),
+                              ),
+                            )
+                          : LinearProgressIndicator(
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.black),
+                              backgroundColor: Colors.white,
+                            )
                       : Text(
                           this.fileName != null
                               ? this.fileName
@@ -65,11 +72,12 @@ class UploadButton extends StatelessWidget {
               ],
             ),
           ),
-          MyButton(
-            handler: this.submitHandler,
-            text: this.submitted ? "Resubmit" : "Submit",
-            buttonType: ButtonType.black,
-          ),
+          if (this.submission != null)
+            MyButton(
+              handler: this.submitHandler,
+              text: this.submitted ? "Resubmit" : "Submit",
+              buttonType: ButtonType.black,
+            ),
         ],
       ),
     );
