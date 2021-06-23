@@ -10,6 +10,7 @@ import 'package:sparta/pages/home/home_page.dart';
 import 'package:sparta/pages/auth/auth_page.dart';
 import 'package:sparta/pages/scoreboard/scoreboard_page.dart';
 import 'package:sparta/pages/gallery/gallery_page.dart';
+import 'dart:html';
 
 void main() async {
   await AuthState.init();
@@ -30,18 +31,23 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: (settings) {
         return PageRouteBuilder(
             pageBuilder: (_, __, ___) {
-              RouteState.changeRouteState(settings.name);
-              return BasePage((settings.name == '/')
-                  ? HomePage()
-                  : (settings.name == '/scoreboard')
-                      ? ScoreboardPage()
-                      : (settings.name == '/upload-tugas')
-                          ? HomePage()
-                          : (settings.name == '/gallery')
-                              ? GalleryPage()
-                              : (settings.name == '/auth')
-                                  ? AuthPage()
-                                  : null);
+              var routeName = settings.name;
+              if (context.read(AuthState.jwt).state != null &&
+                  routeName == '/auth') routeName = '/';
+              RouteState.changeRouteState(routeName);
+              return BasePage(
+                (routeName == '/')
+                    ? HomePage()
+                    : (routeName == '/scoreboard')
+                        ? ScoreboardPage()
+                        : (routeName == '/upload-tugas')
+                            ? HomePage()
+                            : (routeName == '/gallery')
+                                ? GalleryPage()
+                                : (routeName == '/auth')
+                                    ? AuthPage()
+                                    : null,
+              );
             },
             settings: settings);
       },
@@ -57,6 +63,10 @@ class BasePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DeviceType deviceType = UIUtils.getDeviceType(context);
+    final loader = document.getElementsByClassName('loader');
+    if (loader.isNotEmpty) {
+      loader.first.remove();
+    }
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,

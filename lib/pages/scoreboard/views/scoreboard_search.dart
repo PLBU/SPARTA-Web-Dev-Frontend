@@ -29,10 +29,10 @@ class ScoreboardSearch extends StatelessWidget {
         },
         child: MyContainer(
           width: (deviceType == DeviceType.mobile)
-              ? 370
+              ? 350
               : (deviceType == DeviceType.tablet)
-                  ? 650
-                  : 1050,
+                  ? 600
+                  : 1000,
           padding: EdgeInsets.only(
             bottom: 0,
             top: 5,
@@ -48,10 +48,10 @@ class ScoreboardSearch extends StatelessWidget {
                 helperText:
                     "Dapat mencari dengan \"jurusan=IF; nama=test; nim=113; kelompok=15;\"",
                 width: (deviceType == DeviceType.mobile)
-                    ? 350
+                    ? 330
                     : (deviceType == DeviceType.tablet)
-                        ? 600
-                        : 1000,
+                        ? 550
+                        : 950,
                 margin: (deviceType == DeviceType.mobile)
                     ? EdgeInsets.symmetric(vertical: 2, horizontal: 5)
                     : EdgeInsets.symmetric(vertical: 5, horizontal: 15),

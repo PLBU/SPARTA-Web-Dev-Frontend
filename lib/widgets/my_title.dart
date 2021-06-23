@@ -15,6 +15,26 @@ class MyTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     DeviceType deviceType = UIUtils.getDeviceType(context);
 
+    double leavesHeight = (deviceType == DeviceType.mobile)
+        ? 40
+        : (deviceType == DeviceType.tablet)
+            ? 56
+            : 80;
+
+    double logoHeight = (deviceType == DeviceType.mobile)
+        ? 28
+        : (deviceType == DeviceType.tablet)
+            ? 36
+            : 50;
+
+    double fontSize = (deviceType == DeviceType.mobile)
+        ? 28
+        : (deviceType == DeviceType.tablet)
+            ? 36
+            : 50;
+
+    double space = (deviceType == DeviceType.tablet) ? 18 : 24;
+
     return FittedBox(
       fit: BoxFit.scaleDown,
       child: Row(
@@ -26,36 +46,21 @@ class MyTitle extends StatelessWidget {
               children: [
                 Image.asset(
                   "assets/icons/leaves.png",
-                  height: (deviceType == DeviceType.mobile)
-                      ? 40
-                      : (deviceType == DeviceType.tablet)
-                          ? 56
-                          : 80,
+                  height: leavesHeight,
                 ),
                 Text(
                   logo,
                   style: TextStyle(
                     fontFamily: 'DrukWideBold',
-                    fontSize: (deviceType == DeviceType.mobile)
-                        ? 28
-                        : (deviceType == DeviceType.tablet)
-                            ? 36
-                            : 50,
+                    fontSize: logoHeight,
                   ),
                 )
               ],
             ),
-          if (logo != null) SizedBox(width: 24),
+          if (logo != null) SizedBox(width: space),
           Text(
             text,
-            style: TextStyle(
-              fontFamily: 'DrukWideBold',
-              fontSize: (deviceType == DeviceType.mobile)
-                  ? 28
-                  : (deviceType == DeviceType.tablet)
-                      ? 36
-                      : 50,
-            ),
+            style: TextStyle(fontFamily: 'DrukWideBold', fontSize: fontSize),
           ),
         ],
       ),

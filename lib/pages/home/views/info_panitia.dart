@@ -188,7 +188,9 @@ class InfoPanitia extends StatelessWidget {
                   '''Vania A. Q.
 (18219090)''',
                   '''Made K. J.
-(13519176)''',
+(13519176)''',    
+                  '''M. Raflie Dwi P.
+(18219035)''',
                 ],
               ),
             ],
@@ -429,8 +431,6 @@ class InfoPanitia extends StatelessWidget {
 (13519085)''',
                   '''Rahmah K. N.
 (13519013)''',
-                  '''M. Raflie Dwi P.
-(18219035)''',
                 ],
               ),
             ],
