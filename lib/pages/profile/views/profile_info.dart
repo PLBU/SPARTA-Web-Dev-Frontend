@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:sparta/models/user.dart';
 import 'package:sparta/utils/ui_utils.dart';
@@ -14,7 +12,6 @@ class ProfileInfo extends StatelessWidget {
   final User user;
   @override
   Widget build(BuildContext context) {
-    inspect(user);
     DeviceType deviceType = UIUtils.getDeviceType(context);
     double space = (deviceType == DeviceType.desktop) ? 32 : 24;
     
@@ -71,7 +68,7 @@ class ProfileInfo extends StatelessWidget {
                 ),
                 child: FractionallySizedBox(
                   heightFactor: 1,
-                  widthFactor: user.skor / 500,
+                  widthFactor: (user.skor / 500 > 1) ? 1 : user.skor / 500,
                   child: Container(color: Colors.black),
                 ),
               )
