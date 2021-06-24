@@ -14,12 +14,10 @@ import 'package:sparta/widgets/my_container.dart';
 
 class Uploader extends StatefulWidget {
   Uploader({
-    this.user,
     this.jwtToken,
     this.data,
   });
 
-  final user;
   final jwtToken;
   List<dynamic> data;
 

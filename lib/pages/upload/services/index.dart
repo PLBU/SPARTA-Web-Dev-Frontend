@@ -55,13 +55,14 @@ Future<List<dynamic>> fetchLists(String currentJWT) async {
   List<Assignment> assignments = await fetchAssignments(currentJWT);
   List<Submission> submissions = await fetchSubmissions(currentJWT);
   List<Assignment> unfinished = assignments
-    .where(
-      (assignment) =>
-          submissions
-              .where((submission) => submission.assignment == assignment.id)
-              .length ==
-          0,
-    ).toList();
+      .where(
+        (assignment) =>
+            submissions
+                .where((submission) => submission.assignment == assignment.id)
+                .length ==
+            0,
+      )
+      .toList();
 
   return [
     assignments,
@@ -71,7 +72,11 @@ Future<List<dynamic>> fetchLists(String currentJWT) async {
 }
 
 Future<int> uploadFile(
-    List<int> data, String name, String token, String assignmentID) async {
+  List<int> data,
+  String name,
+  String token,
+  String assignmentID,
+) async {
   var formData = FormData.fromMap({
     'file': MultipartFile.fromBytes(
       data,
@@ -95,5 +100,33 @@ Future<int> uploadFile(
     return response.statusCode;
   } catch (e) {
     print(e);
+    return null;
   }
+}
+
+Future<int> uploadTugas(data) async {
+  // { name, spek, deadline, kelompok, lowerScore, upperScore, nim }
+  inspect(data);
+  final Map<String, String> body = {
+    'name': data['name'],
+    'spek': data['spek'],
+    'deadline': data['deadline'],
+    'kelompok': data['kelompok'],
+    'upperScore': data['upperScore'],
+    'lowerScore': data['lowerScore'],
+    'nim': data['nim'],
+  };
+  final headers = {'Content-Type': 'application/json'};
+  final encoding = Encoding.getByName('utf-8');
+  String jsonBody = json.encode(body);
+
+  final response = await http.post(
+    NetworkUtil.getApiUrl(route: 'assignments'),
+    body: jsonBody,
+    headers: headers,
+    encoding: encoding,
+  );
+
+  print(response.statusCode);
+  return response.statusCode;
 }
