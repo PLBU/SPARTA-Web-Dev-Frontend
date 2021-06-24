@@ -8,6 +8,7 @@ class MyTextField extends StatelessWidget {
     this.maxLength,
     this.hintText,
     this.helperText,
+    this.labelText,
     this.width,
     this.height,
     this.margin,
@@ -19,6 +20,7 @@ class MyTextField extends StatelessWidget {
   });
 
   final helperText;
+  final labelText;
   final prefixIcon;
   final suffixIcon;
   final controller;
@@ -58,6 +60,7 @@ class MyTextField extends StatelessWidget {
           fontSize: respText,
         ),
         decoration: InputDecoration(
+          labelText: this.labelText,
           hintText: this.hintText,
           hintStyle: TextStyle(fontFamily: 'Roboto'),
           helperText: this.helperText,
