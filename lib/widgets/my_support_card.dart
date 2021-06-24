@@ -36,6 +36,11 @@ class MySupportCard extends StatelessWidget {
         : (deviceType == DeviceType.tablet)
             ? 13
             : 16;
+    double respPad = (deviceType == DeviceType.mobile)
+        ? 20
+        : (deviceType == DeviceType.tablet)
+            ? 30
+            : 40;
 
     return FutureBuilder(
       future: suppResp,
@@ -44,9 +49,7 @@ class MySupportCard extends StatelessWidget {
           return Wrap(
             children: <Widget>[
               Container(
-                padding: (deviceType == DeviceType.mobile)
-                ? EdgeInsets.all(10.0)
-                : EdgeInsets.all(15.0),
+                padding: EdgeInsets.all(respPad),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border.all(
@@ -71,14 +74,25 @@ class MySupportCard extends StatelessWidget {
                       children: <Widget>[
                         Text(user.nim + " " + user.namaLengkap, style: TextStyle(
                           fontSize: respFont * 1.7,
+                          fontWeight: FontWeight.bold,
                         )),
-                        MyButton(text: 'SUPPORT', buttonType: ButtonType.black,),
+                        if (!(deviceType == DeviceType.mobile)) MyButton(text: 'SUPPORT', buttonType: ButtonType.black,),
                       ],
                     ),
-                    SizedBox(height: space/2,),
+                    SizedBox(height: space),
                     Text(suppInfo.text, style: TextStyle(
                       fontSize: respFont * 2,
                     )),
+                    SizedBox(height: space),
+                    if (deviceType == DeviceType.mobile) SizedBox(height: space),
+                    if (deviceType == DeviceType.mobile) Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        SizedBox(width: space),
+                        MyButton(text: 'SUPPORT', buttonType: ButtonType.black,),
+                      ],
+                    )
+                    
                   ],
                 ),
               ),

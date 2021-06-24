@@ -13,7 +13,7 @@ class SupportPage extends StatefulWidget {
 }
 
 class _SupportPageState extends State<SupportPage> {
-  bool isReceivedDisplayed = false;
+  bool isReceivedDisplayed = true;
   bool isPrevBtnExist = false;
   bool isNextBtnExist = true;
 
@@ -28,13 +28,13 @@ class _SupportPageState extends State<SupportPage> {
 
     void onReceivedPressed(){
       setState(() {
-        isReceivedDisplayed = false;
+        isReceivedDisplayed = true;
       });
     }
 
     void onSentPressed(){
       setState(() {
-        isReceivedDisplayed = true;
+        isReceivedDisplayed = false;
       });
     }
 
@@ -55,8 +55,16 @@ class _SupportPageState extends State<SupportPage> {
         SizedBox(height: space * 2),
         Row(children: [
           SizedBox(width: space * 3),
-          MyTitle( text: (isReceivedDisplayed) ? "RECEIVED SUPPORTS" : "SENT SUPPORTS"),
+          (!(deviceType == DeviceType.mobile)) 
+            ? MyTitle( text: (isReceivedDisplayed) ? "RECEIVED SUPPORTS" : "SENT SUPPORTS")
+            : MyTitle( text: (isReceivedDisplayed) ? "RECEIVED" : "SENT"),
         ],),
+        if (deviceType == DeviceType.mobile) SizedBox(height: space/2),
+        if (deviceType == DeviceType.mobile) Row(children: [
+            SizedBox(width: space * 3),
+            MyTitle(text: "SUPPORTS"),
+          ]
+        ),
         SizedBox(height: space),
         Row(children: [
           SizedBox(width: space * 3),
