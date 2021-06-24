@@ -25,7 +25,7 @@ class UploadPage extends StatelessWidget {
               SizedBox(height: 50),
               MyTitle(text: "CREATE TUGAS", logo: "!"),
               SizedBox(height: 50),
-              CreateTugas(),
+              CreateTugas(token: currentJWT),
               SizedBox(height: 50),
             ],
           );

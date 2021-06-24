@@ -104,19 +104,22 @@ Future<int> uploadFile(
   }
 }
 
-Future<int> uploadTugas(data) async {
+Future<int> uploadTugas(dynamic data, String token) async {
   // { name, spek, deadline, kelompok, lowerScore, upperScore, nim }
-  inspect(data);
-  final Map<String, String> body = {
+  final Map<String, dynamic> body = {
     'name': data['name'],
     'spek': data['spek'],
     'deadline': data['deadline'],
     'kelompok': data['kelompok'],
-    'upperScore': data['upperScore'],
     'lowerScore': data['lowerScore'],
+    'upperScore': data['upperScore'],
     'nim': data['nim'],
   };
-  final headers = {'Content-Type': 'application/json'};
+  inspect(body);
+  final headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $token',
+  };
   final encoding = Encoding.getByName('utf-8');
   String jsonBody = json.encode(body);
 
@@ -127,6 +130,5 @@ Future<int> uploadTugas(data) async {
     encoding: encoding,
   );
 
-  print(response.statusCode);
   return response.statusCode;
 }

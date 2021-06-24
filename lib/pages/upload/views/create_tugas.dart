@@ -7,7 +7,9 @@ import 'package:sparta/pages/upload/views/deadline_input.dart';
 import 'package:sparta/pages/upload/views/filter_input.dart';
 
 class CreateTugas extends StatefulWidget {
-  CreateTugas();
+  CreateTugas({this.token});
+
+  final token;
 
   @override
   _CreateTugasState createState() => _CreateTugasState();
@@ -100,23 +102,17 @@ class _CreateTugasState extends State<CreateTugas> {
             ),
             padding: EdgeInsets.symmetric(horizontal: 10),
             margin: EdgeInsets.only(bottom: 20),
-            child: Theme(
-              data: ThemeData(
-                textSelectionTheme:
-                    TextSelectionThemeData(selectionColor: Colors.blueGrey),
+            child: TextField(
+              controller: spekTEC,
+              maxLines: null,
+              cursorColor: Colors.black,
+              style: TextStyle(
+                fontFamily: "Roboto",
+                // fontSize: respFont,
               ),
-              child: TextField(
-                controller: spekTEC,
-                maxLines: null,
-                cursorColor: Colors.black,
-                style: TextStyle(
-                  fontFamily: "Roboto",
-                  // fontSize: respFont,
-                ),
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  focusColor: Colors.black,
-                ),
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                focusColor: Colors.black,
               ),
             ),
           ),
@@ -165,23 +161,28 @@ class _CreateTugasState extends State<CreateTugas> {
               setState(() {
                 _uploading = true;
               });
-
+              
+              var res;
               if (nameTEC.text != "" || spekTEC.text != "")
-                await uploadTugas({
+                res = await uploadTugas({
                   'name': nameTEC.text,
                   'spek': spekTEC.text,
-                  'upperBound': upperBoundTEC.text,
-                  'lowerBound': lowerBoundTEC.text,
-                  'nim': nimTEC.text.replaceAll(" ", "").split(",").toString(),
-                  'kelompok': kelompokTEC.text,
+                  'upperScore':
+                      upperBoundTEC.text == "" ? null : int.parse(upperBoundTEC.text),
+                  'lowerScore':
+                      lowerBoundTEC.text == "" ? null : int.parse(lowerBoundTEC.text),
+                  'nim': nimTEC.text == ""
+                      ? null
+                      : nimTEC.text.replaceAll(" ", "").split(","),
+                  'kelompok': kelompokTEC.text == "" ? null : kelompokTEC.text,
                   'deadline':
                       formatDeadline(this._deadlineDate, this._deadlineTime),
-                });
+                }, widget.token);
 
               setState(() {
                 _uploading = false;
               });
-              reset();
+              if (res == 200) reset();
             },
             uploadingState: this._uploading,
             isDesktop: !(deviceType == DeviceType.mobile) &&
