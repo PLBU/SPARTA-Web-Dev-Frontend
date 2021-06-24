@@ -14,12 +14,10 @@ import 'package:sparta/widgets/my_container.dart';
 
 class Uploader extends StatefulWidget {
   Uploader({
-    this.user,
     this.jwtToken,
     this.data,
   });
 
-  final user;
   final jwtToken;
   List<dynamic> data;
 
@@ -149,24 +147,37 @@ class _UploaderState extends State<Uploader> {
                   _loading = true;
                 });
 
-                await uploadFile(
+                var res = await uploadFile(
                   _paths.first.bytes,
                   _paths.first.name,
                   widget.jwtToken,
                   _idTugas,
                 );
 
-                var temp = await fetchSubmissions(widget.jwtToken);
-                setState(() {
-                  _loading = false;
-                  submissions = temp;
-                  _curSubmission = submissions
-                      .firstWhere((element) => element.assignment == _idTugas);
-                });
+                if (res == 200) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Upload Berhasil!")));
+                  var temp = await fetchSubmissions(widget.jwtToken);
+                  setState(() {
+                    _loading = false;
+                    submissions = temp;
+                    _curSubmission = submissions.firstWhere(
+                        (element) => element.assignment == _idTugas);
+                  });
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text("Upload gagal, silahkan coba kembali")));
+                  setState(() {
+                    _loading = false;
+                    _submitted = false;
+                    _paths = null;
+                    _fileName = null;
+                  });
+                }
               } else
-                setState(() {
-                  _fileName = "Pilih File terlebih dahulu!";
-                });
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(
+                        "Pilih File yang ingin di upload terlebih dahulu!")));
             },
           ),
         ],
