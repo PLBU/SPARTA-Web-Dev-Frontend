@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sparta/models/user.dart';
 import 'package:sparta/pages/profile/services/index.dart';
-import 'package:sparta/pages/profile/views/user_profile_card.dart';
+import 'package:sparta/pages/profile/views/profile_card_other.dart';
+import 'package:sparta/pages/profile/views/profile_card_self.dart';
 import 'package:sparta/provider/auth_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sparta/widgets/my_title.dart';
@@ -30,11 +31,11 @@ class ProfilePage extends StatelessWidget {
 
             if (currentUser != null) {
               if (snapshot.data.id == currentUser.id)
-                cardShowed = UserProfileCard(user: snapshot.data, self: true);
+                cardShowed = ProfileCardSelf(user: snapshot.data);
               else
-                cardShowed = UserProfileCard(user: snapshot.data);
+                cardShowed = ProfileCardOther(user: snapshot.data);
             } else {
-              cardShowed = UserProfileCard(user: snapshot.data);
+              cardShowed = ProfileCardOther(user: snapshot.data);
             }
 
             return Center(
