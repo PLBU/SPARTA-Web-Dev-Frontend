@@ -23,11 +23,14 @@ class MyDrawer extends StatelessWidget {
               child: RawMaterialButton(
                 shape: CircleBorder(),
                 elevation: 4.0,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/profile/${currentUser.id}');
+                },
                 child: CircleAvatar(
                   backgroundColor: Colors.white,
-                  backgroundImage:
-                      AssetImage('assets/images/blank_profile.jpg'),
+                  backgroundImage: (currentUser.foto != null)
+                      ? MemoryImage(currentUser.foto)
+                      : AssetImage('assets/images/blank_profile.jpg'),
                   radius: 50,
                 ),
               ),

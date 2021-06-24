@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:html';
-import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:sparta/models/user.dart';
 import 'package:http/http.dart' as http;
@@ -77,7 +75,6 @@ Future<bool> updateOneUser(
       }),
     );
 
-    print(response.data);
     if (response.statusCode == 200)
       return true;
     else

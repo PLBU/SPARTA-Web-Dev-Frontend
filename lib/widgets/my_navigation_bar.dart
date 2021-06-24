@@ -115,12 +115,15 @@ class MyNavBarItemAuth extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CircleAvatar(
-                      backgroundColor: Colors.white,
-                      backgroundImage: (currentUser.foto != null)
-                          ? MemoryImage(currentUser.foto)
-                          : AssetImage('assets/images/blank_profile.jpg'),
-                      radius: 40,
+                    FittedBox(
+                      fit: BoxFit.contain,
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        backgroundImage: (currentUser.foto != null)
+                            ? MemoryImage(currentUser.foto)
+                            : AssetImage('assets/images/blank_profile.jpg'),
+                        radius: 40,
+                      ),
                     ),
                     PopupMenuButton<String>(
                       onSelected: (String newValue) {
