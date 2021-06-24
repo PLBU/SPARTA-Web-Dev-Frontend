@@ -73,12 +73,24 @@ class _CreateTugasState extends State<CreateTugas> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Judul Tugas:"),
+          Text(
+            "Judul Tugas:",
+            style: TextStyle(
+              fontFamily: 'Roboto',
+              fontSize: respFont,
+            ),
+          ),
           MyTextField(
             width: respWidth,
             controller: nameTEC,
           ),
-          Text("Deskripsi:"),
+          Text(
+            "Deskripsi:",
+            style: TextStyle(
+              fontFamily: 'Roboto',
+              fontSize: respFont,
+            ),
+          ),
           Container(
             width: respWidth,
             height: 200,
@@ -110,6 +122,7 @@ class _CreateTugasState extends State<CreateTugas> {
           ),
           DeadlineInput(
             width: respWidth,
+            fontSize: respFont,
             dateString: this._dateString,
             timeString: this._timeString,
             dateHandler: () async {

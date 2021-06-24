@@ -7,6 +7,7 @@ class DeadlineInput extends StatelessWidget {
     this.dateString,
     this.timeString,
     this.width,
+    this.fontSize,
   });
 
   final dateHandler;
@@ -14,6 +15,7 @@ class DeadlineInput extends StatelessWidget {
   final dateString;
   final timeString;
   final width;
+  final fontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,10 @@ class DeadlineInput extends StatelessWidget {
       children: [
         Text(
           "Deadline:",
-          style: TextStyle(fontFamily: "Roboto"),
+          style: TextStyle(
+            fontFamily: "Roboto",
+            fontSize: this.fontSize,
+          ),
         ),
         Container(
           width: width,
@@ -40,7 +45,10 @@ class DeadlineInput extends StatelessWidget {
                   children: [
                     Text(
                       this.dateString,
-                      style: TextStyle(fontFamily: "Roboto"),
+                      style: TextStyle(
+                        fontFamily: "Roboto",
+                        fontSize: this.fontSize,
+                      ),
                     ),
                     IconButton(
                       icon: Icon(Icons.calendar_today_rounded),
@@ -62,7 +70,10 @@ class DeadlineInput extends StatelessWidget {
                   children: [
                     Text(
                       this.timeString,
-                      style: TextStyle(fontFamily: "Roboto"),
+                      style: TextStyle(
+                        fontFamily: "Roboto",
+                        fontSize: this.fontSize,
+                      ),
                     ),
                     IconButton(
                       icon: Icon(Icons.access_time_outlined),
