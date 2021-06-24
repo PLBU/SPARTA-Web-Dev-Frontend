@@ -174,7 +174,7 @@ class _CreateTugasState extends State<CreateTugas> {
                   'nim': nimTEC.text == ""
                       ? null
                       : nimTEC.text.replaceAll(" ", "").split(","),
-                  'kelompok': kelompokTEC.text == "" ? null : kelompokTEC.text,
+                  'kelompok': kelompokTEC.text == "" ? null : int.parse(kelompokTEC.text),
                   'deadline':
                       formatDeadline(this._deadlineDate, this._deadlineTime),
                 }, widget.token);
