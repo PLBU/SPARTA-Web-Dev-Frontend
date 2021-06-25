@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sparta/pages/profile/profile_page.dart';
+import 'package:sparta/pages/support/support_page.dart';
 import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/provider/route_state.dart';
 import 'package:sparta/provider/auth_state.dart';
@@ -54,13 +55,16 @@ class MyApp extends StatelessWidget {
                                 ? GalleryPage()
                                 : (routeComponents[1] == 'auth')
                                     ? AuthPage()
-                                    : (routeComponents[1] == 'profile')
-                                        ? ProfilePage(id: routeComponents.last)
-                                        : Center(
-                                            child: MyTitle(
-                                              text: "404 Not Found",
-                                            ),
-                                          ),
+                                    : (routeComponents[1] == 'supports')
+                                        ? SupportPage()
+                                        : (routeComponents[1] == 'profile')
+                                            ? ProfilePage(
+                                                id: routeComponents.last)
+                                            : Center(
+                                                child: MyTitle(
+                                                  text: "404 Not Found",
+                                                ),
+                                              ),
               );
             },
             settings: settings);
@@ -91,7 +95,8 @@ class BasePage extends StatelessWidget {
         children: [
           ConstrainedBox(
             constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height - MyNavigationBar().preferredSize.height,
+              minHeight: MediaQuery.of(context).size.height -
+                  MyNavigationBar().preferredSize.height,
             ),
             child: pageContent,
           ),

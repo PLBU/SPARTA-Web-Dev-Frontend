@@ -31,10 +31,16 @@ class ProfileInfo extends StatelessWidget {
                 fontSize: 20,
               ),
               Spacer(),
-              ProfileText(
-                text: 'Ultah 08/11',
-                fontFamily: 'DrukWideBold',
-                fontSize: 20,
+              Row(
+                children: [
+                  Icon(Icons.cake),
+                  SizedBox(width: 10),
+                  ProfileText(
+                    text: '08/11',
+                    fontFamily: 'DrukWideBold',
+                    fontSize: 20,
+                  ),
+                ],
               ),
             ],
           ),
@@ -121,8 +127,11 @@ class ProfileText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style:
-          TextStyle(color: color, fontFamily: fontFamily, fontSize: fontSize),
+      style: TextStyle(
+        color: color,
+        fontFamily: fontFamily,
+        fontSize: fontSize,
+      ),
     );
   }
 }

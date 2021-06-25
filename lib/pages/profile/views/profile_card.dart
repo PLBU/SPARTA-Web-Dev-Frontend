@@ -218,6 +218,9 @@ class _ProfileCardState extends State<ProfileCard> {
                             : MyButton(
                                 buttonType: ButtonType.black,
                                 text: 'See Supports',
+                                handler: () {
+                                  Navigator.pushNamed(context, '/supports');
+                                },
                               )
                         : MyButton(
                             buttonType: ButtonType.black,
