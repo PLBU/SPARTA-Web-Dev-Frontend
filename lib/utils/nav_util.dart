@@ -4,7 +4,9 @@ import 'package:sparta/provider/auth_state.dart';
 
 class NavUtil {
   static void navigate(BuildContext context, String routeName) {
-    AuthState.checkExpirationToken(context);
-    Navigator.pushNamed(context, routeName);
+    if (AuthState.checkExpirationToken(context))
+      Navigator.pushNamed(context, '/');
+    else
+      Navigator.pushNamed(context, routeName);
   }
 }

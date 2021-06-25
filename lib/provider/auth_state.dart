@@ -90,7 +90,7 @@ class AuthState {
     storage.remove('type');
   }
 
-  static void checkExpirationToken(BuildContext context) {
+  static bool checkExpirationToken(BuildContext context) {
     String currentJwt = context.read(jwt).state;
 
     if (currentJwt != null) {
@@ -102,7 +102,11 @@ class AuthState {
             behavior: SnackBarBehavior.floating,
           ),
         );
+
+        return true;
       }
     } 
+
+    return false;
   }
 }
