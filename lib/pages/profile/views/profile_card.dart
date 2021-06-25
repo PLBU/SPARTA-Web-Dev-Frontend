@@ -8,6 +8,7 @@ import 'package:sparta/pages/profile/views/profile_info_edit.dart';
 import 'package:sparta/pages/profile/views/profile_pic.dart';
 import 'package:sparta/pages/send_support/support_dialog.dart';
 import 'package:sparta/provider/auth_state.dart';
+import 'package:sparta/utils/nav_util.dart';
 import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/widgets/my_button.dart';
 import 'package:sparta/widgets/my_container.dart';
@@ -85,7 +86,7 @@ class _ProfileCardState extends State<ProfileCard> {
       );
 
       if (success) {
-        Navigator.pushNamed(context, '/profile/${widget.user.id}');
+        NavUtil.navigate(context, '/profile/${widget.user.id}');
         AuthState.updateUser(context);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -113,7 +114,7 @@ class _ProfileCardState extends State<ProfileCard> {
           : await updateSkorOneUser(inputScore, widget.user.id, jwt);
 
       if (success) {
-        Navigator.pushNamed(context, '/profile/${widget.user.id}');
+        NavUtil.navigate(context, '/profile/${widget.user.id}');
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

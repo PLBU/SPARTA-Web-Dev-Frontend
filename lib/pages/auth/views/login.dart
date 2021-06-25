@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sparta/provider/auth_state.dart';
+import 'package:sparta/utils/nav_util.dart';
 import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/widgets/my_button.dart';
 import 'package:sparta/widgets/my_container.dart';
@@ -43,7 +44,7 @@ class _LoginState extends State<Login> {
       });
       try {
         await AuthState.login(emailTEC.text, passwordTEC.text, context);
-        Navigator.pushNamed(context, '/');
+        NavUtil.navigate(context, '/');
       } catch (err) {
         print(err);
         setState(() {

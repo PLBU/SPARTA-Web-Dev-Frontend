@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'SPARTA 2020',
       theme: ThemeData(
         colorScheme:
             ColorScheme.light(primary: Color.fromRGBO(255, 205, 23, 1)),
@@ -37,9 +37,13 @@ class MyApp extends StatelessWidget {
         return PageRouteBuilder(
             pageBuilder: (_, __, ___) {
               var routeComponents = settings.name.split('/');
-              if (context.read(AuthState.jwt).state != null &&
+              final jwt = context.read(AuthState.jwt).state;
+
+              if (jwt != null &&
                   routeComponents[1] == 'auth') routeComponents[1] = '';
+
               RouteState.changeRouteState('/' + routeComponents[1]);
+
               return BasePage(
                 (routeComponents[1] == '')
                     ? HomePage()
@@ -78,6 +82,7 @@ class BasePage extends StatelessWidget {
   Widget build(BuildContext context) {
     DeviceType deviceType = UIUtils.getDeviceType(context);
     final loader = document.getElementsByClassName('loader');
+
     if (loader.isNotEmpty) {
       loader.first.remove();
     }
