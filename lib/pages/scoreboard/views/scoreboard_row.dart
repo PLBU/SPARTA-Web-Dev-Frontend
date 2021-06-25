@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sparta/utils/nav_util.dart';
 import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/widgets/my_button.dart';
 import 'package:sparta/pages/send_support/support_dialog.dart';
@@ -54,7 +55,7 @@ class ScoreboardRow extends StatelessWidget {
     return InkWell(
       hoverColor: Color.fromRGBO(0, 0, 0, 0.01),
       onTap: () {
-        Navigator.pushNamed(context, '/profile/${this.objectId}');
+        NavUtil.navigate(context, '/profile/${this.objectId}');
       },
       child: Container(
         width: respWidth,
