@@ -4,6 +4,7 @@ import 'package:sparta/pages/profile/services/index.dart';
 import 'package:sparta/pages/profile/views/profile_card.dart';
 import 'package:sparta/provider/auth_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sparta/utils/nav_util.dart';
 import 'package:sparta/widgets/my_title.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -22,7 +23,7 @@ class ProfilePage extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.data == null) {
             WidgetsBinding.instance.addPostFrameCallback(
-              (_) => Navigator.pushNamed(context, '/not-found'),
+              (_) => NavUtil.navigate(context, '/not-found'),
             );
             return Container();
           } else {

@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sparta/provider/auth_state.dart';
+import 'package:sparta/utils/nav_util.dart';
 import 'package:sparta/widgets/my_heading_text.dart';
 import 'package:sparta/widgets/my_button.dart';
 import 'package:sparta/utils/ui_utils.dart';
@@ -106,7 +107,7 @@ class MyNavBarItemAuth extends StatelessWidget {
           : (currentUser == null)
               ? MyButton(
                   handler: () {
-                    Navigator.pushNamed(context, '/auth');
+                    NavUtil.navigate(context, '/auth');
                   },
                   text: "Login",
                   buttonType: ButtonType.white,
@@ -128,7 +129,7 @@ class MyNavBarItemAuth extends StatelessWidget {
                     PopupMenuButton<String>(
                       onSelected: (String newValue) {
                         if (newValue == "Profile")
-                          Navigator.pushNamed(
+                          NavUtil.navigate(
                               context, '/profile/${currentUser.id}');
                         else if (newValue == "Logout")
                           AuthState.logout(context);
@@ -181,7 +182,7 @@ class MyNavBarItem extends StatelessWidget {
           primary: Colors.grey[50],
         ), //ripple color
         onPressed: () {
-          Navigator.pushNamed(context, routeName);
+          NavUtil.navigate(context, routeName);
         },
         child: Text(
           text,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sparta/provider/auth_state.dart';
 import 'package:sparta/provider/route_state.dart';
+import 'package:sparta/utils/nav_util.dart';
 import 'package:sparta/widgets/my_button.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -24,7 +25,7 @@ class MyDrawer extends StatelessWidget {
                 shape: CircleBorder(),
                 elevation: 4.0,
                 onPressed: () {
-                  Navigator.pushNamed(context, '/profile/${currentUser.id}');
+                  NavUtil.navigate(context, '/profile/${currentUser.id}');
                 },
                 child: CircleAvatar(
                   backgroundColor: Colors.white,
@@ -65,7 +66,7 @@ class MyDrawer extends StatelessWidget {
                   )
                 : MyButton(
                     handler: () {
-                      Navigator.pushNamed(context, '/auth');
+                      NavUtil.navigate(context, '/auth');
                     },
                     text: "Login",
                     buttonType: ButtonType.white,
@@ -107,7 +108,7 @@ class MyDrawerItem extends StatelessWidget {
           primary: Colors.black12,
         ), //ripple color
         onPressed: () {
-          Navigator.pushNamed(context, routeName);
+          NavUtil.navigate(context, routeName);
         },
         child: Text(
           text,
