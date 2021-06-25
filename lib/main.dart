@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'SPARTA 2020',
       theme: ThemeData(
         colorScheme:
             ColorScheme.light(primary: Color.fromRGBO(255, 205, 23, 1)),
