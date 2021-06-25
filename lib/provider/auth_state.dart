@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:sparta/pages/profile/services/index.dart';
 import 'package:sparta/utils/network_util.dart';
 import 'package:sparta/models/user.dart';
@@ -79,7 +81,6 @@ class AuthState {
   }
 
   static void logout(BuildContext context) {
-    Navigator.pushNamed(context, '/');
     context.read(jwt).state = null;
     context.read(currentUser).state = null;
     context.read(type).state = null;
@@ -87,5 +88,21 @@ class AuthState {
     storage.remove('jwt');
     storage.remove('currentUser');
     storage.remove('type');
+  }
+
+  static void checkExpirationToken(BuildContext context) {
+    String currentJwt = context.read(jwt).state;
+
+    if (currentJwt != null) {
+      if (JwtDecoder.isExpired(currentJwt)) {
+        logout(context);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Your session has expired. Please kindly login again!'),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    } 
   }
 }
