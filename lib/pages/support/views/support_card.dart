@@ -6,8 +6,8 @@ import 'package:sparta/models/user.dart';
 import 'package:sparta/pages/support/services/fetchUser.dart';
 
 
-class MySupportCard extends StatelessWidget {
-  const MySupportCard({
+class SupportCard extends StatelessWidget {
+  const SupportCard({
     this.suppInfo,
     this.isPengirim,
   });
