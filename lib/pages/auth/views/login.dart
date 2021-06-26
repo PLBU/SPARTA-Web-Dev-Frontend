@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sparta/provider/auth_state.dart';
+import 'package:sparta/utils/nav_util.dart';
 import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/widgets/my_button.dart';
 import 'package:sparta/widgets/my_container.dart';
@@ -31,6 +32,7 @@ class _LoginState extends State<Login> {
         : (deviceType == DeviceType.tablet)
             ? 360
             : 260;
+    double space = 8;
 
     TextEditingController emailTEC = TextEditingController();
     TextEditingController passwordTEC = TextEditingController();
@@ -42,7 +44,7 @@ class _LoginState extends State<Login> {
       });
       try {
         await AuthState.login(emailTEC.text, passwordTEC.text, context);
-        Navigator.pushNamed(context, '/');
+        NavUtil.navigate(context, '/');
       } catch (err) {
         print(err);
         setState(() {
@@ -72,11 +74,11 @@ class _LoginState extends State<Login> {
                 height: imageSize,
                 color: Colors.black,
               ),
-              SizedBox(width: 16),
+              SizedBox(width: 2*space),
               MyHeadingText(content: "SPARTA"),
             ],
           ),
-          SizedBox(height: 32),
+          SizedBox(height: 5*space),
           MyTextField(
             hintText: "Email",
             width: textFieldWidth,
@@ -87,7 +89,7 @@ class _LoginState extends State<Login> {
             ),
             controller: emailTEC,
           ),
-          SizedBox(height: 16),
+          SizedBox(height: 0.5*space),
           MyTextField(
             hintText: "Password",
             hidden: true,
@@ -98,11 +100,11 @@ class _LoginState extends State<Login> {
             ),
             controller: passwordTEC,
           ),
-          SizedBox(height: 16),
+          SizedBox(height: 0.5*space),
           if (_invalidInput)
             Text("Invalid email or password!",
                 style: TextStyle(color: Colors.red, fontFamily: 'Roboto')),
-          SizedBox(height: 16),
+          SizedBox(height: space),
           MyButton(
             buttonType: ButtonType.black,
             text: "LOGIN",

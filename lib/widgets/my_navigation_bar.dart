@@ -1,9 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sparta/provider/auth_state.dart';
+import 'package:sparta/utils/nav_util.dart';
 import 'package:sparta/widgets/my_heading_text.dart';
 import 'package:sparta/widgets/my_button.dart';
 import 'package:sparta/utils/ui_utils.dart';
@@ -21,8 +20,8 @@ class MyNavigationBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Consumer(builder: (context, watch, child) {
       final currentUser = watch(AuthState.currentUser).state;
+      final type = watch(AuthState.type).state;
 
-      // inspect(currentUser);
       DeviceType deviceType = UIUtils.getDeviceType(context);
       double imageSize = (deviceType == DeviceType.desktop) ? 48 : 36;
 
@@ -48,7 +47,7 @@ class MyNavigationBar extends StatelessWidget implements PreferredSizeWidget {
           text: "scoreboard",
           routeName: "/scoreboard",
         ),
-        if (currentUser != null)
+        if (currentUser != null || type == 'admin')
           MyNavBarItem(
             text: "upload tugas",
             routeName: "/upload-tugas",
@@ -57,7 +56,7 @@ class MyNavigationBar extends StatelessWidget implements PreferredSizeWidget {
           text: "gallery",
           routeName: "/gallery",
         ),
-        MyNavBarItemAuth(currentUser),
+        MyNavBarItemAuth(currentUser, type),
       ];
 
       return AppBar(
@@ -87,37 +86,74 @@ class MyNavigationBar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class MyNavBarItemAuth extends StatelessWidget {
-  MyNavBarItemAuth(this.currentUser);
+  MyNavBarItemAuth(this.currentUser, this.type);
 
   final currentUser;
+  final type;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: (currentUser != null) ? 8 : 16),
       margin: EdgeInsets.symmetric(horizontal: 16),
-      child: (currentUser == null)
+      child: (type == 'admin')
           ? MyButton(
               handler: () {
-                Navigator.pushNamed(context, '/auth');
+                AuthState.logout(context);
               },
-              text: "Login",
+              text: "Logout",
               buttonType: ButtonType.white,
             )
-          : RawMaterialButton(
-              shape: CircleBorder(
-                side: BorderSide(color: Colors.grey, width: 0.5),
-              ),
-              elevation: 4.0,
-              onPressed: () {},
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
-                backgroundImage: (currentUser.foto != null)
-                    ? MemoryImage(currentUser.foto)
-                    : AssetImage('assets/images/blank_profile.jpg'),
-                radius: 50,
-              ),
-            ),
+          : (currentUser == null)
+              ? MyButton(
+                  handler: () {
+                    NavUtil.navigate(context, '/auth');
+                  },
+                  text: "Login",
+                  buttonType: ButtonType.white,
+                )
+              : Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FittedBox(
+                      fit: BoxFit.contain,
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        backgroundImage: (currentUser.foto != null)
+                            ? MemoryImage(currentUser.foto)
+                            : AssetImage('assets/images/blank_profile.jpg'),
+                        radius: 40,
+                      ),
+                    ),
+                    PopupMenuButton<String>(
+                      onSelected: (String newValue) {
+                        if (newValue == "Profile")
+                          NavUtil.navigate(
+                              context, '/profile/${currentUser.id}');
+                        else if (newValue == "Logout")
+                          AuthState.logout(context);
+                      },
+                      padding: EdgeInsets.zero,
+                      child: Icon(
+                        Icons.arrow_drop_down,
+                        color: Colors.black,
+                      ),
+                      offset: Offset(0, 48),
+                      itemBuilder: (BuildContext context) =>
+                          <PopupMenuEntry<String>>[
+                        const PopupMenuItem<String>(
+                          value: "Profile",
+                          child: Text('Profile'),
+                        ),
+                        const PopupMenuItem<String>(
+                          value: "Logout",
+                          child: Text('Logout'),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
     );
   }
 }
@@ -143,10 +179,10 @@ class MyNavBarItem extends StatelessWidget {
       child: TextButton(
         style: TextButton.styleFrom(
           padding: EdgeInsets.symmetric(horizontal: 8),
-          primary: Colors.black12,
+          primary: Colors.grey[50],
         ), //ripple color
         onPressed: () {
-          Navigator.pushNamed(context, routeName);
+          NavUtil.navigate(context, routeName);
         },
         child: Text(
           text,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sparta/provider/auth_state.dart';
 import 'package:sparta/provider/route_state.dart';
+import 'package:sparta/utils/nav_util.dart';
 import 'package:sparta/widgets/my_button.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -11,8 +12,9 @@ class MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, watch, child) {
-      final currentUser = watch(AuthState.currentUser).state;
-        
+        final currentUser = watch(AuthState.currentUser).state;
+        final type = watch(AuthState.type).state;
+
         List<Widget> navBarItems = [
           if (currentUser != null)
             DrawerHeader(
@@ -22,10 +24,14 @@ class MyDrawer extends StatelessWidget {
               child: RawMaterialButton(
                 shape: CircleBorder(),
                 elevation: 4.0,
-                onPressed: () {},
+                onPressed: () {
+                  NavUtil.navigate(context, '/profile/${currentUser.id}');
+                },
                 child: CircleAvatar(
                   backgroundColor: Colors.white,
-                  backgroundImage: AssetImage('assets/images/blank_profile.jpg'),
+                  backgroundImage: (currentUser.foto != null)
+                      ? MemoryImage(currentUser.foto)
+                      : AssetImage('assets/images/blank_profile.jpg'),
                   radius: 50,
                 ),
               ),
@@ -38,10 +44,11 @@ class MyDrawer extends StatelessWidget {
             text: "scoreboard",
             routeName: "/scoreboard",
           ),
-          if (currentUser != null) MyDrawerItem(
-            text: "upload tugas",
-            routeName: "/upload-tugas",
-          ),
+          if (currentUser != null || type == 'admin')
+            MyDrawerItem(
+              text: "upload tugas",
+              routeName: "/upload-tugas",
+            ),
           MyDrawerItem(
             text: "gallery",
             routeName: "/gallery",
@@ -49,18 +56,17 @@ class MyDrawer extends StatelessWidget {
           Container(
             margin: EdgeInsets.all(24),
             padding: EdgeInsets.symmetric(horizontal: 48),
-            child: (currentUser != null)
+            child: (currentUser != null || type == 'admin')
                 ? MyButton(
                     handler: () {
                       AuthState.logout(context);
-                      Navigator.pushNamed(context, '/');
                     },
                     text: "Logout",
                     buttonType: ButtonType.white,
                   )
                 : MyButton(
                     handler: () {
-                      Navigator.pushNamed(context, '/auth');
+                      NavUtil.navigate(context, '/auth');
                     },
                     text: "Login",
                     buttonType: ButtonType.white,
@@ -102,7 +108,7 @@ class MyDrawerItem extends StatelessWidget {
           primary: Colors.black12,
         ), //ripple color
         onPressed: () {
-          Navigator.pushNamed(context, routeName);
+          NavUtil.navigate(context, routeName);
         },
         child: Text(
           text,

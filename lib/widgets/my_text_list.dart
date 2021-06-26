@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sparta/utils/ui_utils.dart';
-import 'package:sparta/widgets/my_title.dart';
 
 class MyTextList extends StatelessWidget {
   const MyTextList ({
@@ -33,10 +32,10 @@ class MyTextList extends StatelessWidget {
     double titleBoxHeight = (textListHeight-(1.5*padding))/5;
     double titleFontSize = 
       (deviceType == DeviceType.mobile)
-        ? 22
+        ? 16
         : (deviceType == DeviceType.tablet)
-            ? 28
-            : 32;
+            ? 24
+            : 28;
     TextAlign titleFontAlign = TextAlign.left;
     TextStyle titleFontStyle = TextStyle(
       fontFamily: 'DrukWideBold',
@@ -46,8 +45,7 @@ class MyTextList extends StatelessWidget {
 
     //- Text
     // double listBoxHeight = (textListHeight-(1.5*padding))-titleBoxHeight-2;
-    double fontSize = titleFontSize/2;
-    TextAlign fontAlign = TextAlign.center;
+    double fontSize = titleFontSize/1.75;
     TextStyle fontStyle = TextStyle(
       fontFamily: 'Roboto',
       fontSize: fontSize,
@@ -89,7 +87,7 @@ class MyTextList extends StatelessWidget {
               crossAxisCount: 2,
               crossAxisSpacing: 5,
               mainAxisSpacing: 5,
-              childAspectRatio: fontSize * ((deviceType == DeviceType.mobile) ? 0.3 : 0.4),
+              childAspectRatio: fontSize * 0.3,
 
               // Scroll Control
               shrinkWrap: true,
