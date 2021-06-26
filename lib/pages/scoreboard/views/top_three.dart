@@ -81,7 +81,10 @@ class TopCard extends StatelessWidget {
             ),
             child: this.user.foto == null
                 ? Image.asset('assets/images/blank_profile.jpg')
-                : Image.memory(this.user.foto),
+                : Image.memory(
+                    this.user.foto,
+                    fit: BoxFit.contain,
+                  ),
           ),
           SizedBox(height: (deviceType == DeviceType.mobile) ? 3 : 10),
           Container(

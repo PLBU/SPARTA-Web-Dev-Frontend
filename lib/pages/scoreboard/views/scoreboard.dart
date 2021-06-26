@@ -4,7 +4,8 @@ import 'package:sparta/models/user.dart';
 import 'package:sparta/widgets/my_button.dart';
 import 'package:sparta/pages/scoreboard/views/scoreboard_row.dart';
 
-const userPerPage = 40;
+const userPerPage = 5;
+
 class ScoreboardView extends StatefulWidget {
   ScoreboardView({this.users, this.ranks, this.curUser});
 
@@ -17,42 +18,48 @@ class ScoreboardView extends StatefulWidget {
 }
 
 class _ScoreboardViewState extends State<ScoreboardView> {
-  int pageNum = 0;
-  bool next = false, prev = false;
+  List<dynamic> usersScoreboard;
+  int _pageNum;
+  bool _next = false, _prev = false;
 
   @override
-  Widget build(BuildContext context) {
-    DeviceType deviceType = UIUtils.getDeviceType(context);
-    final PageController controller = PageController(initialPage: 0);
+  void initState() {
+    super.initState();
+    _pageNum = 0;
+
     int nUsers = userPerPage;
-    List<dynamic> usersScoreboard = [];
+    List<dynamic> tempArr = [];
     List<User> orderedUser = (widget.curUser != null)
         ? widget.users
             .where((element) => element.nim != widget.curUser.nim)
             .toList()
         : widget.users;
-    if (widget.curUser != null) orderedUser.insert(0, widget.curUser);
+    if (widget.curUser != null && orderedUser.length<widget.users.length) 
+      orderedUser.insert(0, widget.curUser);
 
     for (int i = 0; i <= orderedUser.length ~/ nUsers; i++) {
-      if (i == orderedUser.length ~/ nUsers)
-        usersScoreboard.add(
-          orderedUser.sublist(i * nUsers, orderedUser.length).map(
-            (entry) {
-              return ScoreboardRow(
-                objectId: entry.id,
-                id: (widget.ranks[entry.nim]).toString(),
-                text: entry.nim + " " + entry.namaLengkap,
-                nickname: entry.namaPanggilan,
-                skor: entry.skor,
-                bgColor: Colors.white,
-                self:
-                    (widget.curUser != null && entry.nim == widget.curUser.nim),
-              );
-            },
-          ).toList(),
-        );
-      else
-        usersScoreboard.add(
+      if (i == orderedUser.length ~/ nUsers) {
+        if (orderedUser.length % nUsers > 0)
+          tempArr.add(
+            orderedUser.sublist(i * nUsers, orderedUser.length).map(
+              (entry) {
+                return ScoreboardRow(
+                  objectId: entry.id,
+                  id: (widget.ranks[entry.nim]).toString(),
+                  text: entry.nim + " " + entry.namaLengkap,
+                  nickname: entry.namaPanggilan,
+                  skor: entry.skor,
+                  bgColor: Colors.white,
+                  self: (widget.curUser != null &&
+                      entry.nim == widget.curUser.nim),
+                );
+              },
+            ).toList(),
+          );
+        else
+          continue;
+      } else
+        tempArr.add(
           orderedUser.sublist(i * nUsers, (i + 1) * nUsers).map(
             (entry) {
               return ScoreboardRow(
@@ -70,17 +77,25 @@ class _ScoreboardViewState extends State<ScoreboardView> {
         );
     }
 
+    usersScoreboard = tempArr;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    DeviceType deviceType = UIUtils.getDeviceType(context);
+    final PageController controller = PageController(initialPage: 0);
+
     setState(() {
-      next = (pageNum + 1) % usersScoreboard.length > 0;
-      prev = pageNum % usersScoreboard.length > 0;
+      _next = (_pageNum + 1) % usersScoreboard.length > 0;
+      _prev = _pageNum % usersScoreboard.length > 0;
     });
 
     return (widget.users.length > 0)
         ? Column(
             children: [
               PageButton(
-                next: next,
-                prev: prev,
+                next: _next,
+                prev: _prev,
                 handler1: () {
                   controller.animateToPage(
                     controller.page.toInt() - 1,
@@ -98,21 +113,23 @@ class _ScoreboardViewState extends State<ScoreboardView> {
               ),
               Container(
                 height: (deviceType == DeviceType.mobile)
-                    ? (usersScoreboard[pageNum % usersScoreboard.length]
+                    ? (usersScoreboard[_pageNum % usersScoreboard.length]
                             .length) *
                         60.0
-                    : (usersScoreboard[pageNum % usersScoreboard.length]
+                    : (usersScoreboard[_pageNum % usersScoreboard.length]
                             .length) *
                         90.0,
                 child: PageView.builder(
                   onPageChanged: (pageID) {
                     setState(() {
-                      pageNum = pageID;
+                      _pageNum = pageID;
                     });
                   },
                   controller: controller,
                   scrollDirection: Axis.horizontal,
-                  itemCount: (orderedUser.length ~/ nUsers) + 1,
+                  itemCount: widget.users.length % userPerPage > 0
+                      ? (widget.users.length ~/ userPerPage) + 1
+                      : (widget.users.length ~/ userPerPage),
                   itemBuilder: ((context, index) {
                     return Column(
                       children: usersScoreboard[index],
@@ -121,8 +138,8 @@ class _ScoreboardViewState extends State<ScoreboardView> {
                 ),
               ),
               PageButton(
-                next: next,
-                prev: prev,
+                next: _next,
+                prev: _prev,
                 handler1: () {
                   controller.animateToPage(
                     controller.page.toInt() - 1,
@@ -171,10 +188,10 @@ class PageButton extends StatelessWidget {
     DeviceType deviceType = UIUtils.getDeviceType(context);
     return Container(
       width: (deviceType == DeviceType.mobile)
-        ? 350
-        : (deviceType == DeviceType.tablet)
-            ? 600
-            : 1000,
+          ? 350
+          : (deviceType == DeviceType.tablet)
+              ? 600
+              : 1000,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

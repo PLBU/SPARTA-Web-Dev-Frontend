@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sparta/provider/auth_state.dart';
@@ -17,8 +19,9 @@ class ScoreboardPage extends StatefulWidget {
 }
 
 class _ScoreboardPageState extends State<ScoreboardPage> {
-  Future<List<User>> users;
+  Future<List<dynamic>> users;
   List<User> allUser;
+  List<User> topThree;
   Map<String, int> ranks;
   final searchBarTEC = TextEditingController();
 
@@ -28,6 +31,13 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
     users = fetchUsers(null, null, null, null);
 
     users.then((allUser) {
+      fetchTopThree(allUser[0], allUser[1], allUser[2]).then((list){
+        inspect(list);
+        setState(() {
+          topThree = list;
+        });
+      });
+
       this.allUser = allUser;
 
       configureRanks(allUser);
@@ -99,7 +109,7 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
       return FutureBuilder(
         future: users,
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
+          if (snapshot.hasData && this.topThree!=null) {
             return GestureDetector(
               onTap: () {
                 FocusScope.of(context).requestFocus(new FocusNode());
@@ -115,9 +125,9 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
                       MyTitle(text: "SCOREBOARD", logo: "#"),
                       SizedBox(height: space),
                       TopThree(
-                        this.allUser[0],
-                        this.allUser[1],
-                        this.allUser[2],
+                        this.topThree[0],
+                        this.topThree[1],
+                        this.topThree[2],
                       ),
                       SizedBox(height: space),
                       ScoreboardSearch(
@@ -127,6 +137,7 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
                         connectionState: snapshot.connectionState,
                       ),
                       SizedBox(height: space / 2),
+                      if (snapshot.connectionState == ConnectionState.done)
                       ScoreboardView(
                         users: snapshot.data,
                         ranks: this.ranks,
