@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'SPARTA 2020',
       theme: ThemeData(
+        accentColor: Color.fromRGBO(255, 205, 23, 1),
         colorScheme:
             ColorScheme.light(primary: Color.fromRGBO(255, 205, 23, 1)),
       ),
