@@ -72,7 +72,7 @@ class SupportCard extends StatelessWidget {
                       text: 'SUPPORT',
                       buttonType: ButtonType.black,
                       handler: (){
-                        showSupportDialog(context, this.user.namaLengkap, this.user.id);
+                        showSupportDialog(context, this.user.namaPanggilan, this.user.id);
                       },
                     ),
                 ],
