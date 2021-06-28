@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,20 +10,20 @@ import 'package:sparta/pages/upload/views/upload_dropdown.dart';
 import 'package:sparta/pages/upload/views/upload_button.dart';
 import 'package:sparta/widgets/my_container.dart';
 
-class Uploader extends StatefulWidget {
-  Uploader({
+class SubmissionUploader extends StatefulWidget {
+  SubmissionUploader({
     this.jwtToken,
     this.data,
   });
 
   final jwtToken;
-  List<dynamic> data;
+  final List<dynamic> data;
 
   @override
-  _UploaderState createState() => _UploaderState();
+  _SubmissionUploaderState createState() => _SubmissionUploaderState();
 }
 
-class _UploaderState extends State<Uploader> {
+class _SubmissionUploaderState extends State<SubmissionUploader> {
   List<Assignment> assignments;
   List<Submission> submissions;
   List<Assignment> unfinished;
@@ -54,7 +52,6 @@ class _UploaderState extends State<Uploader> {
     _curSubmission = _submitted
         ? submissions.firstWhere((element) => element.assignment == _idTugas)
         : null;
-    inspect(_curAssignment);
   }
 
   void _openFileExplorer() async {
@@ -91,6 +88,65 @@ class _UploaderState extends State<Uploader> {
             ? 450
             : 700;
     double respFont = (deviceType == DeviceType.mobile) ? 14 : 18;
+
+    Function _submitHandler = () async {
+      if (_loading) return;
+      if (_submitted)
+        setState(() {
+          _submitted = false;
+          _paths = null;
+        });
+      else if (_paths != null) {
+        setState(() {
+          unfinished.remove(_curAssignment);
+          _submitted = true;
+          _loading = true;
+        });
+
+        var res = (this._submitted)
+            ? await updateSubmission(
+                _paths.first.bytes,
+                _paths.first.name,
+                widget.jwtToken,
+                _curSubmission.id,
+              )
+            : await postSubmission(
+                _paths.first.bytes,
+                _paths.first.name,
+                widget.jwtToken,
+                _idTugas,
+              );
+
+        if (res == 200) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text("Uploaded successfully!"),
+            behavior: SnackBarBehavior.floating,
+          ));
+          var temp = await fetchSubmissions(widget.jwtToken);
+          setState(() {
+            _loading = false;
+            submissions = temp;
+            _curSubmission = submissions
+                .firstWhere((element) => element.assignment == _idTugas);
+          });
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text("Failed to upload, please try again"),
+            behavior: SnackBarBehavior.floating,
+          ));
+          setState(() {
+            _loading = false;
+            _submitted = false;
+            _paths = null;
+            _fileName = null;
+          });
+        }
+      } else
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Select the file to be uploaded first!"),
+          behavior: SnackBarBehavior.floating,
+        ));
+    };
 
     return MyContainer(
       padding: EdgeInsets.all((deviceType == DeviceType.mobile) ? 25 : 32),
@@ -132,53 +188,7 @@ class _UploaderState extends State<Uploader> {
             submitted: this._submitted,
             submission: this._curSubmission,
             loading: this._loading,
-            submitHandler: () async {
-              if (_loading) return;
-              if (_submitted)
-                setState(() {
-                  _submitted = false;
-                  _paths = null;
-                });
-              else if (_paths != null) {
-                setState(() {
-                  unfinished.remove(_curAssignment);
-                  _curSubmission = null;
-                  _submitted = true;
-                  _loading = true;
-                });
-
-                var res = await uploadFile(
-                  _paths.first.bytes,
-                  _paths.first.name,
-                  widget.jwtToken,
-                  _idTugas,
-                );
-
-                if (res == 200) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Upload Berhasil!")));
-                  var temp = await fetchSubmissions(widget.jwtToken);
-                  setState(() {
-                    _loading = false;
-                    submissions = temp;
-                    _curSubmission = submissions.firstWhere(
-                        (element) => element.assignment == _idTugas);
-                  });
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text("Upload gagal, silahkan coba kembali")));
-                  setState(() {
-                    _loading = false;
-                    _submitted = false;
-                    _paths = null;
-                    _fileName = null;
-                  });
-                }
-              } else
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text(
-                        "Pilih File yang ingin di upload terlebih dahulu!")));
-            },
+            submitHandler: _submitHandler,
           ),
         ],
       ),
