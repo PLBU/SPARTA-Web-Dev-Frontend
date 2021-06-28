@@ -49,31 +49,30 @@ class UploadButton extends StatelessWidget {
                     height: (deviceType == DeviceType.mobile) ? 27 : 35,
                     // padding: EdgeInsets.all(10),
                     alignment: Alignment.centerLeft,
-                    child: this.submitted
-                        ? this.submission != null
-                            ? InkWell(
-                                onTap: () =>
-                                    launch(this.submission.submissionLink),
-                                child: Text(
-                                  this.submission.submissionLink,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color: Colors.blueAccent,
-                                    fontFamily: "Roboto",
-                                  ),
-                                ),
-                              )
-                            : Text(
+                    child: (this.submitted && this.submission != null)
+                        ? InkWell(
+                            onTap: () => launch(this.submission.submissionLink),
+                            child: Text(
+                              this.submission.submissionLink,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.blueAccent,
+                                fontFamily: "Roboto",
+                              ),
+                            ),
+                          )
+                        : (this.loading)
+                            ? Text(
                                 "Uploading..",
                                 style: TextStyle(fontFamily: "Roboto"),
                               )
-                        : Text(
-                            this.fileName != null
-                                ? this.fileName
-                                : "Pilih File..",
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontFamily: "Roboto"),
-                          ),
+                            : Text(
+                                this.fileName != null
+                                    ? this.fileName
+                                    : "Pilih File..",
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontFamily: "Roboto"),
+                              ),
                   ),
                   if (!this.submitted)
                     MyButton(

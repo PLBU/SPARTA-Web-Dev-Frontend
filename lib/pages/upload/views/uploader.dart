@@ -99,7 +99,6 @@ class _SubmissionUploaderState extends State<SubmissionUploader> {
       else if (_paths != null) {
         setState(() {
           unfinished.remove(_curAssignment);
-          _submitted = true;
           _loading = true;
         });
 
@@ -124,6 +123,7 @@ class _SubmissionUploaderState extends State<SubmissionUploader> {
           ));
           var temp = await fetchSubmissions(widget.jwtToken);
           setState(() {
+            _submitted = true;
             _loading = false;
             submissions = temp;
             _curSubmission = submissions
