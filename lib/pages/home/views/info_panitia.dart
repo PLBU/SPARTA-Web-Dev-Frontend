@@ -26,12 +26,11 @@ class InfoPanitia extends StatelessWidget {
         children: [
           MyTitle(text: '''INFO PANITIA''', logo: '''!'''),
           SizedBox(height: objectSpacing),
-          MyHeadingText(content: '''BPH'''),
-          SizedBox(height: objectSpacing),
           MyCard(
-            content: '''Ghifari Farras Akbar''',
+            content: '''Ghifari Farras Azhar
+(18219105)''',
             image: Image.asset("assets/images/blank_profile.jpg", height:  photoSize, width: photoSize),
-            title: '''Ketua SPARTA''',
+            title: '''Ketua''',
             type: CardType.Bottom,
           ),
           SizedBox(height: objectSpacing),
@@ -74,7 +73,7 @@ class InfoPanitia extends StatelessWidget {
             jabatan: '''Kepala Divisi''',
             foto: Image.asset("assets/images/blank_profile.jpg", height:  photoSize, width: photoSize),
             anggota: [
-              '''Rexy G. R. \n
+              '''Rexy G. R. 
 (13519010)''',
               '''Sharon B. M.
 (13519092)''',
@@ -123,7 +122,7 @@ class InfoPanitia extends StatelessWidget {
           SizedBox(height: objectSpacing),
           MyTextList(title: '''MSDM Kader''', list: [
             '''Nabilah E.
-  (13519181)''',
+(13519181)''',
             '''Ryo R.
 (13519193)''',
             '''M. Hiro A. M.

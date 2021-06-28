@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sparta/widgets/my_button.dart';
 import 'package:sparta/utils/ui_utils.dart';
-import 'package:sparta/models/support.dart';
 import 'package:sparta/models/user.dart';
 import 'package:sparta/pages/send_support/support_dialog.dart';
-import 'package:sparta/pages/support/services/index.dart';
 
 class SupportCard extends StatelessWidget {
   const SupportCard({
@@ -72,7 +70,7 @@ class SupportCard extends StatelessWidget {
                       text: 'SUPPORT',
                       buttonType: ButtonType.black,
                       handler: (){
-                        showSupportDialog(context, this.user.namaLengkap, this.user.id);
+                        showSupportDialog(context, this.user.namaPanggilan, this.user.id);
                       },
                     ),
                 ],

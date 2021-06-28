@@ -31,7 +31,7 @@ class Level {
 
     this.score = score;
     listOfLevel.forEach((elmt) { 
-      if (score > elmt['requiredScore']) {
+      if (score >= elmt['requiredScore']) {
         level++;
         this.levelName = elmt['name'];
       }

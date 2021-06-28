@@ -14,8 +14,13 @@ class InfoHMIF extends StatelessWidget {
           MyTitle(text: "HMIF ITB",logo: "?"),
           SizedBox(height: objectSpacing),
           MyCard(
-            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Malesuada bibendum arcu vitae elementum. Aliquam etiam erat velit scelerisque in dictum non. Nunc sed id semper risus in. Suspendisse potenti nullam ac tortor. Velit ut tortor pretium viverra. Pellentesque elit eget gravida cum sociis. Et pharetra pharetra massa massa ultricies mi quis hendrerit.",
-            image: Image.asset("assets/images/blank_profile.jpg",width: 100,height: 100,),
+            content: '''HMIF adalah Himpunan Mahasiswa Informatika
+Visi: HMIF sebagai Katalisator Karya dalam Harmoni
+Misi:
+-Optimalisasi potensi warga HMIF berdasarkan minat dan bakat dari warganya
+-Mengembangkan wadah untuk berkarya sebagai bentuk aktualisasi diri yang berasaskan profesionalitas
+-Membangun rumah aspirasi dengan berlandaskan empati''',
+            image: Image.asset("assets/images/hmif.png",width: 100,height: 100,),
             title: "APA ITU HMIF ITB?",
             type: CardType.Right,)
         ],

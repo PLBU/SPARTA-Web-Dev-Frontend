@@ -40,20 +40,20 @@ class MyNavigationBar extends StatelessWidget implements PreferredSizeWidget {
 
       List<Widget> navBarItems = [
         MyNavBarItem(
-          text: "home",
+          text: "Home",
           routeName: "/",
         ),
         MyNavBarItem(
-          text: "scoreboard",
+          text: "Scoreboard",
           routeName: "/scoreboard",
         ),
         if (currentUser != null || type == 'admin')
           MyNavBarItem(
-            text: "upload tugas",
+            text: "Upload tugas",
             routeName: "/upload-tugas",
           ),
         MyNavBarItem(
-          text: "gallery",
+          text: "Gallery",
           routeName: "/gallery",
         ),
         MyNavBarItemAuth(currentUser, type),

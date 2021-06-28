@@ -20,9 +20,9 @@ class HomePage extends StatelessWidget {
           SizedBox(height: 40),
           // INSERTT IMAGE HERE
           SizedBox(height: 40),
-          InfoSparta(),
-          SizedBox(height: 40),
           InfoHMIF(),
+          SizedBox(height: 40),
+          InfoSparta(),
           SizedBox(height: 40),
           InfoPanitia(),
         ],

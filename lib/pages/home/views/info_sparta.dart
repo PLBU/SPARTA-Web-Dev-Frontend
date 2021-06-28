@@ -15,7 +15,7 @@ class InfoSparta extends StatelessWidget {
           SizedBox(height: objectSpacing),
           MyCard(
             content: "SPARTA (Simulasi dan Pelatihan Keorganisasian Untuk Anggota) merupakan kaderisasi tahap awal pada rangkaian masa orientasi anggota baru Himpunan Mahasiswa Informatika ITB. SPARTA bertujuan untuk memberikan pengenalan dan pembekalan yang esensial terkait himpunan dan berhimpun serta pemenuhan profil-profil keanggotaan pada masa orientasi.",
-            image: Image.asset("assets/images/blank_profile.jpg",width: 100, height: 100,),
+            image: Image.asset("assets/images/sparta2020.png",width: 100, height: 100,),
             title: "APA ITU SPARTA?",
             type: CardType.Right,
             ),
