@@ -41,34 +41,44 @@ class UploadDropdown extends StatelessWidget {
               border: Border.all(color: Colors.black),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: DropdownButtonHideUnderline(
-              child: ButtonTheme(
-                alignedDropdown: true,
-                child: DropdownButton(
-                  isExpanded: true,
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: size,
-                  ),
-                  value: this.value,
-                  onChanged: this.onChange,
-                  items: this.items.map(
-                    (Assignment assingment) {
-                      return DropdownMenuItem<String>(
-                        value: assingment.id,
-                        child: Text(
-                          assingment.name,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontFamily: "Roboto",
-                          ),
+            child: this.items.length > 0
+                ? DropdownButtonHideUnderline(
+                    child: ButtonTheme(
+                      alignedDropdown: true,
+                      child: DropdownButton(
+                        isExpanded: true,
+                        style: TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: size,
                         ),
-                      );
-                    },
-                  ).toList(),
-                ),
-              ),
-            ),
+                        value: this.value,
+                        onChanged: this.onChange,
+                        items: this.items.map(
+                          (Assignment assingment) {
+                            return DropdownMenuItem<String>(
+                              value: assingment.id,
+                              child: Text(
+                                assingment.name,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontFamily: "Roboto",
+                                ),
+                              ),
+                            );
+                          },
+                        ).toList(),
+                      ),
+                    ),
+                  )
+                : Center(
+                    child: Text(
+                      "Tidak ada tugas yang tersedia",
+                      style: TextStyle(
+                        fontFamily: "Roboto",
+                        fontSize: size,
+                      ),
+                    ),
+                  ),
           ),
         ],
       ),

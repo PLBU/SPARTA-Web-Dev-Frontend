@@ -19,7 +19,7 @@ class Uploader extends StatefulWidget {
   });
 
   final jwtToken;
-  List<dynamic> data;
+  final List<dynamic> data;
 
   @override
   _UploaderState createState() => _UploaderState();
@@ -48,10 +48,10 @@ class _UploaderState extends State<Uploader> {
     submissions = widget.data[1];
     unfinished = widget.data[2];
 
-    _idTugas = assignments.first.id;
-    _curAssignment = assignments.first;
+    _idTugas = assignments.length > 0 ? assignments.first.id : null;
+    _curAssignment = assignments.length > 0 ? assignments.first : null;
     _submitted = !unfinished.contains(_curAssignment);
-    _curSubmission = _submitted
+    _curSubmission = _submitted && assignments.length > 0
         ? submissions.firstWhere((element) => element.assignment == _idTugas)
         : null;
     inspect(_curAssignment);
@@ -123,6 +123,7 @@ class _UploaderState extends State<Uploader> {
             size: respFont,
           ),
           SizedBox(height: 20),
+          if (this.assignments.length > 0)
           UploadButton(
             width: respWidth,
             fileHandler: () {
