@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:sparta/models/support.dart';
 import 'package:sparta/utils/network_util.dart';

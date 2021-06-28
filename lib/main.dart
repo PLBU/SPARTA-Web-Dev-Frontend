@@ -29,6 +29,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'SPARTA 2020',
       theme: ThemeData(
+        primarySwatch: MaterialColor(
+          0xFFFFCD17,
+          const {
+            50: const Color(0xFFFFCD17),
+            100: const Color(0xFFFFCD17),
+            200: const Color(0xFFFFCD17),
+            300: const Color(0xFFFFCD17),
+            400: const Color(0xFFFFCD17),
+            500: const Color(0xFFFFCD17),
+            600: const Color(0xFFFFCD17),
+            700: const Color(0xFFFFCD17),
+            800: const Color(0xFFFFCD17),
+            900: const Color(0xFFFFCD17),
+          },
+        ),
         accentColor: Color.fromRGBO(255, 205, 23, 1),
         colorScheme:
             ColorScheme.light(primary: Color.fromRGBO(255, 205, 23, 1)),
@@ -40,8 +55,8 @@ class MyApp extends StatelessWidget {
               var routeComponents = settings.name.split('/');
               final jwt = context.read(AuthState.jwt).state;
 
-              if (jwt != null &&
-                  routeComponents[1] == 'auth') routeComponents[1] = '';
+              if (jwt != null && routeComponents[1] == 'auth')
+                routeComponents[1] = '';
 
               RouteState.changeRouteState('/' + routeComponents[1]);
 
