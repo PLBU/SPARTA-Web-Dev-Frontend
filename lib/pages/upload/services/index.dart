@@ -1,9 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:html';
-import 'package:http_parser/http_parser.dart';
 import 'package:dio/dio.dart';
-
 import 'package:http/http.dart' as http;
 import 'package:sparta/utils/network_util.dart';
 import 'package:sparta/models/assignment.dart';
@@ -71,7 +68,7 @@ Future<List<dynamic>> fetchLists(String currentJWT) async {
   ].toList();
 }
 
-Future<int> uploadFile(
+Future<int> postSubmission(
   List<int> data,
   String name,
   String token,
@@ -104,7 +101,41 @@ Future<int> uploadFile(
   }
 }
 
-Future<int> uploadTugas(dynamic data, String token) async {
+Future<int> updateSubmission(
+  List<int> data,
+  String name,
+  String token,
+  String submissionID,
+) async {
+  var formData = FormData.fromMap({
+    'file': MultipartFile.fromBytes(
+      data,
+      filename: name,
+    )
+  });
+
+  final String url = 'https://sparta-backend.herokuapp.com/api/submissions/$submissionID';
+
+  var dio = Dio();
+
+  try {
+    var response = await dio.put(
+      url,
+      data: formData,
+      options: Options(headers: {
+        'Authorization': 'Bearer $token',
+      }),
+    );
+    print(response.data);
+
+    return response.statusCode;
+  } catch (e) {
+    print(e);
+    return null;
+  }
+}
+
+Future<int> createAssignment(dynamic data, String token) async {
   // { name, spek, deadline, kelompok, lowerScore, upperScore, nim }
   final Map<String, dynamic> body = {
     'name': data['name'],
