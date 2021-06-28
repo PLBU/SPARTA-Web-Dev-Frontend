@@ -46,7 +46,7 @@ class ScoreboardSearch extends StatelessWidget {
                 maxLines: 1,
                 hintText: "Cari..",
                 helperText:
-                    "Dapat mencari dengan \"jurusan=IF; nama=test; nim=113; kelompok=15;\"",
+                    "Format Pencarian: \"jurusan=IF; nama=test; nim=113; kelompok=15;\"",
                 width: (deviceType == DeviceType.mobile)
                     ? 330
                     : (deviceType == DeviceType.tablet)
