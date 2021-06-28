@@ -164,7 +164,7 @@ class _CreateTugasState extends State<CreateTugas> {
               
               var res;
               if (nameTEC.text != "" || spekTEC.text != "")
-                res = await uploadTugas({
+                res = await createAssignment({
                   'name': nameTEC.text,
                   'spek': spekTEC.text,
                   'upperScore':
