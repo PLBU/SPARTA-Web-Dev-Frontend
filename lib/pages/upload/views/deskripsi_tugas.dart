@@ -37,7 +37,7 @@ class DeskripsiTugas extends StatelessWidget {
       child: this.assignment != null
           ? ListView(
               children: [
-                Text(
+                SelectableText(
                   this.assignment.name,
                   style: TextStyle(
                     fontFamily: "DrukWideBold",
@@ -45,7 +45,7 @@ class DeskripsiTugas extends StatelessWidget {
                   ),
                   textAlign: TextAlign.left,
                 ),
-                Text(
+                SelectableText(
                   date + " " + time,
                   style: TextStyle(
                     fontFamily: "Roboto",
@@ -55,7 +55,7 @@ class DeskripsiTugas extends StatelessWidget {
                   textAlign: TextAlign.left,
                 ),
                 SizedBox(height: size),
-                Text(
+                SelectableText(
                   this.assignment.spek,
                   style: TextStyle(
                     fontFamily: "Roboto",
