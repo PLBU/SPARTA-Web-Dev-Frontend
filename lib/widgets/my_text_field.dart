@@ -69,6 +69,10 @@ class MyTextField extends StatelessWidget {
             borderSide: BorderSide(color: Colors.black),
             borderRadius: BorderRadius.circular(16),
           ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.black),
+            borderRadius: BorderRadius.circular(16),
+          ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.black),
             borderRadius: BorderRadius.circular(16),
