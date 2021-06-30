@@ -32,11 +32,11 @@ class ProfileInfo extends StatelessWidget {
               ),
               Spacer(),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Icon(Icons.cake),
-                  SizedBox(width: 10),
                   ProfileText(
-                    text: '08/11',
+                    text: ' 08/11',
                     fontFamily: 'DrukWideBold',
                     fontSize: 20,
                   ),
@@ -50,6 +50,7 @@ class ProfileInfo extends StatelessWidget {
           color: Colors.grey,
           fontSize: (deviceType != DeviceType.desktop) ? 14 : 19,
         ),
+        SizedBox(height: 0.25 * space),
         (deviceType == DeviceType.desktop)
             ? MyHeadingText(content: user.namaLengkap)
             : ProfileText(
@@ -57,6 +58,7 @@ class ProfileInfo extends StatelessWidget {
                 fontSize: 19,
                 fontFamily: 'DrukWideBold',
               ),
+        SizedBox(height: 0.25 * space),
         ProfileText(
           text: 'dipanggil ' + user.namaPanggilan,
           fontSize: (deviceType != DeviceType.desktop) ? 14 : 19,

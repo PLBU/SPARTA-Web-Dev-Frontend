@@ -32,14 +32,14 @@ class MyContainer extends StatelessWidget {
         color: Colors.white,
         border: Border.all(
           color: Colors.black,
-          width: 1.0,
+          width: 2,
         ),
         borderRadius: BorderRadius.all(Radius.circular(10)),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: Colors.black,
             blurRadius: 0.0,
-            offset: Offset(0.0, 2.0),
+            offset: Offset(0.0, 8.0),
           ),
         ],
       ),

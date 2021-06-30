@@ -277,10 +277,16 @@ class PortraitLayout extends StatelessWidget {
               fontSize: 15,
             ),
             Spacer(),
-            ProfileText(
-              text: 'Ultah 08/11',
-              fontFamily: 'DrukWideBold',
-              fontSize: 15,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(Icons.cake),
+                ProfileText(
+                  text: ' 08/11',
+                  fontFamily: 'DrukWideBold',
+                  fontSize: 15,
+                ),
+              ],
             ),
           ],
         ),
