@@ -15,25 +15,23 @@ class MyTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     DeviceType deviceType = UIUtils.getDeviceType(context);
 
-    double leavesHeight = (deviceType == DeviceType.mobile)
-        ? 40
+    double spikyBubbleHeight = (deviceType == DeviceType.mobile)
+        ? 42
         : (deviceType == DeviceType.tablet)
             ? 56
             : 80;
 
-    double logoHeight = (deviceType == DeviceType.mobile)
-        ? 28
-        : (deviceType == DeviceType.tablet)
-            ? 36
-            : 50;
-
     double fontSize = (deviceType == DeviceType.mobile)
-        ? 28
+        ? 24
         : (deviceType == DeviceType.tablet)
-            ? 36
+            ? 32
             : 50;
 
-    double space = (deviceType == DeviceType.tablet) ? 18 : 24;
+    double space = (deviceType == DeviceType.mobile)
+        ? 8
+        : (deviceType == DeviceType.tablet)
+            ? 18
+            : 24;
 
     return FittedBox(
       fit: BoxFit.scaleDown,
@@ -45,14 +43,15 @@ class MyTitle extends StatelessWidget {
               alignment: Alignment.center,
               children: [
                 Image.asset(
-                  "assets/icons/leaves.png",
-                  height: leavesHeight,
+                  "assets/icons/spiky_bubble.png",
+                  height: spikyBubbleHeight,
                 ),
                 Text(
                   logo,
                   style: TextStyle(
                     fontFamily: 'DrukWideBold',
-                    fontSize: logoHeight,
+                    fontSize: fontSize,
+                    color: Colors.white,
                   ),
                 )
               ],
@@ -60,7 +59,11 @@ class MyTitle extends StatelessWidget {
           if (logo != null) SizedBox(width: space),
           Text(
             text,
-            style: TextStyle(fontFamily: 'DrukWideBold', fontSize: fontSize),
+            style: TextStyle(
+              fontFamily: 'DrukWideBold',
+              fontSize: fontSize,
+              color: Colors.black,
+            ),
           ),
         ],
       ),
