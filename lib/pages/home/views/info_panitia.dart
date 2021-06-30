@@ -64,59 +64,111 @@ class _InfoPanitiaState extends State<InfoPanitia> {
             type: CardType.Bottom,
           ),
           SizedBox(height: spaceHeight),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              MyCard(
-                content: '${sekjen[0].nama}\n${sekjen[0].nim}',
-                title: 'SEKJEN',
-                image: Image.asset(
-                  sekjen[0].foto,
-                  height: photoSize,
-                  width: photoSize,
+          (deviceType != DeviceType.mobile && deviceType != DeviceType.tablet)
+              ? Column(
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        MyCard(
+                          content: '${sekjen[0].nama}\n${sekjen[0].nim}',
+                          title: 'SEKJEN',
+                          image: Image.asset(
+                            sekjen[0].foto,
+                            height: photoSize,
+                            width: photoSize,
+                          ),
+                          type: CardType.Bottom,
+                        ),
+                        SizedBox(width: spaceWidth),
+                        MyCard(
+                          content: '${sekjen[1].nama}\n${sekjen[1].nim}',
+                          title: 'BENDAHARA',
+                          image: Image.asset(
+                            sekjen[1].foto,
+                            height: photoSize,
+                            width: photoSize,
+                          ),
+                          type: CardType.Bottom,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: spaceHeight),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        MyCard(
+                          content: '${sekjen[2].nama}\n${sekjen[2].nim}',
+                          title: 'SEKRETARIS 1',
+                          image: Image.asset(
+                            sekjen[2].foto,
+                            height: photoSize,
+                            width: photoSize,
+                          ),
+                          type: CardType.Bottom,
+                        ),
+                        SizedBox(width: spaceWidth),
+                        MyCard(
+                          content: '${sekjen[3].nama}\n${sekjen[3].nim}',
+                          title: 'SEKRETARIS 2',
+                          image: Image.asset(
+                            sekjen[3].foto,
+                            height: photoSize,
+                            width: photoSize,
+                          ),
+                          type: CardType.Bottom,
+                        ),
+                      ],
+                    ),
+                  ],
+                )
+              : Column(
+                  children: [
+                    MyCard(
+                      content: '${sekjen[0].nama}\n${sekjen[0].nim}',
+                      title: 'SEKJEN',
+                      image: Image.asset(
+                        sekjen[0].foto,
+                        height: photoSize,
+                        width: photoSize,
+                      ),
+                      type: CardType.Bottom,
+                    ),
+                    SizedBox(height: spaceHeight),
+                    MyCard(
+                      content: '${sekjen[1].nama}\n${sekjen[1].nim}',
+                      title: 'BENDAHARA',
+                      image: Image.asset(
+                        sekjen[1].foto,
+                        height: photoSize,
+                        width: photoSize,
+                      ),
+                      type: CardType.Bottom,
+                    ),
+                    SizedBox(height: spaceHeight),
+                    MyCard(
+                      content: '${sekjen[2].nama}\n${sekjen[2].nim}',
+                      title: 'SEKRETARIS 1',
+                      image: Image.asset(
+                        sekjen[2].foto,
+                        height: photoSize,
+                        width: photoSize,
+                      ),
+                      type: CardType.Bottom,
+                    ),
+                    SizedBox(height: spaceHeight),
+                    MyCard(
+                      content: '${sekjen[3].nama}\n${sekjen[3].nim}',
+                      title: 'SEKRETARIS 2',
+                      image: Image.asset(
+                        sekjen[3].foto,
+                        height: photoSize,
+                        width: photoSize,
+                      ),
+                      type: CardType.Bottom,
+                    ),
+                  ],
                 ),
-                type: CardType.Bottom,
-              ),
-              SizedBox(width: spaceWidth),
-              MyCard(
-                content: '${sekjen[1].nama}\n${sekjen[1].nim}',
-                title: 'BENDAHARA',
-                image: Image.asset(
-                  sekjen[1].foto,
-                  height: photoSize,
-                  width: photoSize,
-                ),
-                type: CardType.Bottom,
-              ),
-            ],
-          ),
-          SizedBox(height: spaceHeight),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              MyCard(
-                content: '${sekjen[2].nama}\n${sekjen[2].nim}',
-                title: 'SEKRETARIS 1',
-                image: Image.asset(
-                  sekjen[2].foto,
-                  height: photoSize,
-                  width: photoSize,
-                ),
-                type: CardType.Bottom,
-              ),
-              SizedBox(width: spaceWidth),
-              MyCard(
-                content: '${sekjen[3].nama}\n${sekjen[3].nim}',
-                title: 'SEKRETARIS 2',
-                image: Image.asset(
-                  sekjen[3].foto,
-                  height: photoSize,
-                  width: photoSize,
-                ),
-                type: CardType.Bottom,
-              ),
-            ],
-          ),
         ],
       );
     } else if (idx == 1) {
@@ -221,6 +273,15 @@ class _InfoPanitiaState extends State<InfoPanitia> {
   Widget build(BuildContext context) {
     DeviceType deviceType = UIUtils.getDeviceType(context);
     double objectSpacing = 40;
+    double respHeight = (deviceType == DeviceType.mobile)
+        ? _pageNum == 1
+            ? 1500
+            : 1400
+        : (deviceType == DeviceType.tablet)
+            ? _pageNum == 0
+                ? 1800
+                : 1100
+            : 1500;
     final PageController controller = PageController(initialPage: 0);
     setState(() {
       _next = (_pageNum + 1) % kepanitiaan.length > 0;
@@ -273,7 +334,7 @@ class _InfoPanitiaState extends State<InfoPanitia> {
           ),
           SizedBox(height: 40),
           Container(
-            height: 1500,
+            height: respHeight,
             child: PageView.builder(
               controller: controller,
               onPageChanged: (pageID) {

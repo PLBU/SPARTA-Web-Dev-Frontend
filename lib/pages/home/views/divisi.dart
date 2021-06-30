@@ -23,40 +23,41 @@ class Divisi extends StatelessWidget {
     DeviceType deviceType = UIUtils.getDeviceType(context);
 
     return Container(
-        child: (deviceType == DeviceType.mobile)
-            ? Column(
-                children: [
-                  MyCard(
-                    content: namaKetua,
-                    image: foto,
-                    title: jabatan,
-                    type: CardType.Bottom,
-                    height: 190,
-                  ),
-                  SizedBox(height: 20),
-                  MyTextList(
-                    title: namaDivisi,
-                    list: anggota,
-                  ),
-                ],
-              )
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  MyCard(
-                    content: namaKetua,
-                    image: foto,
-                    title: jabatan,
-                    type: CardType.Bottom,
-                    height: (deviceType == DeviceType.tablet) ? 250 : 330,
-                  ),
-                  SizedBox(width: 40),
-                  MyTextList(
-                    title: namaDivisi,
-                    list: anggota,
-                  ),
-                ],
-              ));
+        child:
+            (deviceType == DeviceType.mobile)
+                ? Column(
+                    children: [
+                      MyCard(
+                        content: namaKetua,
+                        image: foto,
+                        title: jabatan,
+                        type: CardType.Bottom,
+                        height: 190,
+                      ),
+                      SizedBox(height: 20),
+                      MyTextList(
+                        title: namaDivisi,
+                        list: anggota,
+                      ),
+                    ],
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      MyCard(
+                        content: namaKetua,
+                        image: foto,
+                        title: jabatan,
+                        type: CardType.Bottom,
+                        height: (deviceType == DeviceType.tablet) ? 250 : 330,
+                      ),
+                      SizedBox(width: 40),
+                      MyTextList(
+                        title: namaDivisi,
+                        list: anggota,
+                      ),
+                    ],
+                  ));
   }
 }
