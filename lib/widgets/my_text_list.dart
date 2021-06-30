@@ -50,6 +50,7 @@ class MyTextList extends StatelessWidget {
       fontFamily: 'Roboto',
       fontSize: fontSize,
       color: fontColor,
+      fontWeight: FontWeight.w600
       );
 
     ////// Build Implementation
@@ -61,7 +62,7 @@ class MyTextList extends StatelessWidget {
               ),
       padding: EdgeInsets.fromLTRB(padding, 0.5*padding, padding, padding),
       // Size
-      height: textListHeight,
+      height: textListHeight + 8,
       width: textListWidth,
 
       // Child
