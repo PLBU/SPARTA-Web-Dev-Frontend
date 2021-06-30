@@ -62,7 +62,7 @@ class _MyButtonState extends State<MyButton> {
       },
       child: ElevatedButton(
           style: ButtonStyle(
-            elevation: MaterialStateProperty.all<double>((_isHovered) ? 4 : 0),
+            elevation: MaterialStateProperty.all<double>((_isHovered) ? 1 : 0),
             padding: MaterialStateProperty.all<EdgeInsets>(
               EdgeInsets.symmetric(
                   vertical: paddingVertical, horizontal: paddingHorizontal),
