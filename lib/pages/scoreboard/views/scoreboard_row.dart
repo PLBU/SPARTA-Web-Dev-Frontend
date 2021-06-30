@@ -53,7 +53,9 @@ class ScoreboardRow extends StatelessWidget {
     Color fontColor = this.self ? Colors.white : Colors.black;
 
     return InkWell(
-      hoverColor: Color.fromRGBO(0, 0, 0, 0.01),
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      hoverColor: Colors.transparent,
       onTap: () {
         NavUtil.navigate(context, '/profile/${this.objectId}');
       },
@@ -64,7 +66,7 @@ class ScoreboardRow extends StatelessWidget {
         margin: respMargin,
         decoration: BoxDecoration(
           color: this.self ? Colors.black : bgColor,
-          border: Border.all(color: Colors.black),
+          border: Border.all(color: Colors.black, width: 2),
           borderRadius: BorderRadius.circular(10),
         ),
         child: MyRow(
