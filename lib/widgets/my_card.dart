@@ -23,7 +23,7 @@ class MyCard extends StatelessWidget {
     DeviceType deviceType = UIUtils.getDeviceType(context);
 
     double cardWidth = (deviceType == DeviceType.mobile)
-        ? 250
+        ? 260
         : (type == CardType.Bottom)
             ? (deviceType == DeviceType.tablet)
                 ? 300
@@ -33,10 +33,10 @@ class MyCard extends StatelessWidget {
                 : 640;
 
     double textSize = (deviceType == DeviceType.mobile)
-        ? 15
+        ? 14
         : (deviceType == DeviceType.tablet)
-            ? 17
-            : 20;
+            ? 16
+            : 18;
 
     EdgeInsets contentPadding = (deviceType == DeviceType.mobile)
         ? const EdgeInsets.all(20)
@@ -45,13 +45,13 @@ class MyCard extends StatelessWidget {
             : const EdgeInsets.all(35);
 
     BoxDecoration shadowDecoration = BoxDecoration(
-      border: Border.all(color: Colors.black),
+      border: Border.all(color: Colors.black, width: 2),
       boxShadow: [
         BoxShadow(
           color: Colors.black,
           offset: const Offset(
-            7.0,
-            7.0,
+            8.0,
+            8.0,
           ),
         ),
         BoxShadow(
@@ -64,31 +64,34 @@ class MyCard extends StatelessWidget {
       ],
     );
 
-    return Container(
-      width: cardWidth,
-      decoration: shadowDecoration,
-      child: Column(
-        children: [
-          CardTitle(title: title, textSize: textSize),
-          if (this.type == CardType.Right && deviceType != DeviceType.mobile)
-            RightTypeContent(
-              contentPadding: contentPadding,
-              image: image,
-              deviceType: deviceType,
-              content: content,
-              textSize: textSize,
-              height: height,
-            )
-          else
-            BottomTypeContent(
-              contentPadding: contentPadding,
-              image: image,
-              deviceType: deviceType,
-              content: content,
-              textSize: textSize,
-              height: height,
-            )
-        ],
+    return Padding(
+      padding: EdgeInsets.only(bottom: 8),
+      child: Container(
+        width: cardWidth,
+        decoration: shadowDecoration,
+        child: Column(
+          children: [
+            CardTitle(title: title, textSize: textSize),
+            if (this.type == CardType.Right && deviceType != DeviceType.mobile)
+              RightTypeContent(
+                contentPadding: contentPadding,
+                image: image,
+                deviceType: deviceType,
+                content: content,
+                textSize: textSize,
+                height: height,
+              )
+            else
+              BottomTypeContent(
+                contentPadding: contentPadding,
+                image: image,
+                deviceType: deviceType,
+                content: content,
+                textSize: textSize,
+                height: height,
+              )
+          ],
+        ),
       ),
     );
   }
@@ -179,7 +182,7 @@ class RightTypeContent extends StatelessWidget {
             width: contentPadding.top, // Same value with contentPadding
           ),
           Expanded(
-            child: Text(
+            child: SelectableText(
               content,
               textAlign: TextAlign.justify,
               style: TextStyle(
@@ -208,10 +211,10 @@ class CardTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         border: Border(
-          bottom: BorderSide(color: Colors.black),
+          bottom: BorderSide(color: Colors.black, width: 2),
         ),
       ),
       child: Row(
@@ -221,13 +224,17 @@ class CardTitle extends StatelessWidget {
             title,
             style: TextStyle(
               fontFamily: 'DrukWideBold',
-              fontSize: textSize,
+              fontSize: textSize - 4,
             ),
           ),
-          Icon(
-            Icons.close,
-            color: Colors.black,
-          ),
+          Text(
+            'X',
+            style: TextStyle(
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.bold,
+              fontSize: textSize,
+            ),
+          )
         ],
       ),
     );

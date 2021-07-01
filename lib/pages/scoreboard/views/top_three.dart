@@ -23,7 +23,7 @@ class TopThree extends StatelessWidget {
       height: (deviceType == DeviceType.mobile)
           ? 205
           : (deviceType == DeviceType.tablet)
-              ? 270
+              ? 280
               : 450,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

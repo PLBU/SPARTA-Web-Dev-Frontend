@@ -20,7 +20,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     DeviceType deviceType = UIUtils.getDeviceType(context);
 
-    double imageSize = (deviceType == DeviceType.desktop) ? 48 : 36;
+    double imageSize = (deviceType == DeviceType.desktop) ? 56 : 36;
     double containerWidth = (deviceType == DeviceType.desktop)
         ? 640
         : (deviceType == DeviceType.tablet)

@@ -6,7 +6,7 @@ enum ButtonType {
   black,
 }
 
-class MyButton extends StatelessWidget {
+class MyButton extends StatefulWidget {
   final Function handler;
   final String text;
   final ButtonType buttonType;
@@ -16,33 +16,53 @@ class MyButton extends StatelessWidget {
       {this.handler, this.text, this.buttonType, this.isLoading = false});
 
   @override
+  _MyButtonState createState() => _MyButtonState();
+}
+
+class _MyButtonState extends State<MyButton> {
+  bool _isHovered = false;
+
+  @override
   Widget build(BuildContext context) {
     Color color =
-        (buttonType == ButtonType.black) ? Colors.black : Colors.white;
+        (widget.buttonType == ButtonType.black) ? Colors.black : Colors.white;
     Color textColor =
-        (buttonType == ButtonType.black) ? Colors.white : Colors.black;
-    Color overlayColor =
-        (buttonType == ButtonType.black) ? Colors.grey[850] : Colors.grey[200];
+        (widget.buttonType == ButtonType.black) ? Colors.white : Colors.black;
+    Color overlayColor = 
+        (widget.buttonType == ButtonType.black) ? Colors.black : Colors.white;
     DeviceType deviceType = UIUtils.getDeviceType(context);
     double fontSize = (deviceType == DeviceType.mobile)
-        ? 10
+        ? 9
         : (deviceType == DeviceType.tablet)
-            ? 13
-            : 15;
+            ? 12.5
+            : 14;
     double paddingVertical = (deviceType == DeviceType.mobile)
-        ? 10
+        ? 6
         : (deviceType == DeviceType.tablet)
             ? 16
             : 18;
     double paddingHorizontal = (deviceType == DeviceType.mobile)
-        ? 14
+        ? 12
         : (deviceType == DeviceType.tablet)
             ? 20
             : 24;
 
-    return Container(
+    double borderRadius = (deviceType == DeviceType.mobile) ? 10 : 12;
+
+    return MouseRegion(
+      onEnter: (PointerEvent details) {
+        setState(() {
+          _isHovered = true;
+        });
+      },
+      onExit: (PointerEvent details) {
+        setState(() {
+          _isHovered = false;
+        });
+      },
       child: ElevatedButton(
           style: ButtonStyle(
+            elevation: MaterialStateProperty.all<double>((_isHovered) ? 1 : 0),
             padding: MaterialStateProperty.all<EdgeInsets>(
               EdgeInsets.symmetric(
                   vertical: paddingVertical, horizontal: paddingHorizontal),
@@ -51,33 +71,34 @@ class MyButton extends StatelessWidget {
             backgroundColor: MaterialStateProperty.all<Color>(color),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(borderRadius),
                 side: BorderSide(color: Colors.black, width: 2),
               ),
             ),
           ),
-          onPressed: this.handler,
+          onPressed: this.widget.handler,
           child: AnimatedSwitcher(
-            key: ValueKey<bool>(isLoading),
+            key: ValueKey<bool>(widget.isLoading),
             transitionBuilder: (Widget child, Animation<double> animation) {
               return ScaleTransition(child: child, scale: animation);
             },
             duration: const Duration(seconds: 1),
-            child: (this.isLoading)
+            child: (this.widget.isLoading)
                 ? SizedBox(
-                  width: 1.5*fontSize,
-                  height: 1.5*fontSize,
-                  child: CircularProgressIndicator(
+                    width: 1.5 * fontSize,
+                    height: 1.5 * fontSize,
+                    child: CircularProgressIndicator(
                       valueColor: AlwaysStoppedAnimation<Color>(textColor),
                       strokeWidth: 2,
                     ),
-                )
+                  )
                 : Text(
-                    text,
+                    widget.text,
                     style: TextStyle(
-                        color: textColor,
-                        fontFamily: 'DrukWideBold',
-                        fontSize: fontSize),
+                      color: textColor,
+                      fontFamily: 'DrukWideBold',
+                      fontSize: fontSize,
+                    ),
                   ),
           )),
     );
