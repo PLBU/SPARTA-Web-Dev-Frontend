@@ -31,7 +31,7 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
     users = fetchUsers(null, null, null, null);
 
     users.then((allUser) {
-      fetchTopThree(allUser[0], allUser[1], allUser[2]).then((list){
+      fetchTopThree(allUser[0], allUser[1], allUser[2]).then((list) {
         inspect(list);
         setState(() {
           topThree = list;
@@ -109,7 +109,7 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
       return FutureBuilder(
         future: users,
         builder: (context, snapshot) {
-          if (snapshot.hasData && this.topThree!=null) {
+          if (snapshot.hasData) {
             return GestureDetector(
               onTap: () {
                 FocusScope.of(context).requestFocus(new FocusNode());
@@ -124,11 +124,19 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
                       SizedBox(height: space),
                       MyTitle(text: "SCOREBOARD", logo: "#"),
                       SizedBox(height: space),
-                      TopThree(
-                        this.topThree[0],
-                        this.topThree[1],
-                        this.topThree[2],
-                      ),
+                      if (topThree != null)
+                        TopThree(
+                          this.topThree[0],
+                          this.topThree[1],
+                          this.topThree[2],
+                        )
+                      else
+                        Center(
+                          child: CircularProgressIndicator(
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.black),
+                          ),
+                        ),
                       SizedBox(height: space),
                       ScoreboardSearch(
                         submitHandler: configureSearch,
@@ -138,11 +146,11 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
                       ),
                       SizedBox(height: space / 2),
                       if (snapshot.connectionState == ConnectionState.done)
-                      ScoreboardView(
-                        users: snapshot.data,
-                        ranks: this.ranks,
-                        curUser: currentUser,
-                      ),
+                        ScoreboardView(
+                          users: snapshot.data,
+                          ranks: this.ranks,
+                          curUser: currentUser,
+                        ),
                       SizedBox(height: space),
                     ],
                   ),
