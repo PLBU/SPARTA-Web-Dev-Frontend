@@ -48,18 +48,21 @@ Future<List<User>> fetchTopThree(User user1, User user2, User user3) async {
         'id': user1.id,
         'namaLengkap': user1.namaLengkap,
         'nim': user1.nim,
+        'skor': user1.skor,
         'foto': jsonDecode(response1.body)['foto'],
       }),
       User.fromJson({
         'id': user2.id,
         'namaLengkap': user2.namaLengkap,
         'nim': user2.nim,
+        'skor': user2.skor,
         'foto': jsonDecode(response2.body)['foto'],
       }),
       User.fromJson({
         'id': user3.id,
         'namaLengkap': user3.namaLengkap,
         'nim': user3.nim,
+        'skor': user3.skor,
         'foto': jsonDecode(response3.body)['foto'],
       }),
     ];

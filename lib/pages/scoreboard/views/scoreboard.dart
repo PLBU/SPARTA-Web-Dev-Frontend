@@ -197,7 +197,7 @@ class PageButton extends StatelessWidget {
         children: [
           if (prev)
             MyButton(
-              text: "Previous",
+              text: "PREV PAGE",
               buttonType: ButtonType.white,
               handler: this.handler1,
             ),
@@ -206,7 +206,7 @@ class PageButton extends StatelessWidget {
           ),
           if (next)
             MyButton(
-              text: "Next",
+              text: "NEXT PAGE",
               buttonType: ButtonType.white,
               handler: this.handler2,
             ),

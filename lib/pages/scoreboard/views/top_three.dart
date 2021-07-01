@@ -20,11 +20,12 @@ class TopThree extends StatelessWidget {
           : (deviceType == DeviceType.tablet)
               ? 600
               : 1000,
-      height: (deviceType == DeviceType.mobile)
-          ? 205
-          : (deviceType == DeviceType.tablet)
-              ? 280
-              : 450,
+      // height: (deviceType == DeviceType.mobile)
+      //     ? 240
+      //     : (deviceType == DeviceType.tablet)
+      //         ? 350
+      //         : 500,
+      // padding: EdgeInsets.symmetric(vertical: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -77,7 +78,7 @@ class TopCard extends StatelessWidget {
             width: respWidth,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(10),
             ),
             child: this.user.foto == null
                 ? Image.asset('assets/images/blank_profile.jpg')
@@ -85,6 +86,28 @@ class TopCard extends StatelessWidget {
                     this.user.foto,
                     fit: BoxFit.contain,
                   ),
+          ),
+          SizedBox(height: (deviceType == DeviceType.mobile) ? 3 : 10),
+          Container(
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: Colors.black,
+              border: Border.all(color: Colors.black),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            padding: EdgeInsets.symmetric(vertical: 5),
+            child: Text(
+              "${this.user.skor} pts",
+              style: TextStyle(
+                fontFamily: 'DrukWideBold',
+                color: Colors.white,
+                fontSize: (deviceType == DeviceType.mobile)
+                    ? 12
+                    : (deviceType == DeviceType.tablet)
+                        ? 16
+                        : 22,
+              ),
+            ),
           ),
           SizedBox(height: (deviceType == DeviceType.mobile) ? 3 : 10),
           Container(
