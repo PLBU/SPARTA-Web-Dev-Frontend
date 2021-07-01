@@ -114,46 +114,39 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
               onTap: () {
                 FocusScope.of(context).requestFocus(new FocusNode());
               },
-              child: ListView(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(height: space),
-                      MyTitle(text: "SCOREBOARD", logo: "#"),
-                      SizedBox(height: space),
-                      if (topThree != null)
-                        TopThree(
-                          this.topThree[0],
-                          this.topThree[1],
-                          this.topThree[2],
-                        )
-                      else
-                        Center(
-                          child: CircularProgressIndicator(
-                            valueColor:
-                                AlwaysStoppedAnimation<Color>(Colors.black),
-                          ),
-                        ),
-                      SizedBox(height: space),
-                      ScoreboardSearch(
-                        submitHandler: configureSearch,
-                        searchBarTEC: searchBarTEC,
-                        respFont: respFont,
-                        connectionState: snapshot.connectionState,
+                  SizedBox(height: space),
+                  MyTitle(text: "SCOREBOARD", logo: "#"),
+                  SizedBox(height: space),
+                  if (topThree != null)
+                    TopThree(
+                      this.topThree[0],
+                      this.topThree[1],
+                      this.topThree[2],
+                    )
+                  else
+                    Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
                       ),
-                      SizedBox(height: space / 2),
-                      if (snapshot.connectionState == ConnectionState.done)
-                        ScoreboardView(
-                          users: snapshot.data,
-                          ranks: this.ranks,
-                          curUser: currentUser,
-                        ),
-                      SizedBox(height: space),
-                    ],
+                    ),
+                  SizedBox(height: space * 2),
+                  ScoreboardSearch(
+                    submitHandler: configureSearch,
+                    searchBarTEC: searchBarTEC,
+                    respFont: respFont,
+                    connectionState: snapshot.connectionState,
                   ),
+                  SizedBox(height: space * 2),
+                  if (snapshot.connectionState == ConnectionState.done)
+                    ScoreboardView(
+                      users: snapshot.data,
+                      ranks: this.ranks,
+                      curUser: currentUser,
+                    ),
+                  SizedBox(height: space),
                 ],
               ),
             );

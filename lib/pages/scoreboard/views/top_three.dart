@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sparta/utils/ui_utils.dart';
+import 'package:sparta/utils/nav_util.dart';
 import 'package:sparta/models/user.dart';
 import 'package:sparta/widgets/my_container.dart';
 
@@ -20,12 +21,7 @@ class TopThree extends StatelessWidget {
           : (deviceType == DeviceType.tablet)
               ? 600
               : 1000,
-      // height: (deviceType == DeviceType.mobile)
-      //     ? 240
-      //     : (deviceType == DeviceType.tablet)
-      //         ? 350
-      //         : 500,
-      // padding: EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.symmetric(vertical: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -69,88 +65,97 @@ class TopCard extends StatelessWidget {
             ? 24
             : 30;
 
-    return Container(
-      width: respWidth,
-      child: Column(
-        children: [
-          Container(
-            height: respHeight,
-            width: respWidth,
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black),
-              borderRadius: BorderRadius.circular(10),
+    return InkWell(
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      onTap: () {
+        NavUtil.navigate(context, '/profile/${this.user.id}');
+      },
+      child: Container(
+        width: respWidth,
+        child: Column(
+          children: [
+            Container(
+              height: respHeight,
+              width: respWidth,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: this.user.foto == null
+                  ? Image.asset('assets/images/blank_profile.jpg')
+                  : Image.memory(
+                      this.user.foto,
+                      fit: BoxFit.contain,
+                    ),
             ),
-            child: this.user.foto == null
-                ? Image.asset('assets/images/blank_profile.jpg')
-                : Image.memory(
-                    this.user.foto,
-                    fit: BoxFit.contain,
-                  ),
-          ),
-          SizedBox(height: (deviceType == DeviceType.mobile) ? 3 : 10),
-          Container(
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: Colors.black,
-              border: Border.all(color: Colors.black),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            padding: EdgeInsets.symmetric(vertical: 5),
-            child: Text(
-              "${this.user.skor} pts",
-              style: TextStyle(
-                fontFamily: 'DrukWideBold',
-                color: Colors.white,
-                fontSize: (deviceType == DeviceType.mobile)
-                    ? 12
-                    : (deviceType == DeviceType.tablet)
-                        ? 16
-                        : 22,
+            SizedBox(height: (deviceType == DeviceType.mobile) ? 3 : 10),
+            Container(
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Colors.black,
+                border: Border.all(color: Colors.black),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              padding: EdgeInsets.symmetric(vertical: 5),
+              child: Text(
+                "${this.user.skor} pts",
+                style: TextStyle(
+                  fontFamily: 'DrukWideBold',
+                  color: Colors.white,
+                  fontSize: (deviceType == DeviceType.mobile)
+                      ? 12
+                      : (deviceType == DeviceType.tablet)
+                          ? 16
+                          : 22,
+                ),
               ),
             ),
-          ),
-          SizedBox(height: (deviceType == DeviceType.mobile) ? 3 : 10),
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Text(
-                  "#" + this.num,
-                  style: TextStyle(
-                    fontFamily: 'DrukWideBold',
-                    fontSize: respID,
+            SizedBox(height: (deviceType == DeviceType.mobile) ? 3 : 10),
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Text(
+                    "#" + this.num,
+                    style: TextStyle(
+                      fontFamily: 'DrukWideBold',
+                      fontSize: respID,
+                    ),
                   ),
-                ),
-                SizedBox(width: respText - 5),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: respWidth * 0.6,
-                      child: Text(
-                        this.user.namaLengkap,
-                        overflow: TextOverflow.ellipsis,
+                  SizedBox(width: respText - 5),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: respWidth * 0.6,
+                        child: Text(
+                          this.user.namaLengkap,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.bold,
+                            fontSize: respText,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        this.user.nim,
                         style: TextStyle(
                           fontFamily: 'Roboto',
                           fontSize: respText,
                         ),
-                      ),
-                    ),
-                    Text(
-                      this.user.nim,
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: respText,
-                      ),
-                    )
-                  ],
-                ),
-              ],
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
