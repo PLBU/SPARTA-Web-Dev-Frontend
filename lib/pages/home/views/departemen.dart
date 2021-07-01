@@ -6,9 +6,8 @@ import 'package:sparta/pages/home/views/divisi.dart';
 import 'package:sparta/widgets/my_card.dart';
 import 'package:sparta/widgets/my_heading_text.dart';
 
-
 class Departemen extends StatelessWidget {
- const Departemen ({
+  const Departemen({
     this.namaDepartemen,
     this.namaKetua,
     this.foto,
@@ -27,28 +26,28 @@ class Departemen extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-            MyHeadingText(content: namaDepartemen),
-            SizedBox(height: objectSpacing),
-            MyCard(
-              content: namaKetua,
-              image: foto,
-              title: "Kepala Dept.",
-              type: CardType.Bottom,
-              height: (deviceType == DeviceType.mobile) 
-                      ? 190
-                      : (deviceType == DeviceType.tablet)
-                        ? 250
-                        :330,
-              ),
-            
-            for (Divisi i in divisi) Column(
-                children: [
-                  SizedBox(height: objectSpacing),
-                  i,
-                ],
-              ),
-          ],
-        ),
+          MyHeadingText(content: namaDepartemen),
+          SizedBox(height: objectSpacing),
+          MyCard(
+            content: namaKetua,
+            image: foto,
+            title: "KEPALA DEPT.",
+            type: CardType.Bottom,
+            height: (deviceType == DeviceType.mobile)
+                ? 190
+                : (deviceType == DeviceType.tablet)
+                    ? 250
+                    : 330,
+          ),
+          for (Divisi i in divisi)
+            Column(
+              children: [
+                SizedBox(height: objectSpacing),
+                i,
+              ],
+            ),
+        ],
+      ),
     );
   }
 }
