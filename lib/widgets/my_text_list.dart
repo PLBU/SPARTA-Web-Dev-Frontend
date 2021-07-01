@@ -16,11 +16,15 @@ class MyTextList extends StatelessWidget {
     ////// Style
     //// Widget Size
     double textListHeight = (deviceType == DeviceType.mobile)
-        ? 200
+        ? 208
         : (deviceType == DeviceType.tablet)
-            ? 300
-            : 380;
-    double textListWidth = textListHeight * 1.25;
+            ? 308
+            : 370;
+    double textListWidth = (deviceType == DeviceType.mobile)
+        ? 268
+        : (deviceType == DeviceType.tablet)
+            ? 308
+            : 648;
     double padding = textListWidth * 0.1;
 
     //// Font Styling
@@ -107,7 +111,7 @@ class MyTextList extends StatelessWidget {
           if (list.length > 10)
             Center(
               child: Icon(
-                Icons.keyboard_arrow_down, 
+                Icons.keyboard_arrow_down,
                 color: Colors.white,
                 size: (deviceType == DeviceType.mobile) ? 14 : null,
               ),

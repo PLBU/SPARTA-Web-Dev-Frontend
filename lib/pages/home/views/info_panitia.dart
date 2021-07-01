@@ -31,8 +31,8 @@ class _InfoPanitiaState extends State<InfoPanitia> {
     "Implementasi",
   ];
 
-  List<double> heightMobile = [1300, 1000, 500, 1350, 1350, 1350, 1350];
-  List<double> heightTablet = [1650, 1350, 650, 1750, 1750, 1750, 1750];
+  List<double> heightMobile = [1300, 1000, 500, 1350, 1400, 1350, 1350];
+  List<double> heightTablet = [1650, 1350, 650, 1750, 1800, 1750, 1750];
   List<double> heightDesktop = [1250, 900, 500, 1400, 1400, 1400, 1400];
 
   int _pageNum = 0;
@@ -297,7 +297,10 @@ class _InfoPanitiaState extends State<InfoPanitia> {
       child: Column(
         children: [
           MyTitle(text: '''INFO PANITIA''', logo: '''!'''),
-          SizedBox(height: objectSpacing * 1.5),
+          SizedBox(
+              height: (deviceType == DeviceType.mobile)
+                  ? objectSpacing
+                  : objectSpacing * 1.5),
           Container(
             width: (deviceType == DeviceType.mobile)
                 ? 350

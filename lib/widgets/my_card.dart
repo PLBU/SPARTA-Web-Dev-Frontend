@@ -65,7 +65,7 @@ class MyCard extends StatelessWidget {
     );
 
     return Padding(
-      padding: EdgeInsets.only(bottom: 8),
+      padding: EdgeInsets.only(bottom: 8, right: 8),
       child: Container(
         width: cardWidth,
         decoration: shadowDecoration,
