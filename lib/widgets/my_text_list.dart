@@ -111,7 +111,7 @@ class MyTextList extends StatelessWidget {
                 color: Colors.white,
                 size: (deviceType == DeviceType.mobile) ? 14 : null,
               ),
-            )
+            ),
         ],
       ),
     );

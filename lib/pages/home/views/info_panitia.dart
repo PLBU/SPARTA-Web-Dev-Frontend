@@ -24,11 +24,16 @@ class _InfoPanitiaState extends State<InfoPanitia> {
   List<String> pageName = [
     "Ketua & Kesekjenan",
     "Kesekjenan",
+    "MSDM Kader",
     "Operasional",
-    "Perancangan\n& Pengembangan",
+    "Perancangan & Pengembangan",
     "Pensuasanaan",
     "Implementasi",
   ];
+
+  List<double> heightMobile = [1300, 1000, 500, 1350, 1350, 1350, 1350];
+  List<double> heightTablet = [1650, 1350, 650, 1750, 1750, 1750, 1750];
+  List<double> heightDesktop = [1250, 900, 500, 1400, 1400, 1400, 1400];
 
   int _pageNum = 0;
   bool _next, _prev;
@@ -204,22 +209,26 @@ class _InfoPanitiaState extends State<InfoPanitia> {
             anggota:
                 danus.anggota.map((val) => '${val.nama}\n${val.nim}').toList(),
           ),
-          SizedBox(height: spaceHeight),
-          Divisi(
-            namaDivisi: "MSDM KADER",
-            namaKetua: '${msdmKader.nama}\n${msdmKader.nim}',
-            jabatan: msdmKader.jabatan,
-            foto: Image.asset(
-              msdmKader.foto,
-              height: photoSize,
-              width: photoSize,
-            ),
-            anggota: msdmKader.anggota
-                .map((val) => '${val.nama}\n${val.nim}')
-                .toList(),
-          ),
         ],
       );
+    } else if (idx == 2) {
+      Kepala msdmKader = panitia['msdmKader'];
+
+      return Column(children: [
+        Divisi(
+          namaDivisi: "MSDM KADER",
+          namaKetua: '${msdmKader.nama}\n${msdmKader.nim}',
+          foto: Image.asset(
+            msdmKader.foto,
+            height: photoSize,
+            width: photoSize,
+          ),
+          jabatan: "KEPALA DEPT.",
+          anggota: msdmKader.anggota
+              .map((val) => '${val.nama}\n${val.nim}')
+              .toList(),
+        ),
+      ]);
     } else {
       Kepala kabid = panitia['kabid'];
       Kepala kadiv1 = panitia['kadiv1'];
@@ -274,14 +283,10 @@ class _InfoPanitiaState extends State<InfoPanitia> {
     DeviceType deviceType = UIUtils.getDeviceType(context);
     double objectSpacing = 40;
     double respHeight = (deviceType == DeviceType.mobile)
-        ? _pageNum == 1
-            ? 1500
-            : 1400
+        ? heightMobile[_pageNum]
         : (deviceType == DeviceType.tablet)
-            ? _pageNum == 0
-                ? 1800
-                : 1100
-            : 1500;
+            ? heightTablet[_pageNum]
+            : heightDesktop[_pageNum];
     final PageController controller = PageController(initialPage: 0);
     setState(() {
       _next = (_pageNum + 1) % kepanitiaan.length > 0;
@@ -292,10 +297,10 @@ class _InfoPanitiaState extends State<InfoPanitia> {
       child: Column(
         children: [
           MyTitle(text: '''INFO PANITIA''', logo: '''!'''),
-          SizedBox(height: objectSpacing),
+          SizedBox(height: objectSpacing * 1.5),
           Container(
             width: (deviceType == DeviceType.mobile)
-                ? 400
+                ? 350
                 : (deviceType == DeviceType.tablet)
                     ? 600
                     : 1000,
@@ -314,9 +319,7 @@ class _InfoPanitiaState extends State<InfoPanitia> {
                       );
                     },
                   ),
-                SizedBox(
-                  width: 50,
-                ),
+                SizedBox(width: (deviceType == DeviceType.mobile) ? 10 : 50),
                 if (_next)
                   MyButton(
                     text: pageName[(_pageNum + 1) % kepanitiaan.length],
@@ -332,7 +335,7 @@ class _InfoPanitiaState extends State<InfoPanitia> {
               ],
             ),
           ),
-          SizedBox(height: 40),
+          SizedBox(height: (deviceType == DeviceType.mobile) ? 40 : 60),
           Container(
             height: respHeight,
             child: PageView.builder(
@@ -348,6 +351,7 @@ class _InfoPanitiaState extends State<InfoPanitia> {
               }),
             ),
           ),
+          SizedBox(height: 20),
         ],
       ),
     );

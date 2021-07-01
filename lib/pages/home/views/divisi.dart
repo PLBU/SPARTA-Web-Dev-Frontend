@@ -24,7 +24,7 @@ class Divisi extends StatelessWidget {
 
     return Container(
         child:
-            (deviceType == DeviceType.mobile)
+            (deviceType == DeviceType.mobile || deviceType == DeviceType.tablet)
                 ? Column(
                     children: [
                       MyCard(
@@ -32,7 +32,7 @@ class Divisi extends StatelessWidget {
                         image: foto,
                         title: jabatan,
                         type: CardType.Bottom,
-                        height: 190,
+                        height: (deviceType == DeviceType.mobile) ? 190 : 250,
                       ),
                       SizedBox(height: 20),
                       MyTextList(

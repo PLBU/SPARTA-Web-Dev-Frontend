@@ -129,7 +129,7 @@ final danaUsaha = Kepala(
 final msdmKader = Kepala(
   nama: 'Zachrandika Alif Syahreza',
   nim: '(18219036)',
-  jabatan: 'KEPALA DIVISI',
+  jabatan: 'KEPALA DEPT.',
   foto: 'assets/images/blank_profile.jpg',
   anggota: [
     Anggota(
@@ -636,7 +636,8 @@ final mentor = Kepala(
 
 final kepanitiaan = [
   {'ketua': ketua, 'kesekjenan': kesekjenan},
-  {'msdmPanitia': msdmPanitia, 'danus': danaUsaha, 'msdmKader': msdmKader},
+  {'msdmPanitia': msdmPanitia, 'danus': danaUsaha},
+  {'msdmKader': msdmKader},
   {
     'namaBidang': "OPERASIONAL",
     'kabid': operasional,
