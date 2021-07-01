@@ -104,6 +104,14 @@ class MyTextList extends StatelessWidget {
               ],
             ),
           ),
+          if (list.length > 10)
+            Center(
+              child: Icon(
+                Icons.keyboard_arrow_down, 
+                color: Colors.white,
+                size: (deviceType == DeviceType.mobile) ? 14 : null,
+              ),
+            )
         ],
       ),
     );
