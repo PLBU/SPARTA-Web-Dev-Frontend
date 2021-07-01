@@ -70,6 +70,7 @@ class TopCard extends StatelessWidget {
       highlightColor: Colors.transparent,
       hoverColor: Colors.transparent,
       onTap: () {
+        if (this.user.id != null)
         NavUtil.navigate(context, '/profile/${this.user.id}');
       },
       child: Container(

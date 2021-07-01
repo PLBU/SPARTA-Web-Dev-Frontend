@@ -93,7 +93,7 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
   Widget build(BuildContext context) {
     DeviceType deviceType = UIUtils.getDeviceType(context);
     double space = (deviceType == DeviceType.mobile)
-        ? 10
+        ? 15
         : (deviceType == DeviceType.tablet)
             ? 20
             : 40;
@@ -119,7 +119,7 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
                 children: [
                   SizedBox(height: space),
                   MyTitle(text: "SCOREBOARD", logo: "#"),
-                  SizedBox(height: space),
+                  SizedBox(height: space * 1.5),
                   if (topThree != null)
                     TopThree(
                       this.topThree[0],
@@ -127,26 +127,44 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
                       this.topThree[2],
                     )
                   else
-                    Center(
-                      child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                    TopThree(
+                      User(
+                        id: null,
+                        namaLengkap: "Peserta 1",
+                        nim: "16519000",
+                        foto: null,
+                        skor: 0,
+                      ),
+                      User(
+                        id: null,
+                        namaLengkap: "Peserta 2",
+                        nim: "16519000",
+                        foto: null,
+                        skor: 0,
+                      ),
+                      User(
+                        id: null,
+                        namaLengkap: "Peserta 3",
+                        nim: "16519000",
+                        foto: null,
+                        skor: 0,
                       ),
                     ),
-                  SizedBox(height: space * 2),
+                  SizedBox(height: space * 1.5),
                   ScoreboardSearch(
                     submitHandler: configureSearch,
                     searchBarTEC: searchBarTEC,
                     respFont: respFont,
                     connectionState: snapshot.connectionState,
                   ),
-                  SizedBox(height: space * 2),
+                  SizedBox(height: space * 1.5),
                   if (snapshot.connectionState == ConnectionState.done)
                     ScoreboardView(
                       users: snapshot.data,
                       ranks: this.ranks,
                       curUser: currentUser,
                     ),
-                  SizedBox(height: space),
+                  if (deviceType != DeviceType.mobile) SizedBox(height: space),
                 ],
               ),
             );

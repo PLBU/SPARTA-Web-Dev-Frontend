@@ -34,7 +34,7 @@ class _ScoreboardViewState extends State<ScoreboardView> {
             .where((element) => element.nim != widget.curUser.nim)
             .toList()
         : widget.users;
-    if (widget.curUser != null && orderedUser.length<widget.users.length) 
+    if (widget.curUser != null && orderedUser.length < widget.users.length)
       orderedUser.insert(0, widget.curUser);
 
     for (int i = 0; i <= orderedUser.length ~/ nUsers; i++) {
@@ -119,6 +119,7 @@ class _ScoreboardViewState extends State<ScoreboardView> {
                     : (usersScoreboard[_pageNum % usersScoreboard.length]
                             .length) *
                         90.0,
+                margin: EdgeInsets.symmetric(vertical: 10),
                 child: PageView.builder(
                   onPageChanged: (pageID) {
                     setState(() {
@@ -201,9 +202,7 @@ class PageButton extends StatelessWidget {
               buttonType: ButtonType.white,
               handler: this.handler1,
             ),
-          SizedBox(
-            width: 50,
-          ),
+          SizedBox(width: 50),
           if (next)
             MyButton(
               text: "NEXT PAGE",
