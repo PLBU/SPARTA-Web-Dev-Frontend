@@ -24,7 +24,7 @@ class MyTextList extends StatelessWidget {
         ? 268
         : (deviceType == DeviceType.tablet)
             ? 308
-            : 648;
+            : textListHeight * 1.25;
     double padding = textListWidth * 0.1;
 
     //// Font Styling
