@@ -1,8 +1,10 @@
+FLUTTER_BRANCH=`grep channel: .metadata | sed 's/  channel: //g'`
+FLUTTER_REVISION=`grep revision: .metadata | sed 's/  revision: //g'`
 git clone https://github.com/flutter/flutter.git
-FLUTTER=flutter/bin/flutter
-FLUTTER_CHANNEL=stable
-$FLUTTER channel $FLUTTER_CHANNEL
-$FLUTTER downgrade
-$FLUTTER doctor
-$FLUTTER config --enable-web
-$FLUTTER build web --web-renderer html --release
+cd flutter
+git checkout $FLUTTER_BRANCH
+git pull origin $FLUTTER_BRANCH
+git checkout $FLUTTER_REVISION
+cd ..
+flutter/bin/flutter config --enable-web
+flutter/bin/flutter build web --web-renderer html --release
