@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sparta/utils/ui_utils.dart';
 
 class MyHeadingText extends StatelessWidget {
-  const MyHeadingText({ this.content });
+  const MyHeadingText({this.content});
 
   final String content;
 
@@ -15,10 +15,11 @@ class MyHeadingText extends StatelessWidget {
       style: TextStyle(
         color: Colors.black,
         fontFamily: 'DrukWideBold',
-        fontSize:
-          (deviceType == DeviceType.mobile) ? 24
-          : (deviceType == DeviceType.tablet) ? 30
-          : 36,
+        fontSize: (deviceType == DeviceType.mobile)
+            ? 20
+            : (deviceType == DeviceType.tablet)
+                ? 30
+                : 36,
       ),
       textAlign: TextAlign.center,
     );
