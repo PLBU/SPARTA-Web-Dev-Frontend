@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sparta/pages/home/views/landing.dart';
 import 'package:sparta/widgets/my_pattern_decoration.dart';
 import 'package:sparta/pages/home/views/info_sparta.dart';
 import 'package:sparta/pages/home/views/info_hmif.dart';
@@ -15,7 +16,7 @@ class HomePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: 20),
+          LandingView(),
           MyPatternDecoration(),
           SizedBox(height: 40),
           // INSERTT IMAGE HERE
