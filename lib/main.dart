@@ -120,6 +120,7 @@ class BasePage extends StatelessWidget {
       body: Scrollbar(
         isAlwaysShown: true,
         child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
           child: Column(
             children: [
               ConstrainedBox(
