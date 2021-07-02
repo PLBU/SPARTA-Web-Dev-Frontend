@@ -5,6 +5,7 @@ import 'package:sparta/provider/auth_state.dart';
 import 'package:sparta/widgets/my_button.dart';
 import 'package:sparta/pages/send_support/services/index.dart';
 import 'package:sparta/widgets/my_text_field.dart';
+import 'package:sparta/utils/ui_utils.dart';
 
 void showSupportDialog(BuildContext context, String nickname, String userId) {
   final jwt = context.read(AuthState.jwt).state;
@@ -48,6 +49,13 @@ class _SupportDialogState extends State<SupportDialog> {
 
   @override
   Widget build(BuildContext context) {
+    DeviceType deviceType = UIUtils.getDeviceType(context);
+    double space = (deviceType == DeviceType.mobile)
+        ? 10
+        : (deviceType == DeviceType.tablet)
+            ? 20
+            : 40;
+
     Function handleOnClick = () async {
       setState(() {
         _isLoading = true;
@@ -76,24 +84,34 @@ class _SupportDialogState extends State<SupportDialog> {
         'Send support to ' + widget.nickname,
         style: TextStyle(fontFamily: 'DrukWideBold'),
       ),
-      content: MyTextField(
-        width: 360,
-        controller: contentTEC,
-        minLines: 8,
-        maxLines: null,
-        maxLength: 300,
-        hintText: 'Type your support message here!',
-      ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          MyTextField(
+            width: 360,
+            controller: contentTEC,
+            minLines: 8,
+            maxLines: null,
+            maxLength: 300,
+            hintText: 'Type your support message here!',
+          ),
+          Row(
+            children: [
+              Checkbox(
+                activeColor: Colors.black,
+                checkColor: Colors.white,
+                value: _isAnonym,
+                onChanged: (value){
+                  setState(() {
+                    _isAnonym = value;
+                  });
+                },),
+              SizedBox(width: space/4,),
+              Text("Send as anonymous"),
+            ],
+          ),
+      ],),
       actions: <Widget>[
-        CheckboxListTile(
-          title: Text("Send as Anonymous?"),
-          value: _isAnonym,
-          onChanged: (bool value){
-            setState(() {
-              _isAnonym = value;
-            });
-          },
-        ),
         MyButton(
           isLoading: _isLoading,
           handler: handleOnClick,
