@@ -45,6 +45,7 @@ class DeskripsiTugas extends StatelessWidget {
                   ),
                   textAlign: TextAlign.left,
                 ),
+                SizedBox(height: size * 0.5),
                 SelectableText(
                   date + " " + time,
                   style: TextStyle(
@@ -65,13 +66,14 @@ class DeskripsiTugas extends StatelessWidget {
                 ),
               ],
             )
-          : Center(child: Text(
-            "Selamat Liburan :)",
-            style: TextStyle(
-              fontFamily: "DrukWideBold",
-              fontSize: respFont*2,
-            ),
-          )),
+          : Center(
+              child: Text(
+              "Selamat Liburan :)",
+              style: TextStyle(
+                fontFamily: "DrukWideBold",
+                fontSize: respFont * 2,
+              ),
+            )),
     );
   }
 }
