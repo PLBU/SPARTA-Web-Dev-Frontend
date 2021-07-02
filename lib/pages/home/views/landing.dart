@@ -5,7 +5,9 @@ import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/widgets/my_navigation_bar.dart';
 
 class LandingView extends StatelessWidget {
-  const LandingView({Key key}) : super(key: key);
+  const LandingView(this.widgetScrolledTo, {Key key}) : super(key: key);
+
+  final widgetScrolledTo;
 
   @override
   Widget build(BuildContext context) {
@@ -72,9 +74,11 @@ class LandingView extends StatelessWidget {
           width: welcomeSpartaWidth,
         ),
       ),
-      Positioned(
-          child: Image.asset("assets/images/landing_art/scroll.png"),
-          bottom: 32)
+      ScrollButton(
+        widgetScrolledTo: widgetScrolledTo,
+        initPosition: 32,
+        hoveredPosition: 8,
+      ),
     ];
 
     final portraitLayout = [
@@ -113,12 +117,11 @@ class LandingView extends StatelessWidget {
         bottom: 196,
         left: 8,
       ),
-      Positioned(
-        bottom: 1 / 3 * landingViewHeight,
-        child: Image.asset(
-          "assets/images/landing_art/scroll.png",
-          width: 72,
-        ),
+      ScrollButton(
+        hoveredPosition: 1 / 3 * landingViewHeight - 8,
+        initPosition: 1 / 3 * landingViewHeight,
+        widgetScrolledTo: widgetScrolledTo,
+        width: 72,
       ),
     ];
 
@@ -142,6 +145,63 @@ class LandingView extends StatelessWidget {
           else
             for (Widget widget in landscapeLayout) widget
         ],
+      ),
+    );
+  }
+}
+
+class ScrollButton extends StatefulWidget {
+  const ScrollButton(
+      {Key key,
+      this.width,
+      @required this.widgetScrolledTo,
+      @required this.initPosition,
+      @required this.hoveredPosition})
+      : super(key: key);
+
+  final width;
+  final widgetScrolledTo;
+  final initPosition;
+  final hoveredPosition;
+
+  @override
+  _ScrollButtonState createState() => _ScrollButtonState();
+}
+
+class _ScrollButtonState extends State<ScrollButton> {
+  void handleScroll() {
+    Scrollable.ensureVisible(
+      widget.widgetScrolledTo.currentContext,
+      duration: Duration(seconds: 1),
+      curve: Curves.decelerate,
+    );
+  }
+
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedPositioned(
+      bottom: (_isHovered) ? widget.hoveredPosition : widget.initPosition,
+      curve: Curves.decelerate,
+      duration: Duration(milliseconds: 500),
+      child: MouseRegion(
+        onEnter: (_) => setState(() {
+          _isHovered = true;
+        }),
+        onExit: (_) => setState(() {
+          _isHovered = false;
+        }),
+        child: InkWell(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          onTap: handleScroll,
+          child: Image.asset(
+            "assets/images/landing_art/scroll.png",
+            width: this.widget.width,
+          ),
+        ),
       ),
     );
   }

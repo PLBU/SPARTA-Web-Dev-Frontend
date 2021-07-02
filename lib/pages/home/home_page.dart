@@ -6,7 +6,9 @@ import 'package:sparta/pages/home/views/info_hmif.dart';
 import 'package:sparta/pages/home/views/info_panitia.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key key}) : super(key: key);
+  HomePage({Key key}) : super(key: key);
+
+  final patternDecoration = new GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +16,8 @@ class HomePage extends StatelessWidget {
 
     return Column(
       children: [
-        LandingView(),
-        MyPatternDecoration(),
+        LandingView(patternDecoration),
+        MyPatternDecoration(key: patternDecoration),
         SizedBox(height: 2 * space),
         InfoHMIF(),
         SizedBox(height: space),

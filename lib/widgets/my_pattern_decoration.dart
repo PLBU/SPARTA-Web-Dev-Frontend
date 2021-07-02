@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sparta/utils/ui_utils.dart';
 
 class MyPatternDecoration extends StatelessWidget {
-  const MyPatternDecoration();
+  const MyPatternDecoration({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
