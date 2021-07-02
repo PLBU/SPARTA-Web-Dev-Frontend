@@ -130,21 +130,21 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
                     TopThree(
                       User(
                         id: null,
-                        namaLengkap: "Peserta 1",
+                        namaPanggilan: "Peserta 1",
                         nim: "16519000",
                         foto: null,
                         skor: 0,
                       ),
                       User(
                         id: null,
-                        namaLengkap: "Peserta 2",
+                        namaPanggilan: "Peserta 2",
                         nim: "16519000",
                         foto: null,
                         skor: 0,
                       ),
                       User(
                         id: null,
-                        namaLengkap: "Peserta 3",
+                        namaPanggilan: "Peserta 3",
                         nim: "16519000",
                         foto: null,
                         skor: 0,

@@ -71,7 +71,7 @@ class TopCard extends StatelessWidget {
       hoverColor: Colors.transparent,
       onTap: () {
         if (this.user.id != null)
-        NavUtil.navigate(context, '/profile/${this.user.id}');
+          NavUtil.navigate(context, '/profile/${this.user.id}');
       },
       child: Container(
         width: respWidth,
@@ -84,12 +84,18 @@ class TopCard extends StatelessWidget {
                 border: Border.all(color: Colors.black),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: this.user.foto == null
-                  ? Image.asset('assets/images/blank_profile.jpg')
-                  : Image.memory(
-                      this.user.foto,
-                      fit: BoxFit.contain,
-                    ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: this.user.foto == null
+                    ? Image.asset(
+                        'assets/images/blank_profile.jpg',
+                        fit: BoxFit.cover,
+                      )
+                    : Image.memory(
+                        this.user.foto,
+                        fit: BoxFit.cover,
+                      ),
+              ),
             ),
             SizedBox(height: (deviceType == DeviceType.mobile) ? 3 : 10),
             Container(
@@ -134,7 +140,7 @@ class TopCard extends StatelessWidget {
                       Container(
                         width: respWidth * 0.6,
                         child: Text(
-                          this.user.namaLengkap,
+                          this.user.namaPanggilan,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontFamily: 'Roboto',
