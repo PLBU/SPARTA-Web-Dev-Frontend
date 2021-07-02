@@ -195,7 +195,7 @@ class _ScrollButtonState extends State<ScrollButton> {
   Widget build(BuildContext context) {
     return AnimatedPositioned(
       bottom: (_isHovered) ? widget.hoveredPosition : widget.initPosition,
-      curve: Curves.decelerate,
+      curve: Curves.ease,
       duration: Duration(milliseconds: 500),
       child: MouseRegion(
         onEnter: (_) => setState(() {
