@@ -19,22 +19,13 @@ const primarySwatch = MaterialColor(
 
 // Assets
 const allAssets = [
-  AssetImage('assets/images/blank_profile.jpg'),
-  AssetImage('assets/images/hmif.png'),
-  AssetImage('assets/images/sparta2020.png'),
   AssetImage('assets/images/landing_art/welcome_sparta.png'),
-  AssetImage('assets/images/landing_art/ls_left_big_art.png'),
-  AssetImage('assets/images/landing_art/ls_right_big_art.png'),
-  AssetImage('assets/images/landing_art/ls_left_small_art.png'),
-  AssetImage('assets/images/landing_art/ls_right_small_art.png'),
-  AssetImage('assets/images/landing_art/pt_left_big_art.png'),
-  AssetImage('assets/images/landing_art/pt_right_big_art.png'),
-  AssetImage('assets/images/landing_art/pt_left_small_art.png'),
-  AssetImage('assets/images/landing_art/pt_right_small_art.png'),
+  AssetImage('assets/images/landing_art/ls_left_art.png'),
+  AssetImage('assets/images/landing_art/ls_right_art.png'),
+  AssetImage('assets/images/landing_art/pt_left_art.png'),
+  AssetImage('assets/images/landing_art/pt_right_art.png'),
   AssetImage('assets/images/landing_art/scroll.png'),
-  AssetImage('assets/icons/spiky_bubble.png'),
   AssetImage('assets/icons/sparta_head.png'),
-  AssetImage('assets/icons/pattern_sparta.png'),
   AssetImage('assets/icons/square.png'),
   AssetImage('assets/icons/small_square.png'),
 ];

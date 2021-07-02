@@ -22,53 +22,26 @@ class LandingView extends StatelessWidget {
         (1 / 4 * landingViewWidth > 384) ? 384 : 1 / 4 * landingViewWidth;
     double lsLeftBigArtWidth =
         (1 / 4 * landingViewWidth > 401) ? 401 : 1 / 4 * landingViewWidth + 16;
-    double lsRightSmallArtWidth =
-        (1 / 6 * landingViewWidth > 267) ? 267 : 1 / 6 * landingViewWidth;
-    double lsLeftSmallArtWidth =
-        (1 / 6 * landingViewWidth > 221) ? 221 : 1 / 6 * landingViewWidth;
     double welcomeSpartaWidth = (deviceType == DeviceType.mobile)
         ? 0.85 * landingViewWidth
         : (1 / 2 * landingViewWidth > 746)
             ? 746
             : 1 / 2 * landingViewWidth;
-    double lsRightSAWOffset =
-        (1 / 8 * landingViewWidth > 112) ? 112 : 1 / 8 * landingViewWidth;
 
     final landscapeLayout = [
       Positioned(
-        child: Image.asset("assets/images/landing_art/ls_left_big_art.png"),
-        width: lsLeftBigArtWidth,
+        child: Image.asset(
+          "assets/images/landing_art/ls_left_art.png",
+          width: lsLeftBigArtWidth,
+        ),
         left: 0,
       ),
       Positioned(
-          child: Column(
-            children: [
-              Image.asset(
-                "assets/images/landing_art/ls_left_small_art.png",
-                width: lsLeftSmallArtWidth,
-              ),
-              SizedBox(height: 24),
-            ],
-          ),
-          left: 12),
-      Positioned(
           child: Image.asset(
-            "assets/images/landing_art/ls_right_big_art.png",
+            "assets/images/landing_art/ls_right_art.png",
             width: lsRightBigArtWidth,
           ),
           right: 0),
-      Positioned(
-        child: Column(
-          children: [
-            SizedBox(height: 96),
-            Image.asset(
-              "assets/images/landing_art/ls_right_small_art.png",
-              width: lsRightSmallArtWidth,
-            ),
-          ],
-        ),
-        right: lsRightSAWOffset,
-      ),
       ParallaxStack(
         resetOnExit: true,
         layers: [
@@ -87,6 +60,7 @@ class LandingView extends StatelessWidget {
         ],
       ),
       ScrollButton(
+        width: 112,
         widgetScrolledTo: widgetScrolledTo,
         initPosition: 32,
         hoveredPosition: 8,
@@ -103,31 +77,17 @@ class LandingView extends StatelessWidget {
       ),
       Positioned(
         child: Image.asset(
-          "assets/images/landing_art/pt_right_big_art.png",
+          "assets/images/landing_art/pt_right_art.png",
         ),
-        bottom: -16,
+        bottom: 0,
         right: 0,
       ),
       Positioned(
         child: Image.asset(
-          "assets/images/landing_art/pt_left_big_art.png",
+          "assets/images/landing_art/pt_left_art.png",
         ),
-        bottom: -16,
+        bottom: 0,
         left: 0,
-      ),
-      Positioned(
-        child: Image.asset(
-          "assets/images/landing_art/pt_right_small_art.png",
-        ),
-        bottom: 196,
-        right: 64,
-      ),
-      Positioned(
-        child: Image.asset(
-          "assets/images/landing_art/pt_left_small_art.png",
-        ),
-        bottom: 196,
-        left: 8,
       ),
       ScrollButton(
         hoveredPosition: 1 / 3 * landingViewHeight - 8,
