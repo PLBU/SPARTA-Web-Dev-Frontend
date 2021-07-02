@@ -42,6 +42,7 @@ class SupportDialog extends StatefulWidget {
 }
 
 class _SupportDialogState extends State<SupportDialog> {
+  bool _isAnonym = false;
   bool _isLoading = false;
   TextEditingController contentTEC = new TextEditingController();
 
@@ -51,7 +52,7 @@ class _SupportDialogState extends State<SupportDialog> {
       setState(() {
         _isLoading = true;
       });
-      final bool success = await sendSupport(widget.userId, contentTEC.text, widget.jwt);
+      final bool success = await sendSupport(_isAnonym, widget.userId, contentTEC.text, widget.jwt);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
@@ -84,6 +85,15 @@ class _SupportDialogState extends State<SupportDialog> {
         hintText: 'Type your support message here!',
       ),
       actions: <Widget>[
+        CheckboxListTile(
+          title: Text("Send as Anonymous?"),
+          value: _isAnonym,
+          onChanged: (bool value){
+            setState(() {
+              _isAnonym = value;
+            });
+          },
+        ),
         MyButton(
           isLoading: _isLoading,
           handler: handleOnClick,

@@ -80,7 +80,7 @@ class _GalleryPageState extends State<GalleryPage> {
     }
 
     return FutureBuilder(
-        future: Future.wait([imgLinksResp , featuredResp]),
+        future: (isPrevBtnExist) ? imgLinksResp : featuredResp,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Column(children: <Widget>[

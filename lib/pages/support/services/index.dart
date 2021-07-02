@@ -54,7 +54,6 @@ Future<List<dynamic>> fetchLists(String id, String jwt, bool isPengirim) async {
   List<dynamic> resArr = [];
   for (var supp in supports) {
     User user = await fetchUser(isPengirim ? supp.penerima : supp.pengirim);
-    if (user==null) continue;
     
     resArr.add(SupportCard(
       suppInfo: supp.text,

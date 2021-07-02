@@ -30,10 +30,10 @@ class SupportCard extends StatelessWidget {
             ? 13
             : 16;
     double respPad = (deviceType == DeviceType.mobile)
-        ? 20
+        ? 10
         : (deviceType == DeviceType.tablet)
-            ? 30
-            : 40;
+            ? 15
+            : 20;
 
     return Wrap(
       children: <Widget>[
@@ -43,14 +43,14 @@ class SupportCard extends StatelessWidget {
             color: Colors.white,
             border: Border.all(
               color: Colors.black,
-              width: 1.0,
+              width: 2.0,
             ),
             borderRadius: BorderRadius.all(Radius.circular(10)),
             boxShadow: <BoxShadow>[
               BoxShadow(
                 color: Colors.black,
                 blurRadius: 0.0,
-                offset: Offset(0.0, 2.0),
+                offset: Offset(0.0, 8.0),
               ),
             ],
           ),
@@ -60,12 +60,18 @@ class SupportCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(this.user.nim + " " + this.user.namaLengkap,
-                      style: TextStyle(
-                        fontSize: respFont * 1.7,
+                  (user == null)
+                    ? Text('Anonymous',
+                        style: TextStyle(
+                        fontSize: respFont * 1.25,
                         fontWeight: FontWeight.bold,
+                      ))
+                    : Text(this.user.nim + " " + this.user.namaLengkap,
+                        style: TextStyle(
+                          fontSize: respFont * 1.25,
+                          fontWeight: FontWeight.bold,
                       )),
-                  if (!(deviceType == DeviceType.mobile))
+                  if (!(deviceType == DeviceType.mobile) && user != null)
                     MyButton(
                       text: 'SUPPORT',
                       buttonType: ButtonType.black,
@@ -75,14 +81,14 @@ class SupportCard extends StatelessWidget {
                     ),
                 ],
               ),
-              SizedBox(height: space),
+              SizedBox(height: space/2),
               Text(suppInfo,
                   style: TextStyle(
-                    fontSize: respFont * 2,
+                    fontSize: respFont * 1.5,
                   )),
-              SizedBox(height: space),
-              if (deviceType == DeviceType.mobile) SizedBox(height: space),
-              if (deviceType == DeviceType.mobile)
+              SizedBox(height: space/2),
+              if (deviceType == DeviceType.mobile && user != null ) SizedBox(height: space/2),
+              if (deviceType == DeviceType.mobile && user != null )
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
