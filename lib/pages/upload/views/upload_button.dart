@@ -37,7 +37,7 @@ class UploadButton extends StatelessWidget {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
+                border: Border.all(color: Colors.black, width: 2),
                 borderRadius: BorderRadius.circular(10),
               ),
               padding: EdgeInsets.all(5),

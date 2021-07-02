@@ -36,7 +36,7 @@ class DeadlineInput extends StatelessWidget {
               Container(
                 width: this.width * 0.45,
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
+                  border: Border.all(color: Colors.black, width: 2),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 padding: EdgeInsets.all(5),
@@ -61,7 +61,7 @@ class DeadlineInput extends StatelessWidget {
               Container(
                 width: this.width * 0.45,
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
+                  border: Border.all(color: Colors.black, width: 2),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 padding: EdgeInsets.all(5),

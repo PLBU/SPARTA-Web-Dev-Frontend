@@ -30,7 +30,7 @@ class DeskripsiTugas extends StatelessWidget {
       width: this.width,
       height: 300,
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
+        border: Border.all(color: Colors.black, width: 2),
         borderRadius: BorderRadius.circular(10),
       ),
       padding: EdgeInsets.all(size),
