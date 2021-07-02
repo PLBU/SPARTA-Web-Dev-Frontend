@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
       children: [
         LandingView(patternDecoration),
         MyPatternDecoration(key: patternDecoration),
-        SizedBox(height: 2 * space),
+        SizedBox(height: space),
         InfoHMIF(),
         SizedBox(height: space),
         InfoSparta(),
