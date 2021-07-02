@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double space = 40;
+    double space = 96;
 
     return Column(
       children: [
