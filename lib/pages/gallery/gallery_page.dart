@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:sparta/widgets/my_button.dart';
 import 'package:sparta/widgets/my_container.dart';
 import 'package:sparta/widgets/my_navigation_bar.dart';
@@ -80,7 +81,7 @@ class _GalleryPageState extends State<GalleryPage> {
     }
 
     return FutureBuilder(
-        future: (isPrevBtnExist) ? imgLinksResp : featuredResp,
+        future: Future.wait([imgLinksResp , featuredResp]),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Column(children: <Widget>[
@@ -91,7 +92,7 @@ class _GalleryPageState extends State<GalleryPage> {
               SizedBox(height: space),
               if (!isPrevBtnExist) Row(
                 children: <Widget>[
-                  SizedBox(width: space * 3),
+                  SizedBox(width: space * 2.5),
                   MyTitle(text: "FEATURED"),
                 ],
               ),
@@ -99,7 +100,7 @@ class _GalleryPageState extends State<GalleryPage> {
               
               /* GALLERY */
               Container(
-                padding: EdgeInsets.symmetric(horizontal: space * 3),
+                padding: EdgeInsets.symmetric(horizontal: space * 2.5),
                 child: (!isPrevBtnExist && featuredLinks.length == 0)
                     ? Container(
                         alignment: Alignment.center,
@@ -118,8 +119,8 @@ class _GalleryPageState extends State<GalleryPage> {
                       )
                     : GridView.count(
                         shrinkWrap: true,
-                        mainAxisSpacing: space / 2,
-                        crossAxisSpacing: space / 2,
+                        mainAxisSpacing: space / 1.5,
+                        crossAxisSpacing: space / 1.5,
                         crossAxisCount: 3,
                         children: [
                           for (var i = 0; i <
@@ -135,7 +136,27 @@ class _GalleryPageState extends State<GalleryPage> {
                                 tag: 'imageHero' + i.toString(),
                                 child: MyContainer(
                                   child: FittedBox(
-                                    child: (!isPrevBtnExist) ? Image.network(featuredLinks[i]) : Image.network(currImgLinks[i]),
+                                    child: Image.network(
+                                      (!isPrevBtnExist) ? featuredLinks[i] : currImgLinks[i],
+                                      loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent loadingProgress){
+                                        if (loadingProgress == null) return child;
+                                        return Center(
+                                          child: Shimmer.fromColors(
+                                            child: Container(
+                                              width: 50.0,
+                                              height: 50.0,
+                                              decoration: const BoxDecoration(
+                                                color: Colors.black,
+                                                shape: BoxShape.rectangle,
+                                              ),
+                                            ), 
+                                            baseColor: Colors.grey[300], 
+                                            highlightColor: Colors.grey[100],
+                                            period: const Duration(milliseconds: 750),
+                                          )
+                                        );  
+                                      },
+                                    ),
                                     fit: BoxFit.cover,
                                     clipBehavior: Clip.antiAlias,
                                   ),
@@ -168,7 +189,7 @@ class _GalleryPageState extends State<GalleryPage> {
                     Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          SizedBox(width: space * 3),
+                          SizedBox(width: space * 2.5),
                           if (isPrevBtnExist)
                             MyButton(
                               handler: prevPage,
@@ -185,7 +206,7 @@ class _GalleryPageState extends State<GalleryPage> {
                               buttonType: ButtonType.white,
                               text: 'Next Page',
                             ),
-                          SizedBox(width: space * 3),
+                          SizedBox(width: space * 2.5),
                         ]),
                   ]),
               SizedBox(height: space),
