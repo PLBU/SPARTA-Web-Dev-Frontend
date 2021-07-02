@@ -10,24 +10,19 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          LandingView(),
-          MyPatternDecoration(),
-          SizedBox(height: 40),
-          // INSERTT IMAGE HERE
-          SizedBox(height: 40),
-          InfoHMIF(),
-          SizedBox(height: 40),
-          InfoSparta(),
-          SizedBox(height: 40),
-          InfoPanitia(),
-        ],
-      ),
+    double space = 40;
+
+    return Column(
+      children: [
+        LandingView(),
+        MyPatternDecoration(),
+        SizedBox(height: 2 * space),
+        InfoHMIF(),
+        SizedBox(height: space),
+        InfoSparta(),
+        SizedBox(height: space),
+        InfoPanitia(),
+      ],
     );
   }
 }
