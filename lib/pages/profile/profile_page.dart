@@ -27,17 +27,6 @@ class ProfilePage extends StatelessWidget {
             );
             return Container();
           } else {
-            Widget cardShowed;
-
-            if (currentUser != null) {
-              if (snapshot.data.id == currentUser.id)
-                cardShowed = ProfileCard(user: snapshot.data, self: true,);
-              else
-                cardShowed = ProfileCard(user: snapshot.data);
-            } else {
-              cardShowed = ProfileCard(user: snapshot.data);
-            }
-
             return Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,7 +35,12 @@ class ProfilePage extends StatelessWidget {
                   SizedBox(
                     height: 32,
                   ),
-                  cardShowed
+                  ProfileCard(
+                    user: snapshot.data,
+                    self: (currentUser != null)
+                        ? (snapshot.data.id == currentUser.id)
+                        : false,
+                  )
                 ],
               ),
             );
