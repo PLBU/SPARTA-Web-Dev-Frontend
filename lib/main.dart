@@ -30,23 +30,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    super.initState();
-    final loader = document.getElementsByClassName('loader');
-
-    Future.delayed(const Duration(seconds: 1)).then((_) {
-      loader.first.remove();
-    });
-  }
-
   Future<dynamic> loadAllImage(BuildContext context) async {
+    final loader = document.getElementsByClassName('loader');
     Completer completer = new Completer();
 
     for (var asset in allAssets) {
       await precacheImage(asset, context);
     }
 
+    if (loader.isNotEmpty) loader.first.remove();
     completer.complete(ConnectionState.done);
     return completer.future;
   }
