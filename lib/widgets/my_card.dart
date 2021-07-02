@@ -8,6 +8,7 @@ class MyCard extends StatelessWidget {
     this.title,
     this.image,
     this.content,
+    this.textSpan,
     this.type,
     this.height,
   });
@@ -15,6 +16,7 @@ class MyCard extends StatelessWidget {
   final String title;
   final Image image;
   final String content;
+  final List<TextSpan> textSpan;
   final CardType type;
   final height;
 
@@ -30,7 +32,7 @@ class MyCard extends StatelessWidget {
                 : 320
             : (deviceType == DeviceType.tablet)
                 ? 480
-                : 640;
+                : 680;
 
     double textSize = (deviceType == DeviceType.mobile)
         ? 14
@@ -74,6 +76,7 @@ class MyCard extends StatelessWidget {
             CardTitle(title: title, textSize: textSize),
             if (this.type == CardType.Right && deviceType != DeviceType.mobile)
               RightTypeContent(
+                textSpan: textSpan,
                 contentPadding: contentPadding,
                 image: image,
                 deviceType: deviceType,
@@ -83,6 +86,7 @@ class MyCard extends StatelessWidget {
               )
             else
               BottomTypeContent(
+                textSpan: textSpan,
                 contentPadding: contentPadding,
                 image: image,
                 deviceType: deviceType,
@@ -105,6 +109,7 @@ class BottomTypeContent extends StatelessWidget {
     @required this.deviceType,
     @required this.content,
     @required this.textSize,
+    this.textSpan,
     this.height,
   }) : super(key: key);
 
@@ -112,6 +117,7 @@ class BottomTypeContent extends StatelessWidget {
   final Image image;
   final DeviceType deviceType;
   final String content;
+  final List<TextSpan> textSpan;
   final double textSize;
   final height;
 
@@ -132,14 +138,25 @@ class BottomTypeContent extends StatelessWidget {
             height: contentPadding.top, // Same value with contentPadding
           ),
           Container(
-            child: Text(
-              content,
-              textAlign: TextAlign.justify,
-              style: TextStyle(
-                fontFamily: 'Roboto',
-                fontSize: textSize,
-              ),
-            ),
+            child: (textSpan != null)
+                ? RichText(
+                    textAlign: TextAlign.justify,
+                    text: TextSpan(
+                      children: textSpan,
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: textSize,
+                      ),
+                    ),
+                  )
+                : Text(
+                    content,
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: textSize,
+                    ),
+                  ),
           ),
         ],
       ),
@@ -155,6 +172,7 @@ class RightTypeContent extends StatelessWidget {
     @required this.deviceType,
     @required this.content,
     @required this.textSize,
+    this.textSpan,
     this.height,
   }) : super(key: key);
 
@@ -162,6 +180,7 @@ class RightTypeContent extends StatelessWidget {
   final Image image;
   final DeviceType deviceType;
   final String content;
+  final List<TextSpan> textSpan;
   final double textSize;
   final height;
 
@@ -182,14 +201,25 @@ class RightTypeContent extends StatelessWidget {
             width: contentPadding.top, // Same value with contentPadding
           ),
           Expanded(
-            child: SelectableText(
-              content,
-              textAlign: TextAlign.justify,
-              style: TextStyle(
-                fontFamily: 'Roboto',
-                fontSize: textSize,
-              ),
-            ),
+            child: (textSpan != null)
+                ? RichText(
+                    textAlign: TextAlign.justify,
+                    text: TextSpan(
+                      children: textSpan,
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: textSize,
+                      ),
+                    ),
+                  )
+                : Text(
+                    content,
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: textSize,
+                    ),
+                  ),
           ),
         ],
       ),
