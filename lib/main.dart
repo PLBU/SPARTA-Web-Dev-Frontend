@@ -117,17 +117,22 @@ class BasePage extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.primary,
       appBar: MyNavigationBar(),
       endDrawer: (deviceType == DeviceType.desktop) ? null : MyDrawer(),
-      body: ListView(
-        children: [
-          ConstrainedBox(
-            constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height -
-                  MyNavigationBar().preferredSize.height,
-            ),
-            child: pageContent,
+      body: Scrollbar(
+        isAlwaysShown: true,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: MediaQuery.of(context).size.height -
+                      MyNavigationBar().preferredSize.height,
+                ),
+                child: pageContent,
+              ),
+              MyFooter()
+            ],
           ),
-          MyFooter()
-        ],
+        ),
       ),
     );
   }
