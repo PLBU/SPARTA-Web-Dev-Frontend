@@ -180,17 +180,18 @@ class _SubmissionUploaderState extends State<SubmissionUploader> {
           ),
           SizedBox(height: 20),
           if (this.assignments.length > 0)
-          UploadButton(
-            width: respWidth,
-            fileHandler: () {
-              _openFileExplorer();
-            },
-            fileName: this._fileName,
-            submitted: this._submitted,
-            submission: this._curSubmission,
-            loading: this._loading,
-            submitHandler: _submitHandler,
-          ),
+            UploadButton(
+              width: respWidth,
+              fileHandler: () {
+                _openFileExplorer();
+              },
+              fileName: this._fileName,
+              submitted: this._submitted,
+              submission: this._curSubmission,
+              assignment: this._curAssignment,
+              loading: this._loading,
+              submitHandler: _submitHandler,
+            ),
         ],
       ),
     );

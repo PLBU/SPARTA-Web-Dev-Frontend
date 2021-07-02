@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sparta/models/assignment.dart';
+import 'package:sparta/models/submission.dart';
 import 'package:sparta/utils/ui_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:sparta/widgets/my_button.dart';
@@ -11,6 +13,7 @@ class UploadButton extends StatelessWidget {
     this.width,
     this.submitted,
     this.submission,
+    this.assignment,
     this.loading,
   });
 
@@ -19,7 +22,8 @@ class UploadButton extends StatelessWidget {
   final fileName;
   final width;
   final submitted;
-  final submission;
+  final Submission submission;
+  final Assignment assignment;
   final loading;
 
   @override
@@ -84,12 +88,13 @@ class UploadButton extends StatelessWidget {
               ),
             ),
           ),
-          MyButton(
-            handler: this.submitHandler,
-            text: this.submitted ? "Resubmit" : "Submit",
-            buttonType: ButtonType.black,
-            isLoading: this.loading,
-          ),
+          if (this.assignment.deadline.isAfter(DateTime.now()))
+            MyButton(
+              handler: this.submitHandler,
+              text: this.submitted ? "Resubmit" : "Submit",
+              buttonType: ButtonType.black,
+              isLoading: this.loading,
+            ),
         ],
       ),
     );

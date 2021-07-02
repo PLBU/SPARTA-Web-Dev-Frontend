@@ -31,7 +31,7 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
     users = fetchUsers(null, null, null, null);
 
     users.then((allUser) {
-      fetchTopThree(allUser[0], allUser[1], allUser[2]).then((list){
+      fetchTopThree(allUser[0], allUser[1], allUser[2]).then((list) {
         inspect(list);
         setState(() {
           topThree = list;
@@ -93,7 +93,7 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
   Widget build(BuildContext context) {
     DeviceType deviceType = UIUtils.getDeviceType(context);
     double space = (deviceType == DeviceType.mobile)
-        ? 10
+        ? 15
         : (deviceType == DeviceType.tablet)
             ? 20
             : 40;
@@ -109,43 +109,62 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
       return FutureBuilder(
         future: users,
         builder: (context, snapshot) {
-          if (snapshot.hasData && this.topThree!=null) {
+          if (snapshot.hasData) {
             return GestureDetector(
               onTap: () {
                 FocusScope.of(context).requestFocus(new FocusNode());
               },
-              child: ListView(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(height: space),
-                      MyTitle(text: "SCOREBOARD", logo: "#"),
-                      SizedBox(height: space),
-                      TopThree(
-                        this.topThree[0],
-                        this.topThree[1],
-                        this.topThree[2],
+                  SizedBox(height: space),
+                  MyTitle(text: "SCOREBOARD", logo: "#"),
+                  SizedBox(height: space * 1.5),
+                  if (topThree != null)
+                    TopThree(
+                      this.topThree[0],
+                      this.topThree[1],
+                      this.topThree[2],
+                    )
+                  else
+                    TopThree(
+                      User(
+                        id: null,
+                        namaPanggilan: "Peserta 1",
+                        nim: "16519000",
+                        foto: null,
+                        skor: 0,
                       ),
-                      SizedBox(height: space),
-                      ScoreboardSearch(
-                        submitHandler: configureSearch,
-                        searchBarTEC: searchBarTEC,
-                        respFont: respFont,
-                        connectionState: snapshot.connectionState,
+                      User(
+                        id: null,
+                        namaPanggilan: "Peserta 2",
+                        nim: "16519000",
+                        foto: null,
+                        skor: 0,
                       ),
-                      SizedBox(height: space / 2),
-                      if (snapshot.connectionState == ConnectionState.done)
-                      ScoreboardView(
-                        users: snapshot.data,
-                        ranks: this.ranks,
-                        curUser: currentUser,
+                      User(
+                        id: null,
+                        namaPanggilan: "Peserta 3",
+                        nim: "16519000",
+                        foto: null,
+                        skor: 0,
                       ),
-                      SizedBox(height: space),
-                    ],
+                    ),
+                  SizedBox(height: space * 1.5),
+                  ScoreboardSearch(
+                    submitHandler: configureSearch,
+                    searchBarTEC: searchBarTEC,
+                    respFont: respFont,
+                    connectionState: snapshot.connectionState,
                   ),
+                  SizedBox(height: space * 1.5),
+                  if (snapshot.connectionState == ConnectionState.done)
+                    ScoreboardView(
+                      users: snapshot.data,
+                      ranks: this.ranks,
+                      curUser: currentUser,
+                    ),
+                  if (deviceType != DeviceType.mobile) SizedBox(height: space),
                 ],
               ),
             );
