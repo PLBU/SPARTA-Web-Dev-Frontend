@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/widgets/my_navigation_bar.dart';
+import 'package:mouse_parallax/mouse_parallax.dart';
 
 class LandingView extends StatelessWidget {
   const LandingView(this.widgetScrolledTo, {Key key}) : super(key: key);
@@ -68,11 +69,22 @@ class LandingView extends StatelessWidget {
         ),
         right: lsRightSAWOffset,
       ),
-      Center(
-        child: Image.asset(
-          "assets/images/landing_art/welcome_sparta.png",
-          width: welcomeSpartaWidth,
-        ),
+      ParallaxStack(
+        resetOnExit: true,
+        layers: [
+          ParallaxLayer(
+            yRotation: 0.05,
+            xRotation: 0.05,
+            xOffset: 24,
+            yOffset: 24,
+            child: Center(
+              child: Image.asset(
+                "assets/images/landing_art/welcome_sparta.png",
+                width: welcomeSpartaWidth,
+              ),
+            ),
+          ),
+        ],
       ),
       ScrollButton(
         widgetScrolledTo: widgetScrolledTo,
