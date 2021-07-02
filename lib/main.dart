@@ -60,41 +60,41 @@ class _MyAppState extends State<MyApp> {
               initialRoute: '/',
               onGenerateRoute: (settings) {
                 return PageRouteBuilder(
-                    pageBuilder: (_, __, ___) {
-                      var routeComponents = settings.name.split('/');
-                      final jwt = context.read(AuthState.jwt).state;
+                  pageBuilder: (_, __, ___) {
+                    var routeComponents = settings.name.split('/');
+                    final jwt = context.read(AuthState.jwt).state;
 
-                      if (jwt != null && routeComponents[1] == 'auth')
-                        routeComponents[1] = '';
+                    if (jwt != null && routeComponents[1] == 'auth')
+                      routeComponents[1] = '';
 
-                      RouteState.changeRouteState('/' + routeComponents[1]);
+                    RouteState.changeRouteState('/' + routeComponents[1]);
 
-                      return BasePage(
-                        (routeComponents[1] == '')
-                            ? HomePage()
-                            : (routeComponents[1] == 'scoreboard')
-                                ? ScoreboardPage()
-                                : (routeComponents[1] == 'upload-tugas')
-                                    ? UploadPage()
-                                    : (routeComponents[1] == 'gallery')
-                                        ? GalleryPage()
-                                        : (routeComponents[1] == 'auth')
-                                            ? AuthPage()
-                                            : (routeComponents[1] == 'supports')
-                                                ? SupportPage()
-                                                : (routeComponents[1] ==
-                                                        'profile')
-                                                    ? ProfilePage(
-                                                        id: routeComponents
-                                                            .last)
-                                                    : Center(
-                                                        child: MyTitle(
-                                                          text: "404 Not Found",
-                                                        ),
+                    return BasePage(
+                      (routeComponents[1] == '')
+                          ? HomePage()
+                          : (routeComponents[1] == 'scoreboard')
+                              ? ScoreboardPage()
+                              : (routeComponents[1] == 'upload-tugas')
+                                  ? UploadPage()
+                                  : (routeComponents[1] == 'gallery')
+                                      ? GalleryPage()
+                                      : (routeComponents[1] == 'auth')
+                                          ? AuthPage()
+                                          : (routeComponents[1] == 'supports')
+                                              ? SupportPage()
+                                              : (routeComponents[1] ==
+                                                      'profile')
+                                                  ? ProfilePage(
+                                                      id: routeComponents.last)
+                                                  : Center(
+                                                      child: MyTitle(
+                                                        text: "404 Not Found",
                                                       ),
-                      );
-                    },
-                    settings: settings);
+                                                    ),
+                    );
+                  },
+                  settings: settings,
+                );
               },
             );
           } else {
