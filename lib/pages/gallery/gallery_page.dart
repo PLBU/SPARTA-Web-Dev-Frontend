@@ -118,7 +118,7 @@ class _GalleryPageState extends State<GalleryPage> {
                       )
                     : GridView.count(
                         shrinkWrap: true,
-                        mainAxisSpacing: space / 1.5,
+                        mainAxisSpacing: space / 1.5 ,
                         crossAxisSpacing: space / 1.5,
                         crossAxisCount: 3,
                         children: [
@@ -133,28 +133,31 @@ class _GalleryPageState extends State<GalleryPage> {
                               child: Hero(
                                 transitionOnUserGestures: true,
                                 tag: 'imageHero' + i.toString(),
-                                child: MyContainer(
-                                  child: FittedBox(
-                                    child: Image.network(
-                                      (!isPrevBtnExist) ? featuredLinks[i] : currImgLinks[i],
-                                      loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent loadingProgress){
-                                        if (loadingProgress == null) return child;
-                                        return Center(
-                                            child: Container(
-                                              width: 250.0,
-                                              height: 250.0,
-                                              child: Center(child: CircularProgressIndicator(
-                                                valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-                                              )),
-                                            ),
-                                        );  
-                                      },
+                                child: Container(
+                                  margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                                  child: MyContainer(
+                                    child: FittedBox(
+                                      child: Image.network(
+                                        (!isPrevBtnExist) ? featuredLinks[i] : currImgLinks[i],
+                                        loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent loadingProgress){
+                                          if (loadingProgress == null) return child;
+                                          return Center(
+                                              child: Container(
+                                                width: 250.0,
+                                                height: 250.0,
+                                                child: Center(child: CircularProgressIndicator(
+                                                  valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                                                )),
+                                              ),
+                                          );  
+                                        },
+                                      ),
+                                      fit: BoxFit.cover,
+                                      clipBehavior: Clip.antiAlias,
                                     ),
-                                    fit: BoxFit.cover,
-                                    clipBehavior: Clip.antiAlias,
+                                    width: 128,
+                                    height: 128,
                                   ),
-                                  width: 128,
-                                  height: 128,
                                 ),
                               ),
                               onTap: () {
