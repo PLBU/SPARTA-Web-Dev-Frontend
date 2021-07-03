@@ -154,6 +154,7 @@ class BottomTypeContent extends StatelessWidget {
                       style: TextStyle(
                         fontFamily: 'Roboto',
                         fontSize: textSize,
+                        color: Colors.black,
                       ),
                     ),
                   )
@@ -163,6 +164,7 @@ class BottomTypeContent extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: textSize,
+                      color: Colors.black,
                     ),
                   ),
           ),
@@ -269,6 +271,7 @@ class CardTitle extends StatelessWidget {
             style: TextStyle(
               fontFamily: 'DrukWideBold',
               fontSize: textSize - 4,
+              color: Colors.black,
             ),
           ),
           Text(
@@ -277,6 +280,7 @@ class CardTitle extends StatelessWidget {
               fontFamily: 'Roboto',
               fontWeight: FontWeight.bold,
               fontSize: textSize,
+              color: Colors.black,
             ),
           )
         ],

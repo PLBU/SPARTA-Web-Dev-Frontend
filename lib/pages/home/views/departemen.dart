@@ -39,10 +39,10 @@ class Departemen extends StatelessWidget {
             type: CardType.Bottom,
             isCenter: isCenter,
             height: (deviceType == DeviceType.mobile)
-                ? 190
+                ? 205
                 : (deviceType == DeviceType.tablet)
-                    ? 270
-                    : 330,
+                    ? 290
+                    : 340,
           ),
           for (Divisi i in divisi)
             Column(

@@ -29,8 +29,8 @@ class _InfoPanitiaState extends State<InfoPanitia> {
     "Implementasi",
   ];
 
-  List<double> heightMobile = [1400, 1000, 500, 1350, 1400, 1350, 1350];
-  List<double> heightTablet = [1750, 1350, 680, 1800, 1850, 1800, 1800];
+  List<double> heightMobile = [1400, 1030, 500, 1380, 1400, 1380, 1380];
+  List<double> heightTablet = [1800, 1400, 680, 1850, 1900, 1850, 1850];
   List<double> heightDesktop = [1250, 900, 500, 1400, 1400, 1400, 1400];
 
   int _pageNum = 0;
