@@ -141,8 +141,8 @@ class _GalleryPageState extends State<GalleryPage> {
                                         if (loadingProgress == null) return child;
                                         return Center(
                                             child: Container(
-                                              width: 150.0,
-                                              height: 150.0,
+                                              width: 250.0,
+                                              height: 250.0,
                                               child: Center(child: CircularProgressIndicator(
                                                 valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
                                               )),
