@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:sparta/widgets/my_button.dart';
 import 'package:sparta/widgets/my_container.dart';
 import 'package:sparta/widgets/my_navigation_bar.dart';
@@ -141,19 +140,13 @@ class _GalleryPageState extends State<GalleryPage> {
                                       loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent loadingProgress){
                                         if (loadingProgress == null) return child;
                                         return Center(
-                                          child: Shimmer.fromColors(
                                             child: Container(
-                                              width: 50.0,
-                                              height: 50.0,
-                                              decoration: const BoxDecoration(
-                                                color: Colors.black,
-                                                shape: BoxShape.rectangle,
-                                              ),
-                                            ), 
-                                            baseColor: Colors.grey[300], 
-                                            highlightColor: Colors.grey[100],
-                                            period: const Duration(milliseconds: 750),
-                                          )
+                                              width: 150.0,
+                                              height: 150.0,
+                                              child: Center(child: CircularProgressIndicator(
+                                                valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                                              )),
+                                            ),
                                         );  
                                       },
                                     ),
