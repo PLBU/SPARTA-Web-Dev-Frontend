@@ -8,6 +8,7 @@ class Divisi extends StatelessWidget {
     this.namaDivisi,
     this.jabatan,
     this.namaKetua,
+    this.textSpan,
     this.anggota,
     this.foto,
   });
@@ -15,6 +16,7 @@ class Divisi extends StatelessWidget {
   final String namaDivisi;
   final String jabatan;
   final String namaKetua;
+  final List<TextSpan> textSpan;
   final List<String> anggota;
   final Image foto;
 
@@ -28,7 +30,7 @@ class Divisi extends StatelessWidget {
                 ? Column(
                     children: [
                       MyCard(
-                        content: namaKetua,
+                        textSpan: textSpan,
                         image: foto,
                         title: jabatan,
                         type: CardType.Bottom,
@@ -46,7 +48,7 @@ class Divisi extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       MyCard(
-                        content: namaKetua,
+                        textSpan: textSpan,
                         image: foto,
                         title: jabatan,
                         type: CardType.Bottom,

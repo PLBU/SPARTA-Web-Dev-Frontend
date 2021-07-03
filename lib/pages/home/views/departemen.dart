@@ -10,12 +10,14 @@ class Departemen extends StatelessWidget {
   const Departemen({
     this.namaDepartemen,
     this.namaKetua,
+    this.textSpan,
     this.foto,
     this.divisi,
   });
 
   final String namaDepartemen;
   final String namaKetua;
+  final List<TextSpan> textSpan;
   final List<Divisi> divisi;
   final Image foto;
 
@@ -29,7 +31,7 @@ class Departemen extends StatelessWidget {
           MyHeadingText(content: namaDepartemen),
           SizedBox(height: objectSpacing),
           MyCard(
-            content: namaKetua,
+            textSpan: textSpan,
             image: foto,
             title: "KEPALA DEPT.",
             type: CardType.Bottom,
