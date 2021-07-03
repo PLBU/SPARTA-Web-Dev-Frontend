@@ -30,12 +30,6 @@ class _ProfileInfoEditState extends State<ProfileInfoEdit> {
           labelText: "Email",
         ),
         MyTextField(
-          controller: widget.controllers['username'],
-          minLines: 1,
-          maxLines: 1,
-          labelText: "Username",
-        ),
-        MyTextField(
           controller: widget.controllers['namaLengkap'],
           minLines: 1,
           maxLines: 1,
@@ -46,6 +40,12 @@ class _ProfileInfoEditState extends State<ProfileInfoEdit> {
           minLines: 1,
           maxLines: 1,
           labelText: "Nama Panggilan",
+        ),
+        MyTextField(
+          controller: widget.controllers['instagram'],
+          minLines: 1,
+          maxLines: 1,
+          labelText: "Instagram",
         ),
         MyTextField(
           minLines: 1,

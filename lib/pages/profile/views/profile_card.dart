@@ -43,7 +43,7 @@ class _ProfileCardState extends State<ProfileCard> {
     double space = (deviceType == DeviceType.desktop) ? 32 : 16;
     Map<String, TextEditingController> mapOfTEC = {
       'email': TextEditingController(text: widget.user.email),
-      'username': TextEditingController(text: widget.user.username),
+      'instagram': TextEditingController(text: widget.user.instagram),
       'namaLengkap': TextEditingController(text: widget.user.namaLengkap),
       'namaPanggilan': TextEditingController(text: widget.user.namaPanggilan),
       'password': TextEditingController(),
@@ -79,7 +79,7 @@ class _ProfileCardState extends State<ProfileCard> {
         jwt,
         newImageBytes: _imageBytes,
         newEmail: mapOfTEC['email'].text,
-        newUsername: mapOfTEC['username'].text,
+        newInstagram: mapOfTEC['instagram'].text,
         newNamaLengkap: mapOfTEC['namaLengkap'].text,
         newNamaPanggilan: mapOfTEC['namaPanggilan'].text,
         newPassword: mapOfTEC['password'].text,
