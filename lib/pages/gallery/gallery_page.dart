@@ -91,7 +91,7 @@ class _GalleryPageState extends State<GalleryPage> {
               SizedBox(height: space),
               if (!isPrevBtnExist) Row(
                 children: <Widget>[
-                  SizedBox(width: space * 3),
+                  SizedBox(width: space * 2.5),
                   MyTitle(text: "FEATURED"),
                 ],
               ),
@@ -99,7 +99,7 @@ class _GalleryPageState extends State<GalleryPage> {
               
               /* GALLERY */
               Container(
-                padding: EdgeInsets.symmetric(horizontal: space * 3),
+                padding: EdgeInsets.symmetric(horizontal: space * 2.5),
                 child: (!isPrevBtnExist && featuredLinks.length == 0)
                     ? Container(
                         alignment: Alignment.center,
@@ -118,8 +118,8 @@ class _GalleryPageState extends State<GalleryPage> {
                       )
                     : GridView.count(
                         shrinkWrap: true,
-                        mainAxisSpacing: space / 2,
-                        crossAxisSpacing: space / 2,
+                        mainAxisSpacing: space / 1.5 ,
+                        crossAxisSpacing: space / 1.5,
                         crossAxisCount: 3,
                         children: [
                           for (var i = 0; i <
@@ -133,14 +133,31 @@ class _GalleryPageState extends State<GalleryPage> {
                               child: Hero(
                                 transitionOnUserGestures: true,
                                 tag: 'imageHero' + i.toString(),
-                                child: MyContainer(
-                                  child: FittedBox(
-                                    child: (!isPrevBtnExist) ? Image.network(featuredLinks[i]) : Image.network(currImgLinks[i]),
-                                    fit: BoxFit.cover,
-                                    clipBehavior: Clip.antiAlias,
+                                child: Container(
+                                  margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                                  child: MyContainer(
+                                    child: FittedBox(
+                                      child: Image.network(
+                                        (!isPrevBtnExist) ? featuredLinks[i] : currImgLinks[i],
+                                        loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent loadingProgress){
+                                          if (loadingProgress == null) return child;
+                                          return Center(
+                                              child: Container(
+                                                width: 250.0,
+                                                height: 250.0,
+                                                child: Center(child: CircularProgressIndicator(
+                                                  valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                                                )),
+                                              ),
+                                          );  
+                                        },
+                                      ),
+                                      fit: BoxFit.cover,
+                                      clipBehavior: Clip.antiAlias,
+                                    ),
+                                    width: 128,
+                                    height: 128,
                                   ),
-                                  width: 128,
-                                  height: 128,
                                 ),
                               ),
                               onTap: () {
@@ -168,7 +185,7 @@ class _GalleryPageState extends State<GalleryPage> {
                     Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          SizedBox(width: space * 3),
+                          SizedBox(width: space * 2.5),
                           if (isPrevBtnExist)
                             MyButton(
                               handler: prevPage,
@@ -185,7 +202,7 @@ class _GalleryPageState extends State<GalleryPage> {
                               buttonType: ButtonType.white,
                               text: 'Next Page',
                             ),
-                          SizedBox(width: space * 3),
+                          SizedBox(width: space * 2.5),
                         ]),
                   ]),
               SizedBox(height: space),

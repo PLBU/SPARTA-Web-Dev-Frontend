@@ -42,7 +42,7 @@ class _ListSupportsState extends State<ListSupports> {
               allCards.sublist(i * supportsPerPage, allCards.length).map(
                 (card) {
                   return Container(
-                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                    margin: EdgeInsets.symmetric(vertical: 15, horizontal: 0),
                     child: card,
                   );
                 },
@@ -57,7 +57,7 @@ class _ListSupportsState extends State<ListSupports> {
                 .map(
               (card) {
                 return Container(
-                  margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                  margin: EdgeInsets.symmetric(vertical: 15, horizontal: 0),
                   child: card,
                 );
               },
@@ -88,7 +88,7 @@ class _ListSupportsState extends State<ListSupports> {
               : (deviceType == DeviceType.tablet)
                   ? supportCards[_pageNum].length * 180
                   : supportCards[_pageNum].length * 250,
-          padding: EdgeInsets.symmetric(horizontal: widget.space * 3),
+          padding: EdgeInsets.symmetric(horizontal: widget.space * 5),
           child: PageView.builder(
             onPageChanged: (pageID) {
               setState(() {
@@ -115,7 +115,7 @@ class _ListSupportsState extends State<ListSupports> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                SizedBox(width: widget.space * 3),
+                SizedBox(width: widget.space * 5),
                 if (_isPrevBtnExist)
                   MyButton(
                     handler: () {
@@ -145,11 +145,12 @@ class _ListSupportsState extends State<ListSupports> {
                     buttonType: ButtonType.white,
                     text: 'Next Page',
                   ),
-                SizedBox(width: widget.space * 3),
+                SizedBox(width: widget.space * 5),
               ],
             ),
           ],
         ),
+        SizedBox(height: widget.space),
       ],
     );
   }

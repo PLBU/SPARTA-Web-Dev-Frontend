@@ -51,7 +51,7 @@ class _SupportBuilderState extends State<SupportBuilder> {
             if (snapshot.data != null)
               return Column(
                 children: <Widget>[
-                  SizedBox(height: space * 2),
+                  SizedBox(height: space),
                   (deviceType != DeviceType.mobile)
                       ? MyTitle(
                           text: (_isReceivedDisplayed)
@@ -71,7 +71,7 @@ class _SupportBuilderState extends State<SupportBuilder> {
                   SizedBox(height: space),
                   Row(
                     children: [
-                      SizedBox(width: space * 3),
+                      SizedBox(width: space * 5),
                       MyButton(
                           handler: () {
                             setState(() {
@@ -84,7 +84,7 @@ class _SupportBuilderState extends State<SupportBuilder> {
                           buttonType: (_isReceivedDisplayed)
                               ? ButtonType.black
                               : ButtonType.white),
-                      SizedBox(width: space),
+                      SizedBox(width: space/2),
                       MyButton(
                           handler: () {
                             setState(() {
@@ -99,7 +99,7 @@ class _SupportBuilderState extends State<SupportBuilder> {
                               : ButtonType.black),
                     ],
                   ),
-                  SizedBox(height: space),
+                  SizedBox(height: space/2),
                   // Support Cards (PageView)
                   if (snapshot.connectionState == ConnectionState.done &&
                       snapshot.data.length > 0)
