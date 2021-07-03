@@ -8,6 +8,8 @@ class Divisi extends StatelessWidget {
     this.namaDivisi,
     this.jabatan,
     this.namaKetua,
+    this.textSpan,
+    this.isCenter,
     this.anggota,
     this.foto,
   });
@@ -15,6 +17,8 @@ class Divisi extends StatelessWidget {
   final String namaDivisi;
   final String jabatan;
   final String namaKetua;
+  final List<TextSpan> textSpan;
+  final isCenter;
   final List<String> anggota;
   final Image foto;
 
@@ -28,11 +32,12 @@ class Divisi extends StatelessWidget {
                 ? Column(
                     children: [
                       MyCard(
-                        content: namaKetua,
+                        textSpan: textSpan,
                         image: foto,
                         title: jabatan,
                         type: CardType.Bottom,
-                        height: (deviceType == DeviceType.mobile) ? 190 : 250,
+                        height: (deviceType == DeviceType.mobile) ? 205 : 290,
+                        isCenter: isCenter,
                       ),
                       SizedBox(height: 20),
                       MyTextList(
@@ -46,11 +51,12 @@ class Divisi extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       MyCard(
-                        content: namaKetua,
+                        textSpan: textSpan,
                         image: foto,
                         title: jabatan,
                         type: CardType.Bottom,
-                        height: 330,
+                        height: 340,
+                        isCenter: isCenter,
                       ),
                       SizedBox(width: 40),
                       MyTextList(

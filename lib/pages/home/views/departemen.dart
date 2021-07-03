@@ -10,14 +10,18 @@ class Departemen extends StatelessWidget {
   const Departemen({
     this.namaDepartemen,
     this.namaKetua,
+    this.textSpan,
+    this.isCenter,
     this.foto,
     this.divisi,
   });
 
   final String namaDepartemen;
   final String namaKetua;
+  final List<TextSpan> textSpan;
   final List<Divisi> divisi;
   final Image foto;
+  final isCenter;
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +33,16 @@ class Departemen extends StatelessWidget {
           MyHeadingText(content: namaDepartemen),
           SizedBox(height: objectSpacing),
           MyCard(
-            content: namaKetua,
+            textSpan: textSpan,
             image: foto,
             title: "KEPALA DEPT.",
             type: CardType.Bottom,
+            isCenter: isCenter,
             height: (deviceType == DeviceType.mobile)
-                ? 190
+                ? 205
                 : (deviceType == DeviceType.tablet)
-                    ? 250
-                    : 330,
+                    ? 290
+                    : 340,
           ),
           for (Divisi i in divisi)
             Column(

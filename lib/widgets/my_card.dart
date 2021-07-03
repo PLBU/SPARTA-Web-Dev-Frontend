@@ -11,6 +11,7 @@ class MyCard extends StatelessWidget {
     this.textSpan,
     this.type,
     this.height,
+    this.isCenter,
   });
 
   final String title;
@@ -19,6 +20,7 @@ class MyCard extends StatelessWidget {
   final List<TextSpan> textSpan;
   final CardType type;
   final height;
+  final isCenter;
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +85,7 @@ class MyCard extends StatelessWidget {
                 content: content,
                 textSize: textSize,
                 height: height,
+                isCenter: isCenter,
               )
             else
               BottomTypeContent(
@@ -93,6 +96,7 @@ class MyCard extends StatelessWidget {
                 content: content,
                 textSize: textSize,
                 height: height,
+                isCenter: isCenter,
               )
           ],
         ),
@@ -111,6 +115,7 @@ class BottomTypeContent extends StatelessWidget {
     @required this.textSize,
     this.textSpan,
     this.height,
+    this.isCenter,
   }) : super(key: key);
 
   final EdgeInsets contentPadding;
@@ -120,6 +125,7 @@ class BottomTypeContent extends StatelessWidget {
   final List<TextSpan> textSpan;
   final double textSize;
   final height;
+  final isCenter;
 
   @override
   Widget build(BuildContext context) {
@@ -140,12 +146,15 @@ class BottomTypeContent extends StatelessWidget {
           Container(
             child: (textSpan != null)
                 ? RichText(
-                    textAlign: TextAlign.justify,
+                    textAlign: (isCenter != null)
+                        ? TextAlign.center
+                        : TextAlign.justify,
                     text: TextSpan(
                       children: textSpan,
                       style: TextStyle(
                         fontFamily: 'Roboto',
                         fontSize: textSize,
+                        color: Colors.black,
                       ),
                     ),
                   )
@@ -155,6 +164,7 @@ class BottomTypeContent extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: textSize,
+                      color: Colors.black,
                     ),
                   ),
           ),
@@ -174,6 +184,7 @@ class RightTypeContent extends StatelessWidget {
     @required this.textSize,
     this.textSpan,
     this.height,
+    this.isCenter,
   }) : super(key: key);
 
   final EdgeInsets contentPadding;
@@ -183,6 +194,7 @@ class RightTypeContent extends StatelessWidget {
   final List<TextSpan> textSpan;
   final double textSize;
   final height;
+  final isCenter;
 
   @override
   Widget build(BuildContext context) {
@@ -203,12 +215,15 @@ class RightTypeContent extends StatelessWidget {
           Expanded(
             child: (textSpan != null)
                 ? RichText(
-                    textAlign: TextAlign.justify,
+                    textAlign: (isCenter != null)
+                        ? TextAlign.center
+                        : TextAlign.justify,
                     text: TextSpan(
                       children: textSpan,
                       style: TextStyle(
                         fontFamily: 'Roboto',
                         fontSize: textSize,
+                        color: Colors.black,
                       ),
                     ),
                   )
@@ -218,6 +233,7 @@ class RightTypeContent extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: textSize,
+                      color: Colors.black,
                     ),
                   ),
           ),
@@ -255,6 +271,7 @@ class CardTitle extends StatelessWidget {
             style: TextStyle(
               fontFamily: 'DrukWideBold',
               fontSize: textSize - 4,
+              color: Colors.black,
             ),
           ),
           Text(
@@ -263,6 +280,7 @@ class CardTitle extends StatelessWidget {
               fontFamily: 'Roboto',
               fontWeight: FontWeight.bold,
               fontSize: textSize,
+              color: Colors.black,
             ),
           )
         ],

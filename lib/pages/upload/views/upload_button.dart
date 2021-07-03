@@ -33,61 +33,66 @@ class UploadButton extends StatelessWidget {
     return Container(
       width: this.width,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            width: width * 0.7,
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            padding: EdgeInsets.all(5),
-            child: IntrinsicHeight(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Container(
-                    width: this.submitted ? width * 0.65 : width * 0.4,
-                    // height: double.infinity,
-                    height: (deviceType == DeviceType.mobile) ? 27 : 35,
-                    // padding: EdgeInsets.all(10),
-                    alignment: Alignment.centerLeft,
-                    child: (this.submitted && this.submission != null)
-                        ? InkWell(
-                            onTap: () => launch(this.submission.submissionLink),
-                            child: Text(
-                              this.submission.submissionLink,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: Colors.blueAccent,
-                                fontFamily: "Roboto",
-                              ),
-                            ),
-                          )
-                        : (this.loading)
-                            ? Text(
-                                "Uploading..",
-                                style: TextStyle(fontFamily: "Roboto"),
-                              )
-                            : Text(
-                                this.fileName != null
-                                    ? this.fileName
-                                    : "Pilih File..",
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black, width: 2),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              padding: EdgeInsets.all(5),
+              child: IntrinsicHeight(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Container(
+                      width: (this.assignment.deadline.isAfter(DateTime.now()))
+                          ? (!this.submitted)
+                              ? this.width * 0.4
+                              : this.width * 0.6
+                          : this.width * 0.9,
+                      height: (deviceType == DeviceType.mobile) ? 27 : 35,
+                      alignment: Alignment.centerLeft,
+                      child: (this.submitted && this.submission != null)
+                          ? InkWell(
+                              onTap: () =>
+                                  launch(this.submission.submissionLink),
+                              child: Text(
+                                this.submission.submissionLink,
                                 overflow: TextOverflow.ellipsis,
-                                style: TextStyle(fontFamily: "Roboto"),
+                                style: TextStyle(
+                                  color: Colors.blueAccent,
+                                  fontFamily: "Roboto",
+                                ),
                               ),
-                  ),
-                  if (!this.submitted)
-                    MyButton(
-                      handler: this.fileHandler,
-                      text: "Change",
-                      buttonType: ButtonType.black,
+                            )
+                          : (this.loading)
+                              ? Text(
+                                  "Uploading..",
+                                  style: TextStyle(fontFamily: "Roboto"),
+                                )
+                              : Text(
+                                  this.fileName != null
+                                      ? this.fileName
+                                      : "Pilih File..",
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(fontFamily: "Roboto"),
+                                ),
                     ),
-                ],
+                    if (!this.submitted)
+                      MyButton(
+                        handler: this.fileHandler,
+                        text: "Change",
+                        buttonType: ButtonType.black,
+                      ),
+                  ],
+                ),
               ),
             ),
           ),
+          if (this.assignment.deadline.isAfter(DateTime.now()))
+            SizedBox(width: this.width * 0.1),
           if (this.assignment.deadline.isAfter(DateTime.now()))
             MyButton(
               handler: this.submitHandler,
