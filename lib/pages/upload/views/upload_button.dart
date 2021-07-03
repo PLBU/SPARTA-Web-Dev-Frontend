@@ -47,6 +47,9 @@ class UploadButton extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Container(
+                      width: (this.assignment.deadline.isAfter(DateTime.now()))
+                          ? this.width * 0.6
+                          : this.width * 0.9,
                       height: (deviceType == DeviceType.mobile) ? 27 : 35,
                       alignment: Alignment.centerLeft,
                       child: (this.submitted && this.submission != null)
