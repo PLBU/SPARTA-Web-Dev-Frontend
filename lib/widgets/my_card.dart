@@ -221,6 +221,7 @@ class RightTypeContent extends StatelessWidget {
                       style: TextStyle(
                         fontFamily: 'Roboto',
                         fontSize: textSize,
+                        color: Colors.black,
                       ),
                     ),
                   )
@@ -230,6 +231,7 @@ class RightTypeContent extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: textSize,
+                      color: Colors.black,
                     ),
                   ),
           ),
