@@ -38,7 +38,7 @@ class UploadDropdown extends StatelessWidget {
             width: (deviceType == DeviceType.mobile) ? 180 : 300,
             alignment: Alignment.centerRight,
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.black),
+              border: Border.all(color: Colors.black, width: 2),
               borderRadius: BorderRadius.circular(10),
             ),
             child: this.items.length > 0

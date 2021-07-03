@@ -72,7 +72,7 @@ class MyNavigationBar extends StatelessWidget implements PreferredSizeWidget {
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
         title: Container(
-          padding: EdgeInsets.only(left: 12),
+          padding: (deviceType == DeviceType.mobile) ? EdgeInsets.zero : EdgeInsets.only(left: 12),
           child: InkWell(
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,

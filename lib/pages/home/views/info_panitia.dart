@@ -9,9 +9,7 @@ import 'package:sparta/pages/home/data/panitia.dart';
 import 'package:sparta/widgets/my_button.dart';
 
 import 'package:sparta/widgets/my_card.dart';
-import 'package:sparta/widgets/my_text_list.dart';
 import 'package:sparta/widgets/my_title.dart';
-import 'package:sparta/widgets/my_heading_text.dart';
 
 class InfoPanitia extends StatefulWidget {
   InfoPanitia();
@@ -31,8 +29,8 @@ class _InfoPanitiaState extends State<InfoPanitia> {
     "Implementasi",
   ];
 
-  List<double> heightMobile = [1300, 1000, 500, 1350, 1400, 1350, 1350];
-  List<double> heightTablet = [1650, 1350, 650, 1750, 1800, 1750, 1750];
+  List<double> heightMobile = [1400, 1030, 500, 1380, 1400, 1380, 1380];
+  List<double> heightTablet = [1800, 1400, 680, 1850, 1900, 1850, 1850];
   List<double> heightDesktop = [1250, 900, 500, 1400, 1400, 1400, 1400];
 
   int _pageNum = 0;
@@ -47,10 +45,10 @@ class _InfoPanitiaState extends State<InfoPanitia> {
             ? 150
             : 160;
     double photoSize = (deviceType == DeviceType.mobile)
-        ? 90
+        ? 110
         : (deviceType == DeviceType.tablet)
-            ? 120
-            : 170;
+            ? 150
+            : 190;
 
     dynamic panitia = kepanitiaan[idx];
     if (idx == 0) {
@@ -59,7 +57,22 @@ class _InfoPanitiaState extends State<InfoPanitia> {
       return Column(
         children: [
           MyCard(
-            content: '${ketua.nama}\n${ketua.nim}',
+            textSpan: [
+              TextSpan(
+                text: '${ketua.nama}\n',
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              TextSpan(
+                text: '${ketua.nim}',
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                ),
+              ),
+            ],
+            isCenter: true,
             title: 'KETUA',
             image: Image.asset(
               ketua.foto,
@@ -76,7 +89,22 @@ class _InfoPanitiaState extends State<InfoPanitia> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         MyCard(
-                          content: '${sekjen[0].nama}\n${sekjen[0].nim}',
+                          textSpan: [
+                            TextSpan(
+                              text: '${sekjen[0].nama}\n',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextSpan(
+                              text: '${sekjen[0].nim}',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                              ),
+                            ),
+                          ],
+                          isCenter: true,
                           title: 'SEKJEN',
                           image: Image.asset(
                             sekjen[0].foto,
@@ -87,7 +115,22 @@ class _InfoPanitiaState extends State<InfoPanitia> {
                         ),
                         SizedBox(width: spaceWidth),
                         MyCard(
-                          content: '${sekjen[1].nama}\n${sekjen[1].nim}',
+                          textSpan: [
+                            TextSpan(
+                              text: '${sekjen[1].nama}\n',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextSpan(
+                              text: '${sekjen[1].nim}',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                              ),
+                            ),
+                          ],
+                          isCenter: true,
                           title: 'BENDAHARA',
                           image: Image.asset(
                             sekjen[1].foto,
@@ -103,7 +146,22 @@ class _InfoPanitiaState extends State<InfoPanitia> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         MyCard(
-                          content: '${sekjen[2].nama}\n${sekjen[2].nim}',
+                          textSpan: [
+                            TextSpan(
+                              text: '${sekjen[2].nama}\n',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextSpan(
+                              text: '${sekjen[2].nim}',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                              ),
+                            ),
+                          ],
+                          isCenter: true,
                           title: 'SEKRETARIS 1',
                           image: Image.asset(
                             sekjen[2].foto,
@@ -114,7 +172,22 @@ class _InfoPanitiaState extends State<InfoPanitia> {
                         ),
                         SizedBox(width: spaceWidth),
                         MyCard(
-                          content: '${sekjen[3].nama}\n${sekjen[3].nim}',
+                          textSpan: [
+                            TextSpan(
+                              text: '${sekjen[3].nama}\n',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextSpan(
+                              text: '${sekjen[3].nim}',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                              ),
+                            ),
+                          ],
+                          isCenter: true,
                           title: 'SEKRETARIS 2',
                           image: Image.asset(
                             sekjen[3].foto,
@@ -179,13 +252,27 @@ class _InfoPanitiaState extends State<InfoPanitia> {
     } else if (idx == 1) {
       Kepala msdmPanit = panitia['msdmPanitia'];
       Kepala danus = panitia['danus'];
-      Kepala msdmKader = panitia['msdmKader'];
 
       return Column(
         children: [
           Divisi(
             namaDivisi: "MSDM PANITIA",
-            namaKetua: '${msdmPanit.nama}\n${msdmPanit.nim}',
+            textSpan: [
+              TextSpan(
+                text: '${msdmPanit.nama}\n',
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              TextSpan(
+                text: '${msdmPanit.nim}',
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                ),
+              ),
+            ],
+            isCenter: true,
             jabatan: msdmPanit.jabatan,
             foto: Image.asset(
               msdmPanit.foto,
@@ -199,7 +286,22 @@ class _InfoPanitiaState extends State<InfoPanitia> {
           SizedBox(height: spaceHeight),
           Divisi(
             namaDivisi: "DANA USAHA",
-            namaKetua: '${danus.nama}\n${danus.nim}',
+            textSpan: [
+              TextSpan(
+                text: '${danus.nama}\n',
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              TextSpan(
+                text: '${danus.nim}',
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                ),
+              ),
+            ],
+            isCenter: true,
             jabatan: danus.jabatan,
             foto: Image.asset(
               danus.foto,
@@ -217,7 +319,22 @@ class _InfoPanitiaState extends State<InfoPanitia> {
       return Column(children: [
         Divisi(
           namaDivisi: "MSDM KADER",
-          namaKetua: '${msdmKader.nama}\n${msdmKader.nim}',
+          textSpan: [
+            TextSpan(
+              text: '${msdmKader.nama}\n',
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            TextSpan(
+              text: '${msdmKader.nim}',
+              style: TextStyle(
+                fontFamily: 'Roboto',
+              ),
+            ),
+          ],
+          isCenter: true,
           foto: Image.asset(
             msdmKader.foto,
             height: photoSize,
@@ -238,7 +355,22 @@ class _InfoPanitiaState extends State<InfoPanitia> {
         children: [
           Departemen(
             namaDepartemen: panitia['namaBidang'],
-            namaKetua: '${kabid.nama}\n${kabid.nim}',
+            textSpan: [
+              TextSpan(
+                text: '${kabid.nama}\n',
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              TextSpan(
+                text: '${kabid.nim}',
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                ),
+              ),
+            ],
+            isCenter: true,
             foto: Image.asset(
               kabid.foto,
               height: photoSize,
@@ -247,7 +379,22 @@ class _InfoPanitiaState extends State<InfoPanitia> {
             divisi: [
               Divisi(
                 namaDivisi: panitia['divisi1'],
-                namaKetua: '${kadiv1.nama}\n${kadiv1.nim}',
+                textSpan: [
+                  TextSpan(
+                    text: '${kadiv1.nama}\n',
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextSpan(
+                    text: '${kadiv1.nim}',
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                    ),
+                  ),
+                ],
+                isCenter: true,
                 jabatan: kadiv1.jabatan,
                 foto: Image.asset(
                   kadiv1.foto,
@@ -260,7 +407,22 @@ class _InfoPanitiaState extends State<InfoPanitia> {
               ),
               Divisi(
                 namaDivisi: panitia['divisi2'],
-                namaKetua: '${kadiv2.nama}\n${kadiv2.nim}',
+                textSpan: [
+                  TextSpan(
+                    text: '${kadiv2.nama}\n',
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextSpan(
+                    text: '${kadiv2.nim}',
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                    ),
+                  ),
+                ],
+                isCenter: true,
                 jabatan: kadiv2.jabatan,
                 foto: Image.asset(
                   kadiv2.foto,

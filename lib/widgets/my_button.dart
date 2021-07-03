@@ -28,7 +28,7 @@ class _MyButtonState extends State<MyButton> {
         (widget.buttonType == ButtonType.black) ? Colors.black : Colors.white;
     Color textColor =
         (widget.buttonType == ButtonType.black) ? Colors.white : Colors.black;
-    Color overlayColor = 
+    Color overlayColor =
         (widget.buttonType == ButtonType.black) ? Colors.black : Colors.white;
     DeviceType deviceType = UIUtils.getDeviceType(context);
     double fontSize = (deviceType == DeviceType.mobile)
@@ -37,17 +37,17 @@ class _MyButtonState extends State<MyButton> {
             ? 12.5
             : 14;
     double paddingVertical = (deviceType == DeviceType.mobile)
-        ? 6
+        ? 8
         : (deviceType == DeviceType.tablet)
             ? 16
             : 18;
     double paddingHorizontal = (deviceType == DeviceType.mobile)
-        ? 12
+        ? 14
         : (deviceType == DeviceType.tablet)
             ? 20
             : 24;
 
-    double borderRadius = (deviceType == DeviceType.mobile) ? 10 : 12;
+    double borderRadius = (deviceType == DeviceType.mobile) ? 12 : 12;
 
     return MouseRegion(
       onEnter: (PointerEvent details) {
@@ -61,46 +61,40 @@ class _MyButtonState extends State<MyButton> {
         });
       },
       child: ElevatedButton(
-          style: ButtonStyle(
-            elevation: MaterialStateProperty.all<double>((_isHovered) ? 1 : 0),
-            padding: MaterialStateProperty.all<EdgeInsets>(
-              EdgeInsets.symmetric(
-                  vertical: paddingVertical, horizontal: paddingHorizontal),
-            ),
-            overlayColor: MaterialStateProperty.all<Color>(overlayColor),
-            backgroundColor: MaterialStateProperty.all<Color>(color),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(borderRadius),
-                side: BorderSide(color: Colors.black, width: 2),
-              ),
+        style: ButtonStyle(
+          elevation: MaterialStateProperty.all(0),
+          padding: MaterialStateProperty.all<EdgeInsets>(
+            EdgeInsets.symmetric(
+                vertical: paddingVertical, horizontal: paddingHorizontal),
+          ),
+          overlayColor: MaterialStateProperty.all<Color>(overlayColor),
+          backgroundColor: MaterialStateProperty.all<Color>(color),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadius),
+              side: BorderSide(color: Colors.black, width: 2),
             ),
           ),
-          onPressed: this.widget.handler,
-          child: AnimatedSwitcher(
-            key: ValueKey<bool>(widget.isLoading),
-            transitionBuilder: (Widget child, Animation<double> animation) {
-              return ScaleTransition(child: child, scale: animation);
-            },
-            duration: const Duration(seconds: 1),
-            child: (this.widget.isLoading)
-                ? SizedBox(
-                    width: 1.5 * fontSize,
-                    height: 1.5 * fontSize,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(textColor),
-                      strokeWidth: 2,
-                    ),
-                  )
-                : Text(
-                    widget.text,
-                    style: TextStyle(
-                      color: textColor,
-                      fontFamily: 'DrukWideBold',
-                      fontSize: fontSize,
-                    ),
-                  ),
-          )),
+        ),
+        onPressed: this.widget.handler,
+        child: (this.widget.isLoading)
+            ? SizedBox(
+                width: 1.5 * fontSize,
+                height: 1.5 * fontSize,
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(textColor),
+                  strokeWidth: 2,
+                ),
+              )
+            : Text(
+                widget.text,
+                style: TextStyle(
+                  color: textColor,
+                  fontFamily: 'DrukWideBold',
+                  fontSize: fontSize,
+                ),
+              ),
+      ),
     );
   }
 }

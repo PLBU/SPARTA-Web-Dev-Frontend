@@ -8,15 +8,19 @@ class MyCard extends StatelessWidget {
     this.title,
     this.image,
     this.content,
+    this.textSpan,
     this.type,
     this.height,
+    this.isCenter,
   });
 
   final String title;
   final Image image;
   final String content;
+  final List<TextSpan> textSpan;
   final CardType type;
   final height;
+  final isCenter;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +34,7 @@ class MyCard extends StatelessWidget {
                 : 320
             : (deviceType == DeviceType.tablet)
                 ? 480
-                : 640;
+                : 680;
 
     double textSize = (deviceType == DeviceType.mobile)
         ? 14
@@ -74,21 +78,25 @@ class MyCard extends StatelessWidget {
             CardTitle(title: title, textSize: textSize),
             if (this.type == CardType.Right && deviceType != DeviceType.mobile)
               RightTypeContent(
+                textSpan: textSpan,
                 contentPadding: contentPadding,
                 image: image,
                 deviceType: deviceType,
                 content: content,
                 textSize: textSize,
                 height: height,
+                isCenter: isCenter,
               )
             else
               BottomTypeContent(
+                textSpan: textSpan,
                 contentPadding: contentPadding,
                 image: image,
                 deviceType: deviceType,
                 content: content,
                 textSize: textSize,
                 height: height,
+                isCenter: isCenter,
               )
           ],
         ),
@@ -105,15 +113,19 @@ class BottomTypeContent extends StatelessWidget {
     @required this.deviceType,
     @required this.content,
     @required this.textSize,
+    this.textSpan,
     this.height,
+    this.isCenter,
   }) : super(key: key);
 
   final EdgeInsets contentPadding;
   final Image image;
   final DeviceType deviceType;
   final String content;
+  final List<TextSpan> textSpan;
   final double textSize;
   final height;
+  final isCenter;
 
   @override
   Widget build(BuildContext context) {
@@ -132,14 +144,29 @@ class BottomTypeContent extends StatelessWidget {
             height: contentPadding.top, // Same value with contentPadding
           ),
           Container(
-            child: Text(
-              content,
-              textAlign: TextAlign.justify,
-              style: TextStyle(
-                fontFamily: 'Roboto',
-                fontSize: textSize,
-              ),
-            ),
+            child: (textSpan != null)
+                ? RichText(
+                    textAlign: (isCenter != null)
+                        ? TextAlign.center
+                        : TextAlign.justify,
+                    text: TextSpan(
+                      children: textSpan,
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: textSize,
+                        color: Colors.black,
+                      ),
+                    ),
+                  )
+                : Text(
+                    content,
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: textSize,
+                      color: Colors.black,
+                    ),
+                  ),
           ),
         ],
       ),
@@ -155,15 +182,19 @@ class RightTypeContent extends StatelessWidget {
     @required this.deviceType,
     @required this.content,
     @required this.textSize,
+    this.textSpan,
     this.height,
+    this.isCenter,
   }) : super(key: key);
 
   final EdgeInsets contentPadding;
   final Image image;
   final DeviceType deviceType;
   final String content;
+  final List<TextSpan> textSpan;
   final double textSize;
   final height;
+  final isCenter;
 
   @override
   Widget build(BuildContext context) {
@@ -182,14 +213,29 @@ class RightTypeContent extends StatelessWidget {
             width: contentPadding.top, // Same value with contentPadding
           ),
           Expanded(
-            child: SelectableText(
-              content,
-              textAlign: TextAlign.justify,
-              style: TextStyle(
-                fontFamily: 'Roboto',
-                fontSize: textSize,
-              ),
-            ),
+            child: (textSpan != null)
+                ? RichText(
+                    textAlign: (isCenter != null)
+                        ? TextAlign.center
+                        : TextAlign.justify,
+                    text: TextSpan(
+                      children: textSpan,
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: textSize,
+                        color: Colors.black,
+                      ),
+                    ),
+                  )
+                : Text(
+                    content,
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: textSize,
+                      color: Colors.black,
+                    ),
+                  ),
           ),
         ],
       ),
@@ -225,6 +271,7 @@ class CardTitle extends StatelessWidget {
             style: TextStyle(
               fontFamily: 'DrukWideBold',
               fontSize: textSize - 4,
+              color: Colors.black,
             ),
           ),
           Text(
@@ -233,6 +280,7 @@ class CardTitle extends StatelessWidget {
               fontFamily: 'Roboto',
               fontWeight: FontWeight.bold,
               fontSize: textSize,
+              color: Colors.black,
             ),
           )
         ],

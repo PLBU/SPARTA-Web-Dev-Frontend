@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sparta/utils/ui_utils.dart';
 
 class MyPatternDecoration extends StatelessWidget {
-  const MyPatternDecoration();
+  const MyPatternDecoration({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class MyPatternDecoration extends StatelessWidget {
           : const EdgeInsets.only(top: 5, bottom: 5),
       color: Colors.black,
       child: Image.asset(
-        'assets/icons/PatternSparta.png',
+        'assets/icons/pattern_sparta.png',
         height: size,
         width: size,
         repeat: ImageRepeat.repeatX,

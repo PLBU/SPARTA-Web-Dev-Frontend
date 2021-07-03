@@ -4,7 +4,7 @@ import 'package:sparta/models/user.dart';
 import 'package:sparta/widgets/my_button.dart';
 import 'package:sparta/pages/scoreboard/views/scoreboard_row.dart';
 
-const userPerPage = 5;
+const userPerPage = 40;
 
 class ScoreboardView extends StatefulWidget {
   ScoreboardView({this.users, this.ranks, this.curUser});
@@ -34,7 +34,7 @@ class _ScoreboardViewState extends State<ScoreboardView> {
             .where((element) => element.nim != widget.curUser.nim)
             .toList()
         : widget.users;
-    if (widget.curUser != null && orderedUser.length<widget.users.length) 
+    if (widget.curUser != null && orderedUser.length < widget.users.length)
       orderedUser.insert(0, widget.curUser);
 
     for (int i = 0; i <= orderedUser.length ~/ nUsers; i++) {
@@ -119,6 +119,7 @@ class _ScoreboardViewState extends State<ScoreboardView> {
                     : (usersScoreboard[_pageNum % usersScoreboard.length]
                             .length) *
                         90.0,
+                margin: EdgeInsets.symmetric(vertical: 10),
                 child: PageView.builder(
                   onPageChanged: (pageID) {
                     setState(() {
@@ -197,16 +198,14 @@ class PageButton extends StatelessWidget {
         children: [
           if (prev)
             MyButton(
-              text: "Previous",
+              text: "PREV PAGE",
               buttonType: ButtonType.white,
               handler: this.handler1,
             ),
-          SizedBox(
-            width: 50,
-          ),
+          SizedBox(width: 50),
           if (next)
             MyButton(
-              text: "Next",
+              text: "NEXT PAGE",
               buttonType: ButtonType.white,
               handler: this.handler2,
             ),

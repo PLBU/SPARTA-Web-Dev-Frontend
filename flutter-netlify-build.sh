@@ -1,5 +1,5 @@
-FLUTTER_BRANCH=`grep channel: .metadata | sed 's/ channel: //g'`
-FLUTTER_REVISION=`grep revision: .metadata | sed 's/ revision: //g'`
+FLUTTER_BRANCH=`grep channel: .metadata | sed 's/  channel: //g'`
+FLUTTER_REVISION=`grep revision: .metadata | sed 's/  revision: //g'`
 git clone https://github.com/flutter/flutter.git
 cd flutter
 git checkout $FLUTTER_BRANCH
