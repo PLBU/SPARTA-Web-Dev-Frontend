@@ -41,7 +41,7 @@ class Departemen extends StatelessWidget {
             height: (deviceType == DeviceType.mobile)
                 ? 190
                 : (deviceType == DeviceType.tablet)
-                    ? 250
+                    ? 270
                     : 330,
           ),
           for (Divisi i in divisi)

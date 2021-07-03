@@ -9,9 +9,7 @@ import 'package:sparta/pages/home/data/panitia.dart';
 import 'package:sparta/widgets/my_button.dart';
 
 import 'package:sparta/widgets/my_card.dart';
-import 'package:sparta/widgets/my_text_list.dart';
 import 'package:sparta/widgets/my_title.dart';
-import 'package:sparta/widgets/my_heading_text.dart';
 
 class InfoPanitia extends StatefulWidget {
   InfoPanitia();
@@ -32,7 +30,7 @@ class _InfoPanitiaState extends State<InfoPanitia> {
   ];
 
   List<double> heightMobile = [1400, 1000, 500, 1350, 1400, 1350, 1350];
-  List<double> heightTablet = [1650, 1350, 650, 1750, 1800, 1750, 1750];
+  List<double> heightTablet = [1750, 1350, 680, 1800, 1850, 1800, 1800];
   List<double> heightDesktop = [1250, 900, 500, 1400, 1400, 1400, 1400];
 
   int _pageNum = 0;
@@ -47,10 +45,10 @@ class _InfoPanitiaState extends State<InfoPanitia> {
             ? 150
             : 160;
     double photoSize = (deviceType == DeviceType.mobile)
-        ? 100
+        ? 110
         : (deviceType == DeviceType.tablet)
-            ? 140
-            : 180;
+            ? 150
+            : 190;
 
     dynamic panitia = kepanitiaan[idx];
     if (idx == 0) {

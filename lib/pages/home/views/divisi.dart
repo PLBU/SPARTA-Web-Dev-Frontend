@@ -36,7 +36,7 @@ class Divisi extends StatelessWidget {
                         image: foto,
                         title: jabatan,
                         type: CardType.Bottom,
-                        height: (deviceType == DeviceType.mobile) ? 190 : 250,
+                        height: (deviceType == DeviceType.mobile) ? 190 : 270,
                         isCenter: isCenter,
                       ),
                       SizedBox(height: 20),
