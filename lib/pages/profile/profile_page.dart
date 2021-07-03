@@ -40,7 +40,10 @@ class ProfilePage extends StatelessWidget {
                     self: (currentUser != null)
                         ? (snapshot.data.id == currentUser.id)
                         : false,
-                  )
+                  ),
+                  SizedBox(
+                    height: 32,
+                  ),
                 ],
               ),
             );
