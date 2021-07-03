@@ -164,7 +164,7 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
                       ranks: this.ranks,
                       curUser: currentUser,
                     ),
-                  if (deviceType != DeviceType.mobile) SizedBox(height: space),
+                  SizedBox(height: space),
                 ],
               ),
             );
