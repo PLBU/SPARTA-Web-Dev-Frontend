@@ -35,9 +35,9 @@ class User {
     return User(
       id: json['_id'] as String,
       instagram: (json['instagram'] == null) ? "" : json['instagram'] as String,
-      namaLengkap: json['namaLengkap'] as String,
-      namaPanggilan: json['namaPanggilan'] as String,
-      email: json['email'] as String,
+      namaLengkap: (json['namaLengkap'] == null) ? "" : json['namaLengkap'] as String,
+      namaPanggilan: (json['namaPanggilan'] == null) ? "" : json['namaPanggilan'] as String,
+      email: (json['email'] == null) ? "" : json['email'] as String,
       password: json['password'] as String,
       nim: json['nim'] as String,
       jurusan: json['jurusan'] as String,
@@ -49,7 +49,7 @@ class User {
       skor: json['skor'] as int,
       kelompok: json['kelompok'] as int,
       status: json['status'] == null ? "" : json['status'] as String,
-      tanggalLahir: DateTime.parse(json['tanggalLahir']),
+      tanggalLahir: (json['tanggalLahir'] == null) ? null : DateTime.parse(json['tanggalLahir']),
     );
   }
 }
