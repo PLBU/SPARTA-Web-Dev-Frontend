@@ -29,42 +29,46 @@ final ketua = Kepala(
   nama: 'Ghifari Farras Azhar',
   nim: '(18219105)',
   jabatan: 'KETUA',
-  foto: 'assets/images/blank_profile.jpg',
+  foto: 'assets/images/panitia/Ketua.png',
   anggota: null,
 );
 
 final kesekjenan = [
   Kepala(
-      nama: 'Yahya Aqrom',
-      nim: '(18219076)',
-      jabatan: 'SEKJEN',
-      foto: 'assets/images/blank_profile.jpg',
-      anggota: null),
+    nama: 'Yahya Aqrom',
+    nim: '(18219076)',
+    jabatan: 'SEKJEN',
+    foto: 'assets/images/blank_profile.jpg',
+    anggota: null,
+  ),
   Kepala(
-      nama: 'Rhea Elka Pandumpi',
-      nim: '(13519047)',
-      jabatan: 'SEKRETARIS 1',
-      foto: 'assets/images/blank_profile.jpg',
-      anggota: null),
+    nama: 'Nabila Farah Debi',
+    nim: '(18219093)',
+    jabatan: 'BENDAHARA',
+    foto: 'assets/images/panitia/Bendahara.png',
+    anggota: null,
+  ),
   Kepala(
-      nama: 'Shaffira Alya Mevia',
-      nim: '(13519083)',
-      jabatan: 'SEKRETARIS 2',
-      foto: 'assets/images/blank_profile.jpg',
-      anggota: null),
+    nama: 'Rhea Elka Pandumpi',
+    nim: '(13519047)',
+    jabatan: 'SEKRETARIS 1',
+    foto: 'assets/images/panitia/Sekretaris_1.png',
+    anggota: null,
+  ),
   Kepala(
-      nama: 'Nabila Farah Debi',
-      nim: '(18219093)',
-      jabatan: 'BENDAHARA',
-      foto: 'assets/images/blank_profile.jpg',
-      anggota: null),
+    nama: 'Shaffira Alya Mevia',
+    nim: '(13519083)',
+    jabatan: 'SEKRETARIS 2',
+    foto: 'assets/images/panitia/Sekretaris_2.png',
+    anggota: null,
+  ),
 ];
 
 final msdmPanitia = Kepala(
   nama: 'Arjuna Marcelino',
   nim: '(13519021)',
   jabatan: 'KEPALA DIVISI',
-  foto: 'assets/images/blank_profile.jpg',
+  foto: 'assets/images/panitia/MSDM_Panit.png',
   anggota: [
     Anggota(
       nama: 'Rexy G. R.',
@@ -105,7 +109,7 @@ final danaUsaha = Kepala(
   nama: 'Muhammad Naufal Izza F.',
   nim: '(13519088)',
   jabatan: 'KEPALA DIVISI',
-  foto: 'assets/images/blank_profile.jpg',
+  foto: 'assets/images/panitia/Danus.png',
   anggota: [
     Anggota(
       nama: 'M. Yahya I.',
@@ -130,7 +134,7 @@ final msdmKader = Kepala(
   nama: 'Zachrandika Alif Syahreza',
   nim: '(18219036)',
   jabatan: 'KEPALA DEPT.',
-  foto: 'assets/images/blank_profile.jpg',
+  foto: 'assets/images/panitia/MSDM_Kader.png',
   anggota: [
     Anggota(
       nama: 'Nabilah E.',
@@ -179,14 +183,14 @@ final operasional = Kepala(
   nama: 'Faris Aziz',
   nim: '(13519065)',
   jabatan: 'KEPALA DEPT.',
-  foto: 'assets/images/blank_profile.jpg',
+  foto: 'assets/images/panitia/Operasional.png',
 );
 
 final it = Kepala(
   nama: 'Renaldi Arlin',
   nim: '(13519114)',
   jabatan: 'KEPALA DIVISI',
-  foto: 'assets/images/blank_profile.jpg',
+  foto: 'assets/images/panitia/IT.png',
   anggota: [
     Anggota(
       nama: 'Christopher C.',
@@ -215,7 +219,7 @@ final logistik = Kepala(
   nama: 'Galuh Dipa Bharata',
   nim: '(18219100)',
   jabatan: 'KEPALA DIVISI',
-  foto: 'assets/images/blank_profile.jpg',
+  foto: 'assets/images/panitia/Logistik.png',
   anggota: [
     Anggota(
       nama: 'Andrianata P. T.',
@@ -252,14 +256,14 @@ final pnp = Kepala(
   nama: 'Allief Nuriman',
   nim: '(13519221)',
   jabatan: 'KEPALA DEPT.',
-  foto: 'assets/images/blank_profile.jpg',
+  foto: 'assets/images/panitia/PP.png',
 );
 
 final kurikulum = Kepala(
     nama: 'Rafi Raihansyah Munandar',
     nim: '(13519154)',
     jabatan: 'KEPALA DIVISI',
-    foto: 'assets/images/blank_profile.jpg',
+    foto: 'assets/images/panitia/Kurikulum.png',
     anggota: [
       Anggota(
         nama: 'Marcelino F.',
@@ -303,7 +307,7 @@ final evaluasi = Kepala(
   nama: 'Harith Fakhiri Setiawan',
   nim: '(13519161)',
   jabatan: 'KEPALA DIVISI',
-  foto: 'assets/images/blank_profile.jpg',
+  foto: 'assets/images/panitia/Evaluasi.png',
   anggota: [
     Anggota(
       nama: 'Stefanus',
@@ -340,14 +344,14 @@ final pensus = Kepala(
   nama: 'Habibina Arif Muzayyan',
   nim: '(13519125)',
   jabatan: 'KEPALA DEPT.',
-  foto: 'assets/images/blank_profile.jpg',
+  foto: 'assets/images/panitia/Pensus.png',
 );
 
 final grafis = Kepala(
   nama: 'Hera Shafira',
   nim: '(13519131)',
   jabatan: 'KEPALA DIVISI',
-  foto: 'assets/images/blank_profile.jpg',
+  foto: 'assets/images/panitia/Grafis.png',
   anggota: [
     Anggota(
       nama: 'Jacelyn F.',
@@ -372,7 +376,7 @@ final dokmen = Kepala(
   nama: 'Muhammad Fahrel N. A.',
   nim: '(18219067)',
   jabatan: 'KEPALA DIVISI',
-  foto: 'assets/images/blank_profile.jpg',
+  foto: 'assets/images/panitia/Dokum.png',
   anggota: [
     Anggota(
       nama: 'Fathan A.',
@@ -401,14 +405,14 @@ final implementasi = Kepala(
   nama: 'M. Rafli Zamzami',
   nim: '(13519067)',
   jabatan: 'KEPALA DEPT.',
-  foto: 'assets/images/blank_profile.jpg',
+  foto: 'assets/images/panitia/Implementasi.png',
 );
 
 final acara = Kepala(
   nama: 'Albertus Agung Sinurat',
   nim: '(18219066)',
   jabatan: 'KEPALA DIVISI',
-  foto: 'assets/images/blank_profile.jpg',
+  foto: 'assets/images/panitia/Acara.png',
   anggota: [
     Anggota(
       nama: 'Fabian S. D. P.',
@@ -449,7 +453,7 @@ final mentor = Kepala(
   nama: 'Awwala Nisa Kamila',
   nim: '(18219067)',
   jabatan: 'KEPALA DIVISI',
-  foto: 'assets/images/blank_profile.jpg',
+  foto: 'assets/images/panitia/Mentor.png',
   anggota: [
     Anggota(
       nama: 'Farhan N. H. D.',
