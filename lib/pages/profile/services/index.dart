@@ -46,10 +46,10 @@ Future<bool> updateOneUser(
   String jwt, {
   List<int> newImageBytes,
   String newEmail,
-  String newUsername,
   String newNamaLengkap,
   String newNamaPanggilan,
   String newPassword,
+  String newInstagram,
 }) async {
   final String url = 'https://sparta-backend.herokuapp.com/api/users/$userId';
   final dio = Dio();
@@ -60,9 +60,9 @@ Future<bool> updateOneUser(
       filename: 'foto',
     ),
     'email': newEmail,
-    'username': newUsername,
     'namaLengkap': newNamaLengkap,
     'namaPanggilan': newNamaPanggilan,
+    'instagram': newInstagram,
     if (newPassword != '') 'password': newPassword,
   });
 
