@@ -9,6 +9,7 @@ class Divisi extends StatelessWidget {
     this.jabatan,
     this.namaKetua,
     this.textSpan,
+    this.isCenter,
     this.anggota,
     this.foto,
   });
@@ -17,6 +18,7 @@ class Divisi extends StatelessWidget {
   final String jabatan;
   final String namaKetua;
   final List<TextSpan> textSpan;
+  final isCenter;
   final List<String> anggota;
   final Image foto;
 
@@ -35,6 +37,7 @@ class Divisi extends StatelessWidget {
                         title: jabatan,
                         type: CardType.Bottom,
                         height: (deviceType == DeviceType.mobile) ? 190 : 250,
+                        isCenter: isCenter,
                       ),
                       SizedBox(height: 20),
                       MyTextList(
@@ -53,6 +56,7 @@ class Divisi extends StatelessWidget {
                         title: jabatan,
                         type: CardType.Bottom,
                         height: 330,
+                        isCenter: isCenter,
                       ),
                       SizedBox(width: 40),
                       MyTextList(

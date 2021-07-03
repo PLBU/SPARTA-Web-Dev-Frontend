@@ -74,6 +74,7 @@ class _InfoPanitiaState extends State<InfoPanitia> {
                 ),
               ),
             ],
+            isCenter: true,
             title: 'KETUA',
             image: Image.asset(
               ketua.foto,
@@ -105,6 +106,7 @@ class _InfoPanitiaState extends State<InfoPanitia> {
                               ),
                             ),
                           ],
+                          isCenter: true,
                           title: 'SEKJEN',
                           image: Image.asset(
                             sekjen[0].foto,
@@ -130,6 +132,7 @@ class _InfoPanitiaState extends State<InfoPanitia> {
                               ),
                             ),
                           ],
+                          isCenter: true,
                           title: 'BENDAHARA',
                           image: Image.asset(
                             sekjen[1].foto,
@@ -160,6 +163,7 @@ class _InfoPanitiaState extends State<InfoPanitia> {
                               ),
                             ),
                           ],
+                          isCenter: true,
                           title: 'SEKRETARIS 1',
                           image: Image.asset(
                             sekjen[2].foto,
@@ -185,6 +189,7 @@ class _InfoPanitiaState extends State<InfoPanitia> {
                               ),
                             ),
                           ],
+                          isCenter: true,
                           title: 'SEKRETARIS 2',
                           image: Image.asset(
                             sekjen[3].foto,
@@ -269,6 +274,7 @@ class _InfoPanitiaState extends State<InfoPanitia> {
                 ),
               ),
             ],
+            isCenter: true,
             jabatan: msdmPanit.jabatan,
             foto: Image.asset(
               msdmPanit.foto,
@@ -297,6 +303,7 @@ class _InfoPanitiaState extends State<InfoPanitia> {
                 ),
               ),
             ],
+            isCenter: true,
             jabatan: danus.jabatan,
             foto: Image.asset(
               danus.foto,
@@ -329,6 +336,7 @@ class _InfoPanitiaState extends State<InfoPanitia> {
               ),
             ),
           ],
+          isCenter: true,
           foto: Image.asset(
             msdmKader.foto,
             height: photoSize,
@@ -364,6 +372,7 @@ class _InfoPanitiaState extends State<InfoPanitia> {
                 ),
               ),
             ],
+            isCenter: true,
             foto: Image.asset(
               kabid.foto,
               height: photoSize,
@@ -387,6 +396,7 @@ class _InfoPanitiaState extends State<InfoPanitia> {
                     ),
                   ),
                 ],
+                isCenter: true,
                 jabatan: kadiv1.jabatan,
                 foto: Image.asset(
                   kadiv1.foto,
@@ -414,6 +424,7 @@ class _InfoPanitiaState extends State<InfoPanitia> {
                     ),
                   ),
                 ],
+                isCenter: true,
                 jabatan: kadiv2.jabatan,
                 foto: Image.asset(
                   kadiv2.foto,

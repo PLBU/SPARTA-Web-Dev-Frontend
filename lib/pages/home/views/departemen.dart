@@ -11,6 +11,7 @@ class Departemen extends StatelessWidget {
     this.namaDepartemen,
     this.namaKetua,
     this.textSpan,
+    this.isCenter,
     this.foto,
     this.divisi,
   });
@@ -20,6 +21,7 @@ class Departemen extends StatelessWidget {
   final List<TextSpan> textSpan;
   final List<Divisi> divisi;
   final Image foto;
+  final isCenter;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class Departemen extends StatelessWidget {
             image: foto,
             title: "KEPALA DEPT.",
             type: CardType.Bottom,
+            isCenter: isCenter,
             height: (deviceType == DeviceType.mobile)
                 ? 190
                 : (deviceType == DeviceType.tablet)
