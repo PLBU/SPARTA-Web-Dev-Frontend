@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sparta/provider/auth_state.dart';
@@ -32,7 +30,6 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
 
     users.then((allUser) {
       fetchTopThree(allUser[0], allUser[1], allUser[2]).then((list) {
-        inspect(list);
         setState(() {
           topThree = list;
         });

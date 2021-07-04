@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:sparta/utils/network_util.dart';
@@ -22,7 +21,6 @@ Future<List<Assignment>> fetchAssignments(String token) async {
 
     return assignments;
   } else {
-    inspect(response);
     return null;
   }
 }
@@ -43,7 +41,6 @@ Future<List<Submission>> fetchSubmissions(String token) async {
 
     return submissions;
   } else {
-    inspect(response);
     return null;
   }
 }
@@ -146,7 +143,6 @@ Future<int> createAssignment(dynamic data, String token) async {
     'upperScore': data['upperScore'],
     'nim': data['nim'],
   };
-  inspect(body);
   final headers = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer $token',

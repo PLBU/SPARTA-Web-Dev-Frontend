@@ -1,12 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/widgets/my_button.dart';
-import 'package:sparta/widgets/my_container.dart';
 import 'package:sparta/widgets/my_navigation_bar.dart';
 import 'package:sparta/widgets/my_title.dart';
-import 'package:sparta/models/support.dart';
 import 'package:sparta/pages/support/services/index.dart';
 import 'package:sparta/pages/support/views/list_supports.dart';
 
@@ -32,7 +28,6 @@ class _SupportBuilderState extends State<SupportBuilder> {
   void initState() {
     super.initState();
     lists = fetchLists(widget.user.id, widget.jwt, false);
-    lists.then((value) => inspect(value));
   }
 
   @override

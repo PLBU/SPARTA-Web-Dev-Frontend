@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:sparta/pages/home/views/departemen.dart';
 import 'package:sparta/utils/ui_utils.dart';

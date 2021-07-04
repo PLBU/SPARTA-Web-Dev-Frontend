@@ -63,7 +63,7 @@ class ProfileInfo extends StatelessWidget {
           ),
         if (deviceType == DeviceType.desktop) SizedBox(height: space),
         (deviceType == DeviceType.desktop)
-            ? MyHeadingText(content: user.namaLengkap)
+            ? MyHeadingText(content: user.namaLengkap, textAlign: TextAlign.left)
             : ProfileText(
                 text: user.namaLengkap,
                 fontSize: 19,
