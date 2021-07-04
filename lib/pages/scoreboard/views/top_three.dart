@@ -81,7 +81,7 @@ class TopCard extends StatelessWidget {
               height: respHeight,
               width: respWidth,
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
+                border: Border.all(color: Colors.black, width: 2),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: ClipRRect(
