@@ -62,6 +62,7 @@ class UploadDropdown extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   fontFamily: "Roboto",
+                                  color: Colors.black,
                                 ),
                               ),
                             );
@@ -76,6 +77,7 @@ class UploadDropdown extends StatelessWidget {
                       style: TextStyle(
                         fontFamily: "Roboto",
                         fontSize: size,
+                        color: Colors.black,
                       ),
                     ),
                   ),
