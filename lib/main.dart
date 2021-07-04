@@ -23,13 +23,8 @@ void main() async {
   runApp(ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
   Future<dynamic> loadAllImage(BuildContext context) async {
     final loader = document.getElementsByClassName('loader');
     Completer completer = new Completer();
