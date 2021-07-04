@@ -449,7 +449,7 @@ final acara = Kepala(
 
 final mentor = Kepala(
   nama: 'Awwala Nisa Kamila',
-  nim: '(18219067)',
+  nim: '(13519208)',
   jabatan: 'KEPALA DIVISI',
   foto: 'assets/images/panitia/Mentor.png',
   anggota: [
