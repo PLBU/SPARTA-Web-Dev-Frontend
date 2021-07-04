@@ -130,8 +130,7 @@ class MyRow extends StatelessWidget {
             ),
           ),
         ),
-        Container(
-          width: width * 0.35,
+        Expanded(
           child: Text(
             text,
             style: TextStyle(
@@ -141,83 +140,32 @@ class MyRow extends StatelessWidget {
             ),
           ),
         ),
-        Expanded(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text(
-                skor.toString() + " pts",
-                style: TextStyle(
-                  fontFamily: "DrukWideBold",
-                  fontSize: respText - 5,
-                  color: this.self ? Colors.white : Colors.black,
-                ),
-              ),
-              SizedBox(
-                width: respText - 5,
-              ),
-              if (!this.self)
-                MyButton(
-                  text: "Support",
-                  buttonType: ButtonType.black,
-                  handler: () {
-                    showSupportDialog(context, this.nickname, this.objectId);
-                  },
-                ),
-            ],
-          ),
-        )
-      ],
-    );
-  }
-}
-
-class SelfRow extends StatelessWidget {
-  const SelfRow({
-    @required this.id,
-    @required this.respID,
-    @required this.respText,
-    @required this.width,
-    @required this.mult,
-    @required this.fontColor,
-  });
-
-  final String id;
-  final double respID;
-  final double respText;
-  final double width;
-  final double mult;
-  final Color fontColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        children: [
-          Container(
-            width: width * this.mult,
-            child: Text(
-              id,
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(
+              skor.toString() + " pts",
               style: TextStyle(
                 fontFamily: "DrukWideBold",
-                fontSize: respID,
-                color: fontColor,
+                fontSize: respText - 5,
+                color: this.self ? Colors.white : Colors.black,
               ),
             ),
-          ),
-          Expanded(
-            child: Text(
-              "DIRIKU SENDIRI",
-              style: TextStyle(
-                fontFamily: "Roboto",
-                fontSize: respText,
-                color: fontColor,
-              ),
+            SizedBox(
+              width: respText - 5,
             ),
-          ),
-        ],
-      ),
+            if (!this.self)
+              MyButton(
+                text: "Support",
+                buttonType: ButtonType.black,
+                handler: () {
+                  showSupportDialog(context, this.nickname, this.objectId);
+                },
+              ),
+          ],
+        )
+      ],
     );
   }
 }
