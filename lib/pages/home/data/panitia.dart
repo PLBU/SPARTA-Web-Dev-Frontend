@@ -36,7 +36,7 @@ final kesekjenan = [
     nama: 'Yahya Aqrom',
     nim: '(18219076)',
     jabatan: 'SEKJEN',
-    foto: 'assets/images/blank_profile.jpg',
+    foto: 'assets/images/panitia/Sekjen.png',
     anggota: null,
   ),
   Kepala(
