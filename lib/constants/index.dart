@@ -19,7 +19,7 @@ const primarySwatch = MaterialColor(
 
 // Assets
 const allAssets = [
-  AssetImage('assets/images/landing_art/welcome_sparta.png'),
+  AssetImage('assets/images/landing_art/welcome_sparta.gif'),
   AssetImage('assets/images/landing_art/ls_left_art.png'),
   AssetImage('assets/images/landing_art/ls_right_art.png'),
   AssetImage('assets/images/landing_art/pt_left_art.png'),

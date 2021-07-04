@@ -50,7 +50,7 @@ class LandingView extends StatelessWidget {
             yOffset: 24,
             child: Center(
               child: Image.asset(
-                "assets/images/landing_art/welcome_sparta.png",
+                "assets/images/landing_art/welcome_sparta.gif",
                 width: welcomeSpartaWidth,
               ),
             ),
