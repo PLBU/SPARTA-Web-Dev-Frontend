@@ -68,7 +68,7 @@ class LandingView extends StatelessWidget {
     final portraitLayout = [
       Positioned(
         child: Image.asset(
-          "assets/images/landing_art/welcome_sparta.png",
+          "assets/images/landing_art/welcome_sparta.gif",
           width: welcomeSpartaWidth,
         ),
         top: 1 / 5 * landingViewHeight,
