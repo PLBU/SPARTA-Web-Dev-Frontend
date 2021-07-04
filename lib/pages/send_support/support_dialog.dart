@@ -91,12 +91,13 @@ class _SupportDialogState extends State<SupportDialog> {
             width: 360,
             controller: contentTEC,
             minLines: 8,
-            maxLines: null,
+            maxLines: 8,
             maxLength: 300,
             hintText: 'Type your support message here!',
           ),
           Row(
             children: [
+              SizedBox(width: (deviceType == DeviceType.mobile) ? 0 : 8,),
               Checkbox(
                 activeColor: Colors.black,
                 checkColor: Colors.white,

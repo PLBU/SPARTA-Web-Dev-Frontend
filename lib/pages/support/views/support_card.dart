@@ -82,10 +82,18 @@ class SupportCard extends StatelessWidget {
                 ],
               ),
               SizedBox(height: space/2),
-              Text(suppInfo,
-                  style: TextStyle(
-                    fontSize: respFont * 1.5,
-                  )),
+              Container(
+                height: space * 2,
+                child: ListView(
+                  children: [
+                    Text(
+                      suppInfo,
+                      style: TextStyle(
+                        fontSize: respFont * 1.5,
+                      )),
+                  ],
+                ),
+              ),
               SizedBox(height: space/2),
               if (deviceType == DeviceType.mobile && user != null ) SizedBox(height: space/2),
               if (deviceType == DeviceType.mobile && user != null )
