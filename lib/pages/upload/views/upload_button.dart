@@ -47,7 +47,7 @@ class UploadButton extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Container(
-                      width: (this.assignment.deadline.isAfter(DateTime.now()))
+                      width: (this.assignment.deadline.isAfter(DateTime.now().subtract(Duration(days: 3))))
                           ? (!this.submitted)
                               ? this.width * 0.4
                               : this.width * 0.6
@@ -91,7 +91,7 @@ class UploadButton extends StatelessWidget {
               ),
             ),
           ),
-          if (this.assignment.deadline.isAfter(DateTime.now()))
+          if (this.assignment.deadline.isAfter(DateTime.now().subtract(Duration(days: 3))))
             SizedBox(width: this.width * 0.05),
           if (this.assignment.deadline.isAfter(DateTime.now().subtract(Duration(days: 3))))
             MyButton(
