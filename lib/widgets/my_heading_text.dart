@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:sparta/utils/ui_utils.dart';
 
 class MyHeadingText extends StatelessWidget {
-  const MyHeadingText({this.content});
+  const MyHeadingText({this.content, this.textAlign = TextAlign.center});
 
   final String content;
+  final TextAlign textAlign;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class MyHeadingText extends StatelessWidget {
                 ? 30
                 : 36,
       ),
-      textAlign: TextAlign.center,
+      textAlign: textAlign,
     );
   }
 }
