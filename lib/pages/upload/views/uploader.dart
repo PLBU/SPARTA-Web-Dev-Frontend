@@ -102,7 +102,7 @@ class _SubmissionUploaderState extends State<SubmissionUploader> {
           _loading = true;
         });
 
-        var res = (this._submitted)
+        var res = (this._curSubmission != null)
             ? await updateSubmission(
                 _paths.first.bytes,
                 _paths.first.name,

@@ -92,7 +92,7 @@ class UploadButton extends StatelessWidget {
             ),
           ),
           if (this.assignment.deadline.isAfter(DateTime.now()))
-            SizedBox(width: this.width * 0.1),
+            SizedBox(width: this.width * 0.05),
           if (this.assignment.deadline.isAfter(DateTime.now()))
             MyButton(
               handler: this.submitHandler,
