@@ -93,7 +93,7 @@ class UploadButton extends StatelessWidget {
           ),
           if (this.assignment.deadline.isAfter(DateTime.now()))
             SizedBox(width: this.width * 0.05),
-          if (this.assignment.deadline.isAfter(DateTime.now()))
+          if (this.assignment.deadline.isAfter(DateTime.now().subtract(Duration(days: 3))))
             MyButton(
               handler: this.submitHandler,
               text: this.submitted ? "Resubmit" : "Submit",
