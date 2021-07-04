@@ -51,10 +51,9 @@ class _GalleryPageState extends State<GalleryPage> {
 
     void prevPage() {
       setState(() {
-        if (currFirstIdx <= 0){
+        if (currFirstIdx <= 0) {
           isPrevBtnExist = false;
-        }
-        else{
+        } else {
           currFirstIdx -= imgPerPage;
           currImgLinks = [];
           for (var i = currFirstIdx; i < currFirstIdx + imgPerPage; i++) {
@@ -80,23 +79,13 @@ class _GalleryPageState extends State<GalleryPage> {
     }
 
     return FutureBuilder(
-        future: Future.wait([imgLinksResp , featuredResp]),
+        future: Future.wait([imgLinksResp, featuredResp]),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Column(children: <Widget>[
-              SizedBox(height: space / 2),
-              MyPatternDecoration(),
               SizedBox(height: space * 2),
               MyTitle(text: "GALLERY", logo: "!"),
               SizedBox(height: space),
-              if (!isPrevBtnExist) Row(
-                children: <Widget>[
-                  SizedBox(width: space * 2.5),
-                  MyTitle(text: "FEATURED"),
-                ],
-              ),
-              SizedBox(height: space),
-              
               /* GALLERY */
               Container(
                 padding: EdgeInsets.symmetric(horizontal: space * 2.5),
@@ -104,78 +93,97 @@ class _GalleryPageState extends State<GalleryPage> {
                     ? Container(
                         alignment: Alignment.center,
                         height: MediaQuery.of(context).size.height -
-                          MyNavigationBar().preferredSize.height -
-                          8 * space,
-                        child : Text("Belum ada Featured Foto yang tersedia", style: TextStyle(fontFamily: 'DrukWideBold')),
+                            MyNavigationBar().preferredSize.height -
+                            8 * space,
+                        child: Text("Belum ada Featured Foto yang tersedia",
+                            style: TextStyle(fontFamily: 'DrukWideBold')),
                       )
                     : (isPrevBtnExist && allImgLinks.length == 0)
-                    ? Container(
-                        alignment: Alignment.center,
-                        height: MediaQuery.of(context).size.height -
-                          MyNavigationBar().preferredSize.height -
-                          8 * space,
-                        child: Text("Belum ada Foto yang tersedia", style: TextStyle(fontFamily: 'DrukWideBold'))
-                      )
-                    : GridView.count(
-                        shrinkWrap: true,
-                        mainAxisSpacing: space / 1.5 ,
-                        crossAxisSpacing: space / 1.5,
-                        crossAxisCount: 3,
-                        children: [
-                          for (var i = 0; i <
-                                  ((!isPrevBtnExist)
-                                      ? featuredLinks.length 
-                                      : (currFirstIdx < allImgLinks.length - imgPerPage + 1)
-                                      ? imgPerPage
-                                      : allImgLinks.length - currFirstIdx);
-                              i++)
-                            GestureDetector(
-                              child: Hero(
-                                transitionOnUserGestures: true,
-                                tag: 'imageHero' + i.toString(),
-                                child: Container(
-                                  margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                                  child: MyContainer(
-                                    child: FittedBox(
-                                      child: Image.network(
-                                        (!isPrevBtnExist) ? featuredLinks[i] : currImgLinks[i],
-                                        loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent loadingProgress){
-                                          if (loadingProgress == null) return child;
-                                          return Center(
-                                              child: Container(
-                                                width: 250.0,
-                                                height: 250.0,
-                                                child: Center(child: CircularProgressIndicator(
-                                                  valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-                                                )),
-                                              ),
-                                          );  
-                                        },
+                        ? Container(
+                            alignment: Alignment.center,
+                            height: MediaQuery.of(context).size.height -
+                                MyNavigationBar().preferredSize.height -
+                                8 * space,
+                            child: Text("Belum ada Foto yang tersedia",
+                                style: TextStyle(fontFamily: 'DrukWideBold')))
+                        : GridView.count(
+                            shrinkWrap: true,
+                            mainAxisSpacing: space / 1.5,
+                            crossAxisSpacing: space / 1.5,
+                            crossAxisCount: 3,
+                            children: [
+                              for (var i = 0;
+                                  i <
+                                      ((!isPrevBtnExist)
+                                          ? featuredLinks.length
+                                          : (currFirstIdx <
+                                                  allImgLinks.length -
+                                                      imgPerPage +
+                                                      1)
+                                              ? imgPerPage
+                                              : allImgLinks.length -
+                                                  currFirstIdx);
+                                  i++)
+                                GestureDetector(
+                                  child: Hero(
+                                    transitionOnUserGestures: true,
+                                    tag: 'imageHero' + i.toString(),
+                                    child: Container(
+                                      margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                                      child: MyContainer(
+                                        child: FittedBox(
+                                          child: Image.network(
+                                            (!isPrevBtnExist)
+                                                ? featuredLinks[i]
+                                                : currImgLinks[i],
+                                            loadingBuilder:
+                                                (BuildContext context,
+                                                    Widget child,
+                                                    ImageChunkEvent
+                                                        loadingProgress) {
+                                              if (loadingProgress == null)
+                                                return child;
+                                              return Center(
+                                                child: Container(
+                                                  width: 250.0,
+                                                  height: 250.0,
+                                                  child: Center(
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                    valueColor:
+                                                        AlwaysStoppedAnimation<
+                                                                Color>(
+                                                            Colors.black),
+                                                  )),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                          fit: BoxFit.cover,
+                                          clipBehavior: Clip.antiAlias,
+                                        ),
+                                        width: 128,
+                                        height: 128,
                                       ),
-                                      fit: BoxFit.cover,
-                                      clipBehavior: Clip.antiAlias,
                                     ),
-                                    width: 128,
-                                    height: 128,
                                   ),
-                                ),
-                              ),
-                              onTap: () {
-                                Navigator.of(context).push(PageRouteBuilder(
-                                  opaque: false,
-                                  pageBuilder: (BuildContext context, _, __) {
-                                      return ImgFullScreen(
-                                        linkSource: (!isPrevBtnExist) ? featuredLinks[i] : currImgLinks[i],
-                                        tag: i.toString(),
-                                      );
-                                  }
-                                ));
-                              },
-                            )
-                        ],
-                      ),
+                                  onTap: () {
+                                    Navigator.of(context).push(PageRouteBuilder(
+                                        opaque: false,
+                                        pageBuilder:
+                                            (BuildContext context, _, __) {
+                                          return ImgFullScreen(
+                                            linkSource: (!isPrevBtnExist)
+                                                ? featuredLinks[i]
+                                                : currImgLinks[i],
+                                            tag: i.toString(),
+                                          );
+                                        }));
+                                  },
+                                )
+                            ],
+                          ),
               ),
-
               SizedBox(height: space * 2),
 
               /* BUTTONS */
