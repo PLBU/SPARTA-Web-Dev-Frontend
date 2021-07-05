@@ -37,7 +37,6 @@ dependencies:
   jwt_decoder: ^2.0.1
   mouse_parallax: ^1.1.0
   font_awesome_flutter: ^9.1.0
-  url_strategy: ^0.2.0
 
 dev_dependencies:
   flutter_test:
