@@ -3,7 +3,6 @@ import 'package:sparta/widgets/my_button.dart';
 import 'package:sparta/widgets/my_container.dart';
 import 'package:sparta/widgets/my_navigation_bar.dart';
 import 'package:sparta/widgets/my_title.dart';
-import 'package:sparta/widgets/my_pattern_decoration.dart';
 import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/pages/gallery/services/fetchImgLinks.dart';
 import 'package:sparta/pages/gallery/services/fetchFeatured.dart';
