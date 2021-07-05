@@ -16,10 +16,12 @@ import 'package:sparta/pages/scoreboard/scoreboard_page.dart';
 import 'package:sparta/pages/upload/upload_page.dart';
 import 'package:sparta/pages/gallery/gallery_page.dart';
 import 'package:sparta/constants/index.dart';
+import 'package:url_strategy/url_strategy.dart';
 import 'dart:html';
 
 void main() async {
   await AuthState.init();
+  setPathUrlStrategy();
   runApp(ProviderScope(child: MyApp()));
 }
 
