@@ -1,23 +1,19 @@
 const listOfLevel = [
   {
-    "name": "Hippotoxotes",
+    "name": "Paides",
     "requiredScore": 0
   },
   {
-    "name": "Hipparmostes",
+    "name": "Paidiskoi",
     "requiredScore": 100
   },
   {
-    "name": "Lokhagos",
+    "name": "Hebontes",
     "requiredScore": 200
   },
   {
-    "name": "Tagmatarkhis",
+    "name": "Crypteia",
     "requiredScore": 300
-  },
-  {
-    "name": "Taxiarhos",
-    "requiredScore": 400
   },
 ];
 
