@@ -5,15 +5,15 @@ const listOfLevel = [
   },
   {
     "name": "Paidiskoi",
-    "requiredScore": 100
+    "requiredScore": 1500
   },
   {
     "name": "Hebontes",
-    "requiredScore": 200
+    "requiredScore": 3000
   },
   {
     "name": "Crypteia",
-    "requiredScore": 300
+    "requiredScore": 4500
   },
 ];
 
