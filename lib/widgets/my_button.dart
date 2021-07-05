@@ -12,8 +12,7 @@ class MyButton extends StatelessWidget {
   final ButtonType buttonType;
   final isLoading;
 
-  const MyButton(
-      {this.handler, this.text, this.buttonType, this.isLoading = false});
+  const MyButton({this.handler, this.text, this.buttonType, this.isLoading = false});
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +21,15 @@ class MyButton extends StatelessWidget {
     Color textColor =
         (buttonType == ButtonType.black) ? Colors.white : Colors.black;
     Color overlayColor =
-        (buttonType == ButtonType.black) ? Colors.grey[850] : Colors.grey[200];
+        (buttonType == ButtonType.black) ? Colors.black : Colors.white;
     DeviceType deviceType = UIUtils.getDeviceType(context);
     double fontSize = (deviceType == DeviceType.mobile)
-        ? 10
+        ? 9
         : (deviceType == DeviceType.tablet)
-            ? 13
-            : 15;
+            ? 12.5
+            : 14;
     double paddingVertical = (deviceType == DeviceType.mobile)
-        ? 10
+        ? 8
         : (deviceType == DeviceType.tablet)
             ? 16
             : 18;
@@ -40,46 +39,42 @@ class MyButton extends StatelessWidget {
             ? 20
             : 24;
 
-    return Container(
-      child: ElevatedButton(
-          style: ButtonStyle(
-            padding: MaterialStateProperty.all<EdgeInsets>(
-              EdgeInsets.symmetric(
-                  vertical: paddingVertical, horizontal: paddingHorizontal),
-            ),
-            overlayColor: MaterialStateProperty.all<Color>(overlayColor),
-            backgroundColor: MaterialStateProperty.all<Color>(color),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-                side: BorderSide(color: Colors.black, width: 2),
+    double borderRadius = (deviceType == DeviceType.mobile) ? 12 : 12;
+
+    return ElevatedButton(
+      style: ButtonStyle(
+        elevation: MaterialStateProperty.all(0),
+        padding: MaterialStateProperty.all<EdgeInsets>(
+          EdgeInsets.symmetric(
+              vertical: paddingVertical, horizontal: paddingHorizontal),
+        ),
+        overlayColor: MaterialStateProperty.all<Color>(overlayColor),
+        backgroundColor: MaterialStateProperty.all<Color>(color),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius),
+            side: BorderSide(color: Colors.black, width: 2),
+          ),
+        ),
+      ),
+      onPressed: this.handler,
+      child: (this.isLoading)
+          ? SizedBox(
+              width: 1.5 * fontSize,
+              height: 1.5 * fontSize,
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(textColor),
+                strokeWidth: 2,
+              ),
+            )
+          : Text(
+              text,
+              style: TextStyle(
+                color: textColor,
+                fontFamily: 'DrukWideBold',
+                fontSize: fontSize,
               ),
             ),
-          ),
-          onPressed: this.handler,
-          child: AnimatedSwitcher(
-            key: ValueKey<bool>(isLoading),
-            transitionBuilder: (Widget child, Animation<double> animation) {
-              return ScaleTransition(child: child, scale: animation);
-            },
-            duration: const Duration(seconds: 1),
-            child: (this.isLoading)
-                ? SizedBox(
-                  width: 1.5*fontSize,
-                  height: 1.5*fontSize,
-                  child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(textColor),
-                      strokeWidth: 2,
-                    ),
-                )
-                : Text(
-                    text,
-                    style: TextStyle(
-                        color: textColor,
-                        fontFamily: 'DrukWideBold',
-                        fontSize: fontSize),
-                  ),
-          )),
     );
   }
 }

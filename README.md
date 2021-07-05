@@ -1,5 +1,4 @@
 # SPARTA
-
 A new Flutter Frontend Web App for SPARTA HMIF 2021.
 
 ## Getting Started

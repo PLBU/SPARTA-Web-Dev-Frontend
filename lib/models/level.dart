@@ -1,23 +1,19 @@
 const listOfLevel = [
   {
-    "name": "Hippotoxotes",
+    "name": "Paides",
     "requiredScore": 0
   },
   {
-    "name": "Hipparmostes",
-    "requiredScore": 100
+    "name": "Paidiskoi",
+    "requiredScore": 1500
   },
   {
-    "name": "Lokhagos",
-    "requiredScore": 200
+    "name": "Hebontes",
+    "requiredScore": 3000
   },
   {
-    "name": "Tagmatarkhis",
-    "requiredScore": 300
-  },
-  {
-    "name": "Taxiarhos",
-    "requiredScore": 400
+    "name": "Crypteia",
+    "requiredScore": 4500
   },
 ];
 
@@ -31,7 +27,7 @@ class Level {
 
     this.score = score;
     listOfLevel.forEach((elmt) { 
-      if (score > elmt['requiredScore']) {
+      if (score >= elmt['requiredScore']) {
         level++;
         this.levelName = elmt['name'];
       }

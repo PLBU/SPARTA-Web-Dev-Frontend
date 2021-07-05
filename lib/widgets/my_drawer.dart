@@ -37,20 +37,20 @@ class MyDrawer extends StatelessWidget {
               ),
             ),
           MyDrawerItem(
-            text: "home",
+            text: "Home",
             routeName: "/",
           ),
           MyDrawerItem(
-            text: "scoreboard",
+            text: "Scoreboard",
             routeName: "/scoreboard",
           ),
           if (currentUser != null || type == 'admin')
             MyDrawerItem(
-              text: "upload tugas",
+              text: "Upload tugas",
               routeName: "/upload-tugas",
             ),
           MyDrawerItem(
-            text: "gallery",
+            text: "Gallery",
             routeName: "/gallery",
           ),
           Container(

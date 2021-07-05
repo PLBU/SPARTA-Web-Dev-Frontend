@@ -1,32 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:sparta/pages/home/views/landing.dart';
 import 'package:sparta/widgets/my_pattern_decoration.dart';
 import 'package:sparta/pages/home/views/info_sparta.dart';
 import 'package:sparta/pages/home/views/info_hmif.dart';
 import 'package:sparta/pages/home/views/info_panitia.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key key}) : super(key: key);
+  HomePage({Key key}) : super(key: key);
+
+  final patternDecoration = new GlobalKey();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(height: 20),
-          MyPatternDecoration(),
-          SizedBox(height: 40),
-          // INSERTT IMAGE HERE
-          SizedBox(height: 40),
-          InfoSparta(),
-          SizedBox(height: 40),
-          InfoHMIF(),
-          SizedBox(height: 40),
-          InfoPanitia(),
-        ],
-      ),
+    double space = 96;
+
+    return Column(
+      children: [
+        LandingView(patternDecoration),
+        MyPatternDecoration(key: patternDecoration),
+        SizedBox(height: space),
+        InfoHMIF(),
+        SizedBox(height: space),
+        InfoSparta(),
+        SizedBox(height: space),
+        InfoPanitia(),
+      ],
     );
   }
 }

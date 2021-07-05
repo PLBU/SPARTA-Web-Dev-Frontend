@@ -1,7 +1,7 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sparta/models/level.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sparta/models/user.dart';
 import 'package:sparta/pages/profile/services/index.dart';
 import 'package:sparta/pages/profile/views/profile_info_edit.dart';
@@ -14,6 +14,7 @@ import 'package:sparta/widgets/my_button.dart';
 import 'package:sparta/widgets/my_container.dart';
 import 'package:sparta/pages/profile/views/profile_info.dart';
 import 'package:sparta/widgets/my_text_field.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfileCard extends StatefulWidget {
   ProfileCard({Key key, @required this.user, this.self = false})
@@ -43,7 +44,7 @@ class _ProfileCardState extends State<ProfileCard> {
     double space = (deviceType == DeviceType.desktop) ? 32 : 16;
     Map<String, TextEditingController> mapOfTEC = {
       'email': TextEditingController(text: widget.user.email),
-      'username': TextEditingController(text: widget.user.username),
+      'instagram': TextEditingController(text: widget.user.instagram),
       'namaLengkap': TextEditingController(text: widget.user.namaLengkap),
       'namaPanggilan': TextEditingController(text: widget.user.namaPanggilan),
       'password': TextEditingController(),
@@ -79,7 +80,7 @@ class _ProfileCardState extends State<ProfileCard> {
         jwt,
         newImageBytes: _imageBytes,
         newEmail: mapOfTEC['email'].text,
-        newUsername: mapOfTEC['username'].text,
+        newInstagram: mapOfTEC['instagram'].text,
         newNamaLengkap: mapOfTEC['namaLengkap'].text,
         newNamaPanggilan: mapOfTEC['namaPanggilan'].text,
         newPassword: mapOfTEC['password'].text,
@@ -271,16 +272,42 @@ class PortraitLayout extends StatelessWidget {
         Row(
           mainAxisSize: MainAxisSize.max,
           children: [
-            ProfileText(
-              text: new Level(user.skor).levelName,
-              fontFamily: 'DrukWideBold',
-              fontSize: 15,
+            InkWell(
+              focusColor: Colors.transparent,
+              splashColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              child: Row(
+                children: [
+                  FaIcon(
+                    FontAwesomeIcons.instagramSquare,
+                    color: Colors.black,
+                    size: 24,
+                  ),
+                  ProfileText(
+                    text:
+                        (user.instagram == "") ? ' -' : (' @' + user.instagram),
+                    fontFamily: 'DrukWideBold',
+                    fontSize: 15,
+                  ),
+                ],
+              ),
+              onTap: () {
+                if (user.instagram != '')
+                  launch('https://www.instagram.com/${user.instagram}');
+              },
             ),
             Spacer(),
-            ProfileText(
-              text: 'Ultah 08/11',
-              fontFamily: 'DrukWideBold',
-              fontSize: 15,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(Icons.cake),
+                ProfileText(
+                  text:
+                      ' ${user.tanggalLahir.day.toString()}/${user.tanggalLahir.month.toString()}/${user.tanggalLahir.year.toString()}',
+                  fontFamily: 'DrukWideBold',
+                  fontSize: 15,
+                ),
+              ],
             ),
           ],
         ),

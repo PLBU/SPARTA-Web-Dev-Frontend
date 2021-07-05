@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:sparta/models/support.dart';
 import 'package:sparta/utils/network_util.dart';
@@ -55,7 +54,6 @@ Future<List<dynamic>> fetchLists(String id, String jwt, bool isPengirim) async {
   List<dynamic> resArr = [];
   for (var supp in supports) {
     User user = await fetchUser(isPengirim ? supp.penerima : supp.pengirim);
-    if (user==null) continue;
     
     resArr.add(SupportCard(
       suppInfo: supp.text,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sparta/utils/ui_utils.dart';
 
 class MyTextList extends StatelessWidget {
-  const MyTextList ({
+  const MyTextList({
     this.title,
     this.list,
   });
@@ -15,23 +15,25 @@ class MyTextList extends StatelessWidget {
     DeviceType deviceType = UIUtils.getDeviceType(context);
     ////// Style
     //// Widget Size
-    double textListHeight =
-      (deviceType == DeviceType.mobile)
-        ? 200
+    double textListHeight = (deviceType == DeviceType.mobile)
+        ? 208
         : (deviceType == DeviceType.tablet)
-            ? 300
-            : 380;
-    double textListWidth = textListHeight*1.25;
-    double padding = textListWidth*0.1;
-    
+            ? 308
+            : 370;
+    double textListWidth = (deviceType == DeviceType.mobile)
+        ? 268
+        : (deviceType == DeviceType.tablet)
+            ? 308
+            : textListHeight * 1.25;
+    double padding = textListWidth * 0.1;
+
     //// Font Styling
     //- Default style
     Color fontColor = Colors.white;
 
     //- Title
-    double titleBoxHeight = (textListHeight-(1.5*padding))/5;
-    double titleFontSize = 
-      (deviceType == DeviceType.mobile)
+    double titleBoxHeight = (textListHeight - (1.5 * padding)) / 4;
+    double titleFontSize = (deviceType == DeviceType.mobile)
         ? 16
         : (deviceType == DeviceType.tablet)
             ? 24
@@ -41,27 +43,28 @@ class MyTextList extends StatelessWidget {
       fontFamily: 'DrukWideBold',
       fontSize: titleFontSize,
       color: fontColor,
-      );
+    );
 
     //- Text
     // double listBoxHeight = (textListHeight-(1.5*padding))-titleBoxHeight-2;
-    double fontSize = titleFontSize/1.75;
+    double fontSize = titleFontSize / 1.75;
     TextStyle fontStyle = TextStyle(
-      fontFamily: 'Roboto',
-      fontSize: fontSize,
-      color: fontColor,
-      );
+        fontFamily: 'Roboto',
+        fontSize: fontSize,
+        color: fontColor,
+        fontWeight: FontWeight.w600);
 
     ////// Build Implementation
-    return Container( // Widget Canvas
+    return Container(
+      // Widget Canvas
       // Styling
       decoration: BoxDecoration(
-              border: Border.all(color: Colors.black),
-              color: Colors.black,
-              ),
-      padding: EdgeInsets.fromLTRB(padding, 0.5*padding, padding, padding),
+        border: Border.all(color: Colors.black),
+        color: Colors.black,
+      ),
+      padding: EdgeInsets.fromLTRB(padding, 0.5 * padding, padding, padding),
       // Size
-      height: textListHeight,
+      height: textListHeight + 8,
       width: textListWidth,
 
       // Child
@@ -72,14 +75,14 @@ class MyTextList extends StatelessWidget {
           Container(
             alignment: Alignment.centerLeft,
             height: titleBoxHeight,
-            width: textListWidth-2*padding,
+            width: textListWidth - 2 * padding,
             child: Text(
               title,
               textAlign: titleFontAlign,
               style: titleFontStyle,
-              ),
+            ),
           ),
-
+          SizedBox(height: 10),
           // List
           Expanded(
             child: GridView.count(
@@ -93,19 +96,26 @@ class MyTextList extends StatelessWidget {
               shrinkWrap: true,
               controller: ScrollController(keepScrollOffset: true),
               physics: ScrollPhysics(),
-              
+
               // Text List
               children: <Widget>[
-                for(var string in list)
+                for (var string in list)
                   Text(
                     string,
                     textAlign: TextAlign.left,
                     style: fontStyle,
-                    )
-                ],
+                  )
+              ],
             ),
           ),
-
+          if (list.length > 10)
+            Center(
+              child: Icon(
+                Icons.keyboard_arrow_down,
+                color: Colors.white,
+                size: (deviceType == DeviceType.mobile) ? 14 : null,
+              ),
+            ),
         ],
       ),
     );

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:sparta/utils/ui_utils.dart';
 
 class MyHeadingText extends StatelessWidget {
-  const MyHeadingText({ this.content, this.color });
+  const MyHeadingText({this.content, this.textAlign = TextAlign.center});
 
   final String content;
-  final Color color;
+  final TextAlign textAlign;
 
   @override
   Widget build(BuildContext context) {
@@ -14,14 +14,15 @@ class MyHeadingText extends StatelessWidget {
     return Text(
       this.content,
       style: TextStyle(
-        color: this.color,
+        color: Colors.black,
         fontFamily: 'DrukWideBold',
-        fontSize:
-          (deviceType == DeviceType.mobile) ? 24
-          : (deviceType == DeviceType.tablet) ? 30
-          : 36,
+        fontSize: (deviceType == DeviceType.mobile)
+            ? 20
+            : (deviceType == DeviceType.tablet)
+                ? 30
+                : 36,
       ),
-      textAlign: TextAlign.center,
+      textAlign: textAlign,
     );
   }
 }

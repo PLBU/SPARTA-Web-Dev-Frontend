@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sparta/widgets/my_button.dart';
 import 'package:sparta/utils/ui_utils.dart';
-import 'package:sparta/models/support.dart';
 import 'package:sparta/models/user.dart';
 import 'package:sparta/pages/send_support/support_dialog.dart';
-import 'package:sparta/pages/support/services/index.dart';
 
 class SupportCard extends StatelessWidget {
   const SupportCard({
@@ -32,10 +30,10 @@ class SupportCard extends StatelessWidget {
             ? 13
             : 16;
     double respPad = (deviceType == DeviceType.mobile)
-        ? 20
+        ? 10
         : (deviceType == DeviceType.tablet)
-            ? 30
-            : 40;
+            ? 15
+            : 20;
 
     return Wrap(
       children: <Widget>[
@@ -45,14 +43,14 @@ class SupportCard extends StatelessWidget {
             color: Colors.white,
             border: Border.all(
               color: Colors.black,
-              width: 1.0,
+              width: 2.0,
             ),
             borderRadius: BorderRadius.all(Radius.circular(10)),
             boxShadow: <BoxShadow>[
               BoxShadow(
                 color: Colors.black,
                 blurRadius: 0.0,
-                offset: Offset(0.0, 2.0),
+                offset: Offset(0.0, 8.0),
               ),
             ],
           ),
@@ -62,29 +60,43 @@ class SupportCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(this.user.nim + " " + this.user.namaLengkap,
-                      style: TextStyle(
-                        fontSize: respFont * 1.7,
+                  (user == null)
+                    ? Text('Anonymous',
+                        style: TextStyle(
+                        fontSize: respFont * 1.25,
                         fontWeight: FontWeight.bold,
+                      ))
+                    : Text(this.user.nim + " " + this.user.namaLengkap,
+                        style: TextStyle(
+                          fontSize: respFont * 1.25,
+                          fontWeight: FontWeight.bold,
                       )),
-                  if (!(deviceType == DeviceType.mobile))
+                  if (!(deviceType == DeviceType.mobile) && user != null)
                     MyButton(
                       text: 'SUPPORT',
                       buttonType: ButtonType.black,
                       handler: (){
-                        showSupportDialog(context, this.user.namaLengkap, this.user.id);
+                        showSupportDialog(context, this.user.namaPanggilan, this.user.id);
                       },
                     ),
                 ],
               ),
-              SizedBox(height: space),
-              Text(suppInfo,
-                  style: TextStyle(
-                    fontSize: respFont * 2,
-                  )),
-              SizedBox(height: space),
-              if (deviceType == DeviceType.mobile) SizedBox(height: space),
-              if (deviceType == DeviceType.mobile)
+              SizedBox(height: space/2),
+              Container(
+                height: space * 2,
+                child: ListView(
+                  children: [
+                    Text(
+                      suppInfo,
+                      style: TextStyle(
+                        fontSize: respFont * 1.5,
+                      )),
+                  ],
+                ),
+              ),
+              SizedBox(height: space/2),
+              if (deviceType == DeviceType.mobile && user != null ) SizedBox(height: space/2),
+              if (deviceType == DeviceType.mobile && user != null )
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[

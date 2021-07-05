@@ -8,35 +8,39 @@ class MyCard extends StatelessWidget {
     this.title,
     this.image,
     this.content,
+    this.textSpan,
     this.type,
     this.height,
+    this.isCenter,
   });
 
   final String title;
   final Image image;
   final String content;
+  final List<TextSpan> textSpan;
   final CardType type;
   final height;
+  final isCenter;
 
   @override
   Widget build(BuildContext context) {
     DeviceType deviceType = UIUtils.getDeviceType(context);
 
     double cardWidth = (deviceType == DeviceType.mobile)
-        ? 250
+        ? 260
         : (type == CardType.Bottom)
             ? (deviceType == DeviceType.tablet)
                 ? 300
                 : 320
             : (deviceType == DeviceType.tablet)
                 ? 480
-                : 640;
+                : 680;
 
     double textSize = (deviceType == DeviceType.mobile)
-        ? 15
+        ? 14
         : (deviceType == DeviceType.tablet)
-            ? 17
-            : 20;
+            ? 16
+            : 18;
 
     EdgeInsets contentPadding = (deviceType == DeviceType.mobile)
         ? const EdgeInsets.all(20)
@@ -45,13 +49,13 @@ class MyCard extends StatelessWidget {
             : const EdgeInsets.all(35);
 
     BoxDecoration shadowDecoration = BoxDecoration(
-      border: Border.all(color: Colors.black),
+      border: Border.all(color: Colors.black, width: 2),
       boxShadow: [
         BoxShadow(
           color: Colors.black,
           offset: const Offset(
-            7.0,
-            7.0,
+            8.0,
+            8.0,
           ),
         ),
         BoxShadow(
@@ -64,31 +68,38 @@ class MyCard extends StatelessWidget {
       ],
     );
 
-    return Container(
-      width: cardWidth,
-      decoration: shadowDecoration,
-      child: Column(
-        children: [
-          CardTitle(title: title, textSize: textSize),
-          if (this.type == CardType.Right && deviceType != DeviceType.mobile)
-            RightTypeContent(
-              contentPadding: contentPadding,
-              image: image,
-              deviceType: deviceType,
-              content: content,
-              textSize: textSize,
-              height: height,
-            )
-          else
-            BottomTypeContent(
-              contentPadding: contentPadding,
-              image: image,
-              deviceType: deviceType,
-              content: content,
-              textSize: textSize,
-              height: height,
-            )
-        ],
+    return Padding(
+      padding: EdgeInsets.only(bottom: 8, right: 8),
+      child: Container(
+        width: cardWidth,
+        decoration: shadowDecoration,
+        child: Column(
+          children: [
+            CardTitle(title: title, textSize: textSize),
+            if (this.type == CardType.Right && deviceType != DeviceType.mobile)
+              RightTypeContent(
+                textSpan: textSpan,
+                contentPadding: contentPadding,
+                image: image,
+                deviceType: deviceType,
+                content: content,
+                textSize: textSize,
+                height: height,
+                isCenter: isCenter,
+              )
+            else
+              BottomTypeContent(
+                textSpan: textSpan,
+                contentPadding: contentPadding,
+                image: image,
+                deviceType: deviceType,
+                content: content,
+                textSize: textSize,
+                height: height,
+                isCenter: isCenter,
+              )
+          ],
+        ),
       ),
     );
   }
@@ -102,15 +113,19 @@ class BottomTypeContent extends StatelessWidget {
     @required this.deviceType,
     @required this.content,
     @required this.textSize,
+    this.textSpan,
     this.height,
+    this.isCenter,
   }) : super(key: key);
 
   final EdgeInsets contentPadding;
   final Image image;
   final DeviceType deviceType;
   final String content;
+  final List<TextSpan> textSpan;
   final double textSize;
   final height;
+  final isCenter;
 
   @override
   Widget build(BuildContext context) {
@@ -129,14 +144,29 @@ class BottomTypeContent extends StatelessWidget {
             height: contentPadding.top, // Same value with contentPadding
           ),
           Container(
-            child: Text(
-              content,
-              textAlign: TextAlign.justify,
-              style: TextStyle(
-                fontFamily: 'Roboto',
-                fontSize: textSize,
-              ),
-            ),
+            child: (textSpan != null)
+                ? RichText(
+                    textAlign: (isCenter != null)
+                        ? TextAlign.center
+                        : TextAlign.justify,
+                    text: TextSpan(
+                      children: textSpan,
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: textSize,
+                        color: Colors.black,
+                      ),
+                    ),
+                  )
+                : Text(
+                    content,
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: textSize,
+                      color: Colors.black,
+                    ),
+                  ),
           ),
         ],
       ),
@@ -152,15 +182,19 @@ class RightTypeContent extends StatelessWidget {
     @required this.deviceType,
     @required this.content,
     @required this.textSize,
+    this.textSpan,
     this.height,
+    this.isCenter,
   }) : super(key: key);
 
   final EdgeInsets contentPadding;
   final Image image;
   final DeviceType deviceType;
   final String content;
+  final List<TextSpan> textSpan;
   final double textSize;
   final height;
+  final isCenter;
 
   @override
   Widget build(BuildContext context) {
@@ -179,14 +213,29 @@ class RightTypeContent extends StatelessWidget {
             width: contentPadding.top, // Same value with contentPadding
           ),
           Expanded(
-            child: Text(
-              content,
-              textAlign: TextAlign.justify,
-              style: TextStyle(
-                fontFamily: 'Roboto',
-                fontSize: textSize,
-              ),
-            ),
+            child: (textSpan != null)
+                ? RichText(
+                    textAlign: (isCenter != null)
+                        ? TextAlign.center
+                        : TextAlign.justify,
+                    text: TextSpan(
+                      children: textSpan,
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: textSize,
+                        color: Colors.black,
+                      ),
+                    ),
+                  )
+                : Text(
+                    content,
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: textSize,
+                      color: Colors.black,
+                    ),
+                  ),
           ),
         ],
       ),
@@ -208,10 +257,10 @@ class CardTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         border: Border(
-          bottom: BorderSide(color: Colors.black),
+          bottom: BorderSide(color: Colors.black, width: 2),
         ),
       ),
       child: Row(
@@ -221,13 +270,19 @@ class CardTitle extends StatelessWidget {
             title,
             style: TextStyle(
               fontFamily: 'DrukWideBold',
-              fontSize: textSize,
+              fontSize: textSize - 4,
+              color: Colors.black,
             ),
           ),
-          Icon(
-            Icons.close,
-            color: Colors.black,
-          ),
+          Text(
+            'X',
+            style: TextStyle(
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.bold,
+              fontSize: textSize,
+              color: Colors.black,
+            ),
+          )
         ],
       ),
     );

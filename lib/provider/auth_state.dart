@@ -21,15 +21,22 @@ class AuthState {
     if (storage.containsKey('jwt') &&
         (storage.containsKey('currentUser') || storage.containsKey('type'))) {
       String savedJwt = storage.getString('jwt');
-      jwt = StateProvider((ref) => savedJwt);
 
-      String savedType = storage.getString('type');
-      type = StateProvider((ref) => savedType);
+      if (JwtDecoder.isExpired(savedJwt)) {
+        storage.remove('jwt');
+        storage.remove('currentUser');
+        storage.remove('type');
+      } else {
+        jwt = StateProvider((ref) => savedJwt);
 
-      if (savedType != 'admin') {
-        User savedUser =
-            User.fromJson(json.decode(storage.getString('currentUser')));
-        currentUser = StateProvider((ref) => savedUser);
+        String savedType = storage.getString('type');
+        type = StateProvider((ref) => savedType);
+
+        if (savedType != 'admin') {
+          User savedUser =
+              User.fromJson(json.decode(storage.getString('currentUser')));
+          currentUser = StateProvider((ref) => savedUser);
+        }
       }
     }
   }
@@ -81,6 +88,7 @@ class AuthState {
   }
 
   static void logout(BuildContext context) {
+    Navigator.pushNamed(context, '/');
     context.read(jwt).state = null;
     context.read(currentUser).state = null;
     context.read(type).state = null;
@@ -98,14 +106,15 @@ class AuthState {
         logout(context);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Your session has expired. Please kindly login again!'),
+            content:
+                Text('Your session has expired. Please kindly login again!'),
             behavior: SnackBarBehavior.floating,
           ),
         );
 
         return true;
       }
-    } 
+    }
 
     return false;
   }

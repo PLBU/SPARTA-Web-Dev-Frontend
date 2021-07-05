@@ -97,7 +97,7 @@ class _CreateTugasState extends State<CreateTugas> {
             width: respWidth,
             height: 200,
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
+              border: Border.all(color: Colors.black, width: 2),
               borderRadius: BorderRadius.circular(10),
             ),
             padding: EdgeInsets.symmetric(horizontal: 10),
@@ -161,20 +161,24 @@ class _CreateTugasState extends State<CreateTugas> {
               setState(() {
                 _uploading = true;
               });
-              
+
               var res;
               if (nameTEC.text != "" || spekTEC.text != "")
-                res = await uploadTugas({
+                res = await createAssignment({
                   'name': nameTEC.text,
                   'spek': spekTEC.text,
-                  'upperScore':
-                      upperBoundTEC.text == "" ? null : int.parse(upperBoundTEC.text),
-                  'lowerScore':
-                      lowerBoundTEC.text == "" ? null : int.parse(lowerBoundTEC.text),
+                  'upperScore': upperBoundTEC.text == ""
+                      ? null
+                      : int.parse(upperBoundTEC.text),
+                  'lowerScore': lowerBoundTEC.text == ""
+                      ? null
+                      : int.parse(lowerBoundTEC.text),
                   'nim': nimTEC.text == ""
                       ? null
                       : nimTEC.text.replaceAll(" ", "").split(","),
-                  'kelompok': kelompokTEC.text == "" ? null : int.parse(kelompokTEC.text),
+                  'kelompok': kelompokTEC.text == ""
+                      ? null
+                      : int.parse(kelompokTEC.text),
                   'deadline':
                       formatDeadline(this._deadlineDate, this._deadlineTime),
                 }, widget.token);

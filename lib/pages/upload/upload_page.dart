@@ -41,7 +41,7 @@ class UploadPage extends StatelessWidget {
                       SizedBox(height: 50),
                       MyTitle(text: "UPLOAD TUGAS", logo: "!"),
                       SizedBox(height: 50),
-                      Uploader(
+                      SubmissionUploader(
                         jwtToken: currentJWT,
                         data: snapshot.data,
                       ),

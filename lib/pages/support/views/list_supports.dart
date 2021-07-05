@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/widgets/my_button.dart';
@@ -43,7 +41,7 @@ class _ListSupportsState extends State<ListSupports> {
               allCards.sublist(i * supportsPerPage, allCards.length).map(
                 (card) {
                   return Container(
-                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                    margin: EdgeInsets.symmetric(vertical: 15, horizontal: 0),
                     child: card,
                   );
                 },
@@ -58,7 +56,7 @@ class _ListSupportsState extends State<ListSupports> {
                 .map(
               (card) {
                 return Container(
-                  margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                  margin: EdgeInsets.symmetric(vertical: 15, horizontal: 0),
                   child: card,
                 );
               },
@@ -80,88 +78,79 @@ class _ListSupportsState extends State<ListSupports> {
       _isPrevBtnExist = _pageNum % supportCards.length > 0;
     });
 
-    return widget.lists.length > 0
-        ? Column(
-            children: <Widget>[
-              // Support Cards (PageView)
-              Container(
-                height: (deviceType == DeviceType.mobile)
-                    ? supportCards[_pageNum].length * 160
-                    : (deviceType == DeviceType.tablet)
-                        ? supportCards[_pageNum].length * 180
-                        : supportCards[_pageNum].length * 250,
-                padding: EdgeInsets.symmetric(horizontal: widget.space * 3),
-                child: PageView.builder(
-                  onPageChanged: (pageID) {
-                    setState(() {
-                      _pageNum = pageID;
-                    });
-                  },
-                  controller: controller,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: widget.lists.length % supportsPerPage > 0
-                      ? (widget.lists.length ~/ supportsPerPage) + 1
-                      : (widget.lists.length ~/ supportsPerPage),
-                  itemBuilder: ((context, index) {
-                    return Column(
-                      children: supportCards[index],
-                    );
-                  }),
-                ),
-              ),
-              SizedBox(height: widget.space),
-              /* PAGE HANDLING BUTTONS */
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(width: widget.space * 3),
-                      if (_isPrevBtnExist)
-                        MyButton(
-                          handler: () {
-                            controller.animateToPage(
-                              controller.page.toInt() - 1,
-                              duration: Duration(milliseconds: 750),
-                              curve: Curves.easeInOut,
-                            );
-                          },
-                          buttonType: ButtonType.white,
-                          text: 'Prev Page',
-                        )
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      if (_isNextBtnExist)
-                        MyButton(
-                          handler: () {
-                            controller.animateToPage(
-                              controller.page.toInt() + 1,
-                              duration: Duration(milliseconds: 750),
-                              curve: Curves.easeInOut,
-                            );
-                          },
-                          buttonType: ButtonType.white,
-                          text: 'Next Page',
-                        ),
-                      SizedBox(width: widget.space * 3),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          )
-        : Center(
-            child: Text(
-              "User tidak ditemukan!",
-              style: TextStyle(
-                fontFamily: "DrukWideBold",
-                fontSize: (deviceType == DeviceType.mobile) ? 16 : 20,
-              ),
+    return Column(
+      children: <Widget>[
+        // Support Cards (PageView)
+        Container(
+          height: (deviceType == DeviceType.mobile)
+              ? supportCards[_pageNum].length * 160
+              : (deviceType == DeviceType.tablet)
+                  ? supportCards[_pageNum].length * 180
+                  : supportCards[_pageNum].length * 250,
+          padding: EdgeInsets.symmetric(horizontal: widget.space * 5),
+          child: PageView.builder(
+            onPageChanged: (pageID) {
+              setState(() {
+                _pageNum = pageID;
+              });
+            },
+            controller: controller,
+            scrollDirection: Axis.horizontal,
+            itemCount: widget.lists.length % supportsPerPage > 0
+                ? (widget.lists.length ~/ supportsPerPage) + 1
+                : (widget.lists.length ~/ supportsPerPage),
+            itemBuilder: ((context, index) {
+              return Column(
+                children: supportCards[index],
+              );
+            }),
+          ),
+        ),
+        SizedBox(height: widget.space),
+        /* PAGE HANDLING BUTTONS */
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(width: widget.space * 5),
+                if (_isPrevBtnExist)
+                  MyButton(
+                    handler: () {
+                      controller.animateToPage(
+                        controller.page.toInt() - 1,
+                        duration: Duration(milliseconds: 750),
+                        curve: Curves.easeInOut,
+                      );
+                    },
+                    buttonType: ButtonType.white,
+                    text: 'Prev Page',
+                  )
+              ],
             ),
-          );
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                if (_isNextBtnExist)
+                  MyButton(
+                    handler: () {
+                      controller.animateToPage(
+                        controller.page.toInt() + 1,
+                        duration: Duration(milliseconds: 750),
+                        curve: Curves.easeInOut,
+                      );
+                    },
+                    buttonType: ButtonType.white,
+                    text: 'Next Page',
+                  ),
+                SizedBox(width: widget.space * 5),
+              ],
+            ),
+          ],
+        ),
+        SizedBox(height: widget.space),
+      ],
+    );
   }
 }

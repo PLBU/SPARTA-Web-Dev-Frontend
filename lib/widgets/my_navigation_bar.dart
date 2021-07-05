@@ -40,41 +40,58 @@ class MyNavigationBar extends StatelessWidget implements PreferredSizeWidget {
 
       List<Widget> navBarItems = [
         MyNavBarItem(
-          text: "home",
+          text: "Home",
           routeName: "/",
         ),
         MyNavBarItem(
-          text: "scoreboard",
+          text: "Scoreboard",
           routeName: "/scoreboard",
         ),
         if (currentUser != null || type == 'admin')
           MyNavBarItem(
-            text: "upload tugas",
+            text: "Upload tugas",
             routeName: "/upload-tugas",
           ),
         MyNavBarItem(
-          text: "gallery",
+          text: "Gallery",
           routeName: "/gallery",
         ),
         MyNavBarItemAuth(currentUser, type),
       ];
 
       return AppBar(
+        bottom: PreferredSize(
+          child: Container(
+            color: Colors.black,
+            height: 2,
+          ),
+          preferredSize: Size.fromHeight(2),
+        ),
+        elevation: 0,
         toolbarHeight: 72,
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
         title: Container(
-          padding: EdgeInsets.only(left: 12),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Image.asset('assets/icons/sparta_head.png',
-                  width: imageSize, height: imageSize),
-              SizedBox(
-                width: 16,
-              ),
-              MyHeadingText(content: "SPARTA", color: Colors.black),
-            ],
+          padding: (deviceType == DeviceType.mobile) ? EdgeInsets.zero : EdgeInsets.only(left: 12),
+          child: InkWell(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            onTap: () {
+              NavUtil.navigate(context, '/');
+            },
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset('assets/icons/sparta_head.png',
+                    width: imageSize, height: imageSize),
+                SizedBox(
+                  width: 16,
+                ),
+                MyHeadingText(content: "SPARTA"),
+              ],
+            ),
           ),
         ),
         actions: (deviceType == DeviceType.desktop)
@@ -112,48 +129,7 @@ class MyNavBarItemAuth extends StatelessWidget {
                   text: "Login",
                   buttonType: ButtonType.white,
                 )
-              : Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    FittedBox(
-                      fit: BoxFit.contain,
-                      child: CircleAvatar(
-                        backgroundColor: Colors.white,
-                        backgroundImage: (currentUser.foto != null)
-                            ? MemoryImage(currentUser.foto)
-                            : AssetImage('assets/images/blank_profile.jpg'),
-                        radius: 40,
-                      ),
-                    ),
-                    PopupMenuButton<String>(
-                      onSelected: (String newValue) {
-                        if (newValue == "Profile")
-                          NavUtil.navigate(
-                              context, '/profile/${currentUser.id}');
-                        else if (newValue == "Logout")
-                          AuthState.logout(context);
-                      },
-                      padding: EdgeInsets.zero,
-                      child: Icon(
-                        Icons.arrow_drop_down,
-                        color: Colors.black,
-                      ),
-                      offset: Offset(0, 48),
-                      itemBuilder: (BuildContext context) =>
-                          <PopupMenuEntry<String>>[
-                        const PopupMenuItem<String>(
-                          value: "Profile",
-                          child: Text('Profile'),
-                        ),
-                        const PopupMenuItem<String>(
-                          value: "Logout",
-                          child: Text('Logout'),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
+              : ProfileButton(currentUser: currentUser),
     );
   }
 }
@@ -173,7 +149,7 @@ class MyNavBarItem extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
         border: (RouteState.current == routeName)
-            ? Border(bottom: BorderSide(color: Colors.black, width: 2))
+            ? Border(bottom: BorderSide(color: Colors.black, width: 5))
             : null,
       ),
       child: TextButton(
@@ -192,6 +168,60 @@ class MyNavBarItem extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class ProfileButton extends StatelessWidget {
+  const ProfileButton({
+    Key key,
+    @required this.currentUser,
+  }) : super(key: key);
+
+  final currentUser;
+
+  @override
+  Widget build(BuildContext context) {
+    return PopupMenuButton<String>(
+      onSelected: (String newValue) {
+        if (newValue == "Profile")
+          NavUtil.navigate(context, '/profile/${currentUser.id}');
+        else if (newValue == "Logout") AuthState.logout(context);
+      },
+      tooltip: "Show Profile Menu",
+      padding: EdgeInsets.all(0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          FittedBox(
+            fit: BoxFit.contain,
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              backgroundImage: (currentUser.foto != null)
+                  ? MemoryImage(currentUser.foto)
+                  : AssetImage('assets/images/blank_profile.jpg'),
+              radius: 40,
+            ),
+          ),
+          Icon(
+            Icons.arrow_drop_down,
+            size: 32,
+            color: Colors.black,
+          ),
+        ],
+      ),
+      offset: Offset(0, 64),
+      itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+        const PopupMenuItem<String>(
+          value: "Profile",
+          child: Text('Profile'),
+        ),
+        const PopupMenuItem<String>(
+          value: "Logout",
+          child: Text('Logout'),
+        ),
+      ],
     );
   }
 }

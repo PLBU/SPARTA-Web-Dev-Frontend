@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sparta/widgets/my_button.dart';
 import 'package:sparta/widgets/my_container.dart';
+import 'package:sparta/widgets/my_navigation_bar.dart';
 import 'package:sparta/widgets/my_title.dart';
-import 'package:sparta/widgets/my_pattern_decoration.dart';
 import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/pages/gallery/services/fetchImgLinks.dart';
 import 'package:sparta/pages/gallery/services/fetchFeatured.dart';
@@ -50,14 +50,16 @@ class _GalleryPageState extends State<GalleryPage> {
 
     void prevPage() {
       setState(() {
-        if (currFirstIdx > 0) currFirstIdx -= imgPerPage;
-        if (currFirstIdx <= 0) isPrevBtnExist = false;
-        isNextBtnExist = true;
-
-        currImgLinks = [];
-        for (var i = currFirstIdx; i < currFirstIdx + imgPerPage; i++) {
-          currImgLinks.add(allImgLinks[i]);
+        if (currFirstIdx <= 0) {
+          isPrevBtnExist = false;
+        } else {
+          currFirstIdx -= imgPerPage;
+          currImgLinks = [];
+          for (var i = currFirstIdx; i < currFirstIdx + imgPerPage; i++) {
+            currImgLinks.add(allImgLinks[i]);
+          }
         }
+        isNextBtnExist = true;
       });
     }
 
@@ -76,69 +78,111 @@ class _GalleryPageState extends State<GalleryPage> {
     }
 
     return FutureBuilder(
-        future: Future.wait([imgLinksResp , featuredResp]),
+        future: Future.wait([imgLinksResp, featuredResp]),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Column(children: <Widget>[
-              SizedBox(height: space / 2),
-              MyPatternDecoration(),
               SizedBox(height: space * 2),
               MyTitle(text: "GALLERY", logo: "!"),
               SizedBox(height: space),
-              if (!isPrevBtnExist) Row(
-                children: <Widget>[
-                  SizedBox(width: space * 3),
-                  MyTitle(text: "FEATURED"),
-                ],
-              ),
-              SizedBox(height: space),
-              
               /* GALLERY */
               Container(
-                padding: EdgeInsets.symmetric(horizontal: space * 3),
-                child: GridView.count(
-                  shrinkWrap: true,
-                  mainAxisSpacing: space / 2,
-                  crossAxisSpacing: space / 2,
-                  crossAxisCount: 3,
-                  children: [
-                    for (var i = 0; i <
-                            ((!isPrevBtnExist)
-                                ? featuredLinks.length 
-                                : (currFirstIdx < allImgLinks.length - imgPerPage + 1)
-                                ? imgPerPage
-                                : allImgLinks.length - currFirstIdx);
-                        i++)
-                      GestureDetector(
-                        child: Hero(
-                          transitionOnUserGestures: true,
-                          tag: 'imageHero' + i.toString(),
-                          child: MyContainer(
-                            child: FittedBox(
-                              child: (!isPrevBtnExist) ? Image.network(featuredLinks[i]) : Image.network(currImgLinks[i]),
-                              fit: BoxFit.cover,
-                              clipBehavior: Clip.antiAlias,
-                            ),
-                            width: 128,
-                            height: 128,
-                          ),
-                        ),
-                        onTap: () {
-                          Navigator.of(context).push(PageRouteBuilder(
-                            opaque: false,
-                            pageBuilder: (BuildContext context, _, __) {
-                                return ImgFullScreen(
-                                  linkSource: (!isPrevBtnExist) ? featuredLinks[i] : currImgLinks[i],
-                                  tag: i.toString(),
-                                );
-                            }
-                          ));
-                        },
+                padding: EdgeInsets.symmetric(horizontal: space * 2.5),
+                child: (!isPrevBtnExist && featuredLinks.length == 0)
+                    ? Container(
+                        alignment: Alignment.center,
+                        height: MediaQuery.of(context).size.height -
+                            MyNavigationBar().preferredSize.height -
+                            8 * space,
+                        child: Text("Belum ada Featured Foto yang tersedia",
+                            style: TextStyle(fontFamily: 'DrukWideBold')),
                       )
-                  ],
-                ),
+                    : (isPrevBtnExist && allImgLinks.length == 0)
+                        ? Container(
+                            alignment: Alignment.center,
+                            height: MediaQuery.of(context).size.height -
+                                MyNavigationBar().preferredSize.height -
+                                8 * space,
+                            child: Text("Belum ada Foto yang tersedia",
+                                style: TextStyle(fontFamily: 'DrukWideBold')))
+                        : GridView.count(
+                            shrinkWrap: true,
+                            mainAxisSpacing: space / 1.5,
+                            crossAxisSpacing: space / 1.5,
+                            crossAxisCount: 3,
+                            children: [
+                              for (var i = 0;
+                                  i <
+                                      ((!isPrevBtnExist)
+                                          ? featuredLinks.length
+                                          : (currFirstIdx <
+                                                  allImgLinks.length -
+                                                      imgPerPage +
+                                                      1)
+                                              ? imgPerPage
+                                              : allImgLinks.length -
+                                                  currFirstIdx);
+                                  i++)
+                                GestureDetector(
+                                  child: Hero(
+                                    transitionOnUserGestures: true,
+                                    tag: 'imageHero' + i.toString(),
+                                    child: Container(
+                                      margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                                      child: MyContainer(
+                                        child: FittedBox(
+                                          child: Image.network(
+                                            (!isPrevBtnExist)
+                                                ? featuredLinks[i]
+                                                : currImgLinks[i],
+                                            loadingBuilder:
+                                                (BuildContext context,
+                                                    Widget child,
+                                                    ImageChunkEvent
+                                                        loadingProgress) {
+                                              if (loadingProgress == null)
+                                                return child;
+                                              return Center(
+                                                child: Container(
+                                                  width: 250.0,
+                                                  height: 250.0,
+                                                  child: Center(
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                    valueColor:
+                                                        AlwaysStoppedAnimation<
+                                                                Color>(
+                                                            Colors.black),
+                                                  )),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                          fit: BoxFit.cover,
+                                          clipBehavior: Clip.antiAlias,
+                                        ),
+                                        width: 128,
+                                        height: 128,
+                                      ),
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    Navigator.of(context).push(PageRouteBuilder(
+                                        opaque: false,
+                                        pageBuilder:
+                                            (BuildContext context, _, __) {
+                                          return ImgFullScreen(
+                                            linkSource: (!isPrevBtnExist)
+                                                ? featuredLinks[i]
+                                                : currImgLinks[i],
+                                            tag: i.toString(),
+                                          );
+                                        }));
+                                  },
+                                )
+                            ],
+                          ),
               ),
-
               SizedBox(height: space * 2),
 
               /* BUTTONS */
@@ -148,7 +192,7 @@ class _GalleryPageState extends State<GalleryPage> {
                     Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          SizedBox(width: space * 3),
+                          SizedBox(width: space * 2.5),
                           if (isPrevBtnExist)
                             MyButton(
                               handler: prevPage,
@@ -165,7 +209,7 @@ class _GalleryPageState extends State<GalleryPage> {
                               buttonType: ButtonType.white,
                               text: 'Next Page',
                             ),
-                          SizedBox(width: space * 3),
+                          SizedBox(width: space * 2.5),
                         ]),
                   ]),
               SizedBox(height: space),

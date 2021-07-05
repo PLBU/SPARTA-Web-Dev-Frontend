@@ -20,7 +20,7 @@ class ProfilePic extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.black, width: 1),
+        border: Border.all(color: Colors.black, width: 2),
         borderRadius: BorderRadius.circular(20),
       ),
       width: imageWidth,
