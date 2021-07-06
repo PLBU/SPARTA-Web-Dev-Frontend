@@ -104,8 +104,8 @@ class TopCard extends StatelessWidget {
                           else
                             return Center(
                               child: Container(
-                                width: respWidth * 1 / 2,
-                                height: respWidth * 1 / 2,
+                                width: 32,
+                                height: 32,
                                 child: CircularProgressIndicator(
                                   valueColor: AlwaysStoppedAnimation<Color>(
                                       Colors.black),

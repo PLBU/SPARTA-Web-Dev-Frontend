@@ -45,8 +45,8 @@ class ProfilePic extends StatelessWidget {
                       else
                         return Center(
                           child: Container(
-                            width: imageWidth * 1/2,
-                            height: imageWidth * 1/2,
+                            width: 32,
+                            height: 32,
                             child: CircularProgressIndicator(
                               valueColor:
                                   AlwaysStoppedAnimation<Color>(Colors.black),
