@@ -125,27 +125,9 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
                     )
                   else
                     TopThree(
-                      User(
-                        id: null,
-                        namaPanggilan: "Peserta 1",
-                        nim: "16519000",
-                        foto: null,
-                        skor: 0,
-                      ),
-                      User(
-                        id: null,
-                        namaPanggilan: "Peserta 2",
-                        nim: "16519000",
-                        foto: null,
-                        skor: 0,
-                      ),
-                      User(
-                        id: null,
-                        namaPanggilan: "Peserta 3",
-                        nim: "16519000",
-                        foto: null,
-                        skor: 0,
-                      ),
+                      snapshot.data[0],
+                      snapshot.data[1],
+                      snapshot.data[2],
                     ),
                   SizedBox(height: space * 1.5),
                   ScoreboardSearch(
