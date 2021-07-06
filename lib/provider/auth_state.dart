@@ -82,6 +82,21 @@ class AuthState {
         context.read(currentUser).state = User.fromJson(responseBody['user']);
         storage.setString('currentUser', json.encode(responseBody['user']));
       }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+              'Sorry for the inconvenience, we refactored our Profile Picture code for better performance, please kindly upload again your picture that contains your face.'),
+          behavior: SnackBarBehavior.floating,
+          action: SnackBarAction(
+            label: 'Okay',
+            onPressed: () {
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            },
+          ),
+          duration: Duration(seconds: 20),
+        ),
+      );
     } else {
       throw Exception(responseBody['error']);
     }
