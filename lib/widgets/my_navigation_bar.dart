@@ -198,8 +198,8 @@ class ProfileButton extends StatelessWidget {
             fit: BoxFit.contain,
             child: CircleAvatar(
               backgroundColor: Colors.white,
-              backgroundImage: (currentUser.foto != null)
-                  ? MemoryImage(currentUser.foto)
+              backgroundImage: (currentUser.picture != null)
+                  ? NetworkImage(currentUser.picture)
                   : AssetImage('assets/images/blank_profile.jpg'),
               radius: 40,
             ),

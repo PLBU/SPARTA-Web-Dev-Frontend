@@ -5,14 +5,13 @@ class ProfilePic extends StatelessWidget {
   const ProfilePic({
     Key key,
     @required this.imageWidth,
-    @required List<int> imageBytes,
+    @required this.imageBytes,
     @required this.user,
     this.isSquare = false,
-  })  : _imageBytes = imageBytes,
-        super(key: key);
+  }) : super(key: key);
 
   final double imageWidth;
-  final List<int> _imageBytes;
+  final List<int> imageBytes;
   final User user;
   final isSquare;
 
@@ -27,15 +26,34 @@ class ProfilePic extends StatelessWidget {
       height: (isSquare) ? imageWidth : 4 / 3 * imageWidth,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
-        child: (_imageBytes != null)
+        child: (imageBytes != null)
             ? Image.memory(
-                _imageBytes,
+                imageBytes,
                 fit: BoxFit.cover,
               )
-            : (user.foto != null)
-                ? Image.memory(
-                    user.foto,
+            : (user.picture != null)
+                ? Image.network(
+                    user.picture,
                     fit: BoxFit.cover,
+                    loadingBuilder: (
+                      BuildContext context,
+                      Widget child,
+                      ImageChunkEvent loadingProgress,
+                    ) {
+                      if (loadingProgress == null)
+                        return child;
+                      else
+                        return Center(
+                          child: Container(
+                            width: imageWidth * 1/2,
+                            height: imageWidth * 1/2,
+                            child: CircularProgressIndicator(
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.black),
+                            ),
+                          ),
+                        );
+                    },
                   )
                 : Image.asset(
                     'assets/images/blank_profile.jpg',
