@@ -29,10 +29,8 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
     users = fetchUsers(null, null, null, null);
 
     users.then((allUser) {
-      fetchTopThree(allUser[0], allUser[1], allUser[2]).then((list) {
-        setState(() {
-          topThree = list;
-        });
+      setState(() {
+        topThree = [allUser[0], allUser[1], allUser[2]];
       });
 
       this.allUser = allUser;

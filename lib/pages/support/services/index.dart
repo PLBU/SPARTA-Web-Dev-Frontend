@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:sparta/models/support.dart';
 import 'package:sparta/utils/network_util.dart';
@@ -29,32 +30,33 @@ Future<List<Support>> fetchSupports(
 }
 
 Future<User> fetchUser(var id) async {
-  final uri = NetworkUtil.getApiUrl(
-    route: 'users/custom',
-    queryParams: {
-      'id': id,
-      'simple': '1',
-    },
-  );
-  final response = await http.get(uri);
+  if (id != null) {
+    final uri = NetworkUtil.getApiUrl(
+      route: 'users',
+      urlParams: id,
+    );
+    final response = await http.get(uri);
 
-  if (response.statusCode==200){
-    User suppUser = User.fromJson(jsonDecode(response.body));
+    inspect(response);
+    if (response.statusCode == 200) {
+      User suppUser = User.fromJson(jsonDecode(response.body));
 
-    return suppUser;
+      return suppUser;
+    }
   }
+
   return null;
 }
 
 Future<List<dynamic>> fetchLists(String id, String jwt, bool isPengirim) async {
   var supports = await fetchSupports(id, jwt, isPengirim);
 
-  if (supports==null) return null;
+  if (supports == null) return null;
 
   List<dynamic> resArr = [];
   for (var supp in supports) {
     User user = await fetchUser(isPengirim ? supp.penerima : supp.pengirim);
-    
+
     resArr.add(SupportCard(
       suppInfo: supp.text,
       isPengirim: isPengirim,

@@ -44,7 +44,6 @@ class User {
       picture: (json['picture'] == null)
           ? null
           : json['picture'] as String,
-      // To use foto as Image, use Image.memory(User.foto) or MemoryImage(User.foto)
       skor: json['skor'] as int,
       kelompok: json['kelompok'] as int,
       status: json['status'] == null ? "" : json['status'] as String,
