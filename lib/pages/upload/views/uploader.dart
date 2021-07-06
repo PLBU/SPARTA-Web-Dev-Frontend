@@ -67,16 +67,27 @@ class _SubmissionUploaderState extends State<SubmissionUploader> {
     } catch (ex) {
       print(ex);
     }
+
     if (!mounted) return;
-    setState(() {
-      _fileName = _paths != null
-          ? _paths
-              .map((e) => e.name)
-              .toString()
-              .replaceAll("(", "")
-              .replaceAll(")", "")
-          : 'Pilih File..';
-    });
+    var bytes = _paths.first.bytes;
+    if (bytes.lengthInBytes <= 10 * 1024 * 1024) {
+      setState(() {
+        _fileName = _paths != null
+            ? _paths
+                .map((e) => e.name)
+                .toString()
+                .replaceAll("(", "")
+                .replaceAll(")", "")
+            : 'Pilih File..';
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('File size must be under 10 MB'),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
   }
 
   @override
