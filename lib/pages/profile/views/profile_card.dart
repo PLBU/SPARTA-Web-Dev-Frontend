@@ -60,9 +60,19 @@ class _ProfileCardState extends State<ProfileCard> {
           await FilePicker.platform.pickFiles(type: FileType.image);
 
       if (result != null) {
-        setState(() {
-          _imageBytes = result.files.first.bytes;
-        });
+        var bytes = result.files.first.bytes;
+        if (bytes.lengthInBytes <= 3 * 1024 * 1024) {
+          setState(() {
+            _imageBytes = result.files.first.bytes;
+          });
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Picture size must be under 3 MB'),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
       }
 
       setState(() {
@@ -75,10 +85,9 @@ class _ProfileCardState extends State<ProfileCard> {
         _isSaveLoading = true;
       });
 
-      final success = await updateOneUser(
+      Future<bool> updateResponse = updateOneUser(
         widget.user.id,
         jwt,
-        newImageBytes: _imageBytes,
         newEmail: mapOfTEC['email'].text,
         newInstagram: mapOfTEC['instagram'].text,
         newNamaLengkap: mapOfTEC['namaLengkap'].text,
@@ -86,7 +95,11 @@ class _ProfileCardState extends State<ProfileCard> {
         newPassword: mapOfTEC['password'].text,
       );
 
-      if (success) {
+      Future<bool> profilePicResponse = (widget.user.picture == null) ? postProfilePic(jwt, _imageBytes) : updateProfilePic(jwt, _imageBytes);
+
+      final success = await Future.wait([updateResponse, profilePicResponse]);
+
+      if (success[0] && success[1]) {
         NavUtil.navigate(context, '/profile/${widget.user.id}');
         AuthState.updateUser(context);
       } else {

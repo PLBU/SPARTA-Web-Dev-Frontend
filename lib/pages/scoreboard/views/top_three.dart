@@ -86,14 +86,33 @@ class TopCard extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: this.user.foto == null
+                child: this.user.picture == null
                     ? Image.asset(
                         'assets/images/blank_profile.jpg',
                         fit: BoxFit.cover,
                       )
-                    : Image.memory(
-                        this.user.foto,
+                    : Image.network(
+                        this.user.picture,
                         fit: BoxFit.cover,
+                        loadingBuilder: (
+                          BuildContext context,
+                          Widget child,
+                          ImageChunkEvent loadingProgress,
+                        ) {
+                          if (loadingProgress == null)
+                            return child;
+                          else
+                            return Center(
+                              child: Container(
+                                width: respWidth * 1 / 2,
+                                height: respWidth * 1 / 2,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      Colors.black),
+                                ),
+                              ),
+                            );
+                        },
                       ),
               ),
             ),

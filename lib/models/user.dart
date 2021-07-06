@@ -9,7 +9,7 @@ class User {
   String password;
   String nim;
   String jurusan;
-  Uint8List foto;
+  String picture;
   int skor;
   int kelompok;
   String status;
@@ -24,7 +24,7 @@ class User {
     this.password,
     this.nim,
     this.jurusan,
-    this.foto,
+    this.picture,
     this.skor,
     this.kelompok,
     this.status,
@@ -41,10 +41,9 @@ class User {
       password: json['password'] as String,
       nim: json['nim'] as String,
       jurusan: json['jurusan'] as String,
-      foto: (json['foto'] == null)
+      picture: (json['picture'] == null)
           ? null
-          : Uint8List.fromList(
-              new List<int>.from(json['foto']['data']['data'])),
+          : json['picture'] as String,
       // To use foto as Image, use Image.memory(User.foto) or MemoryImage(User.foto)
       skor: json['skor'] as int,
       kelompok: json['kelompok'] as int,

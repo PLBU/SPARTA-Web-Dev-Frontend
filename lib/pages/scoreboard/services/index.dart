@@ -26,44 +26,50 @@ Future<List<User>> fetchUsers(
 }
 
 Future<List<User>> fetchTopThree(User user1, User user2, User user3) async {
-  var response1 = await http.get(NetworkUtil.getApiUrl(
-    route: 'users/custom', 
+  var responseFuture1 = http.get(NetworkUtil.getApiUrl(
+    route: 'users/custom',
     queryParams: {"id": user1.id},
   ));
-  var response2 = await http.get(NetworkUtil.getApiUrl(
-    route: 'users/custom', 
+  var responseFuture2 = http.get(NetworkUtil.getApiUrl(
+    route: 'users/custom',
     queryParams: {"id": user2.id},
   ));
-  var response3 = await http.get(NetworkUtil.getApiUrl(
-    route: 'users/custom', 
+  var responseFuture3 = http.get(NetworkUtil.getApiUrl(
+    route: 'users/custom',
     queryParams: {"id": user3.id},
   ));
 
-  if (response1.statusCode == 200 
-    && response2.statusCode == 200 
-    && response3.statusCode == 200 ){
+  List responses =
+      await Future.wait([responseFuture1, responseFuture2, responseFuture3]);
 
+  var response1 = responses[0];
+  var response2 = responses[1];
+  var response3 = responses[2];
+
+  if (response1.statusCode == 200 &&
+      response2.statusCode == 200 &&
+      response3.statusCode == 200) {
     return [
       User.fromJson({
         '_id': user1.id,
         'namaPanggilan': user1.namaPanggilan,
         'nim': user1.nim,
         'skor': user1.skor,
-        'foto': jsonDecode(response1.body)['foto'],
+        'picture': jsonDecode(response1.body)['picture'],
       }),
       User.fromJson({
         '_id': user2.id,
         'namaPanggilan': user2.namaPanggilan,
         'nim': user2.nim,
         'skor': user2.skor,
-        'foto': jsonDecode(response2.body)['foto'],
+        'picture': jsonDecode(response2.body)['picture'],
       }),
       User.fromJson({
         '_id': user3.id,
         'namaPanggilan': user3.namaPanggilan,
         'nim': user3.nim,
         'skor': user3.skor,
-        'foto': jsonDecode(response3.body)['foto'],
+        'picture': jsonDecode(response3.body)['picture'],
       }),
     ];
   }
