@@ -5,7 +5,6 @@ import 'package:sparta/widgets/my_navigation_bar.dart';
 import 'package:sparta/widgets/my_title.dart';
 import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/pages/gallery/services/fetchImgLinks.dart';
-import 'package:sparta/pages/gallery/services/fetchFeatured.dart';
 
 class GalleryPage extends StatefulWidget {
   const GalleryPage({Key key}) : super(key: key);
@@ -15,27 +14,24 @@ class GalleryPage extends StatefulWidget {
 }
 
 class _GalleryPageState extends State<GalleryPage> {
-  final imgPerPage = 15;
+  final imgPerPage = 12;
   int currFirstIdx = 0;
   Future<List<String>> imgLinksResp;
-  Future<List<String>> featuredResp;
   List<String> allImgLinks;
   List<String> currImgLinks = [];
-  List<String> featuredLinks = [];
   bool isPrevBtnExist = false;
   bool isNextBtnExist = true;
+  String _chosenDay = 'Day 0';
 
   @override
   void initState() {
     super.initState();
-    imgLinksResp = fetchImgLinks();
+    imgLinksResp = fetchImgLinks(_chosenDay);
     imgLinksResp.then((List<String> allImgLinks) {
       this.allImgLinks = allImgLinks;
       this.currImgLinks = allImgLinks;
-    });
-    featuredResp = fetchFeatured();
-    featuredResp.then((List<String> featuredLinks) {
-      this.featuredLinks = featuredLinks;
+      if (allImgLinks.length <= imgPerPage) isNextBtnExist = false;
+      else isNextBtnExist= true;
     });
   }
 
@@ -47,25 +43,27 @@ class _GalleryPageState extends State<GalleryPage> {
         : (deviceType == DeviceType.tablet)
             ? 20
             : 40;
+    double respText = (deviceType == DeviceType.mobile)
+        ? 10
+        : (deviceType == DeviceType.tablet)
+            ? 12
+            : 16;
 
     void prevPage() {
       setState(() {
-        if (currFirstIdx <= 0) {
-          isPrevBtnExist = false;
-        } else {
-          currFirstIdx -= imgPerPage;
-          currImgLinks = [];
-          for (var i = currFirstIdx; i < currFirstIdx + imgPerPage; i++) {
-            currImgLinks.add(allImgLinks[i]);
-          }
+        currFirstIdx -= imgPerPage;
+        currImgLinks = [];
+        for (var i = currFirstIdx; i < currFirstIdx + imgPerPage; i++) {
+          currImgLinks.add(allImgLinks[i]);
         }
         isNextBtnExist = true;
+        if (currFirstIdx <= 0) isPrevBtnExist = false;
       });
     }
 
     void nextPage() {
       setState(() {
-        if (isPrevBtnExist) currFirstIdx += imgPerPage;
+        currFirstIdx += imgPerPage;
         if (currFirstIdx >= allImgLinks.length - imgPerPage)
           isNextBtnExist = false;
         isPrevBtnExist = true;
@@ -78,26 +76,89 @@ class _GalleryPageState extends State<GalleryPage> {
     }
 
     return FutureBuilder(
-        future: Future.wait([imgLinksResp, featuredResp]),
+        future: imgLinksResp,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Column(children: <Widget>[
               SizedBox(height: space * 2),
               MyTitle(text: "GALLERY", logo: "!"),
+              SizedBox(height: space * 2),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: space * 2.5),
+                child: MyContainer(
+                  padding: EdgeInsets.fromLTRB(
+                    space/2, 
+                    (deviceType == DeviceType.desktop) ? 15.0 : 7.0, 
+                    space/2, 
+                    (deviceType == DeviceType.desktop) ? 15.0 : 7.0, ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Pilih day SPARTA:",
+                        style: TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: respText,
+                          color: Colors.black,
+                        ),
+                      ),
+
+                      /* DROPDOWN */
+                      Container(
+                        padding: EdgeInsets.fromLTRB(space/2, 0, space/2, 0),
+                        width: space*12.5,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                        child: DropdownButton(
+                            isExpanded: true,
+                            value: _chosenDay,
+                            underline: Container(color: Colors.white, height: 1.0),
+                            style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: respText,
+                              color: Colors.black,
+                            ),
+                            items: <String>[
+                              'Day 0',
+                              'Day 1',
+                            ].map<DropdownMenuItem<String>>((String value){
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            onChanged: (String value){
+                              setState(() {
+                                isPrevBtnExist = false;
+                                _chosenDay = value;
+                                imgLinksResp = fetchImgLinks(_chosenDay);
+                                imgLinksResp.then((List<String> allImgLinks) {
+                                  currFirstIdx = 0;
+                                  this.allImgLinks = allImgLinks;
+                                  this.currImgLinks = allImgLinks;
+                                  if (allImgLinks.length <= imgPerPage) isNextBtnExist = false;
+                                  else isNextBtnExist= true;
+                                });
+                              });
+                            }
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ),
               SizedBox(height: space),
+
               /* GALLERY */
               Container(
                 padding: EdgeInsets.symmetric(horizontal: space * 2.5),
-                child: (!isPrevBtnExist && featuredLinks.length == 0)
-                    ? Container(
-                        alignment: Alignment.center,
-                        height: MediaQuery.of(context).size.height -
-                            MyNavigationBar().preferredSize.height -
-                            8 * space,
-                        child: Text("Belum ada Featured Foto yang tersedia",
-                            style: TextStyle(fontFamily: 'DrukWideBold')),
-                      )
-                    : (isPrevBtnExist && allImgLinks.length == 0)
+                child:  (allImgLinks.length == 0)
                         ? Container(
                             alignment: Alignment.center,
                             height: MediaQuery.of(context).size.height -
@@ -111,18 +172,9 @@ class _GalleryPageState extends State<GalleryPage> {
                             crossAxisSpacing: space / 1.5,
                             crossAxisCount: 3,
                             children: [
-                              for (var i = 0;
-                                  i <
-                                      ((!isPrevBtnExist)
-                                          ? featuredLinks.length
-                                          : (currFirstIdx <
-                                                  allImgLinks.length -
-                                                      imgPerPage +
-                                                      1)
-                                              ? imgPerPage
-                                              : allImgLinks.length -
-                                                  currFirstIdx);
-                                  i++)
+                              for (var i = 0; i < ((currFirstIdx < allImgLinks.length - imgPerPage + 1) 
+                                                      ? imgPerPage 
+                                                      : allImgLinks.length - currFirstIdx); i++)
                                 GestureDetector(
                                   child: Hero(
                                     transitionOnUserGestures: true,
@@ -132,14 +184,8 @@ class _GalleryPageState extends State<GalleryPage> {
                                       child: MyContainer(
                                         child: FittedBox(
                                           child: Image.network(
-                                            (!isPrevBtnExist)
-                                                ? featuredLinks[i]
-                                                : currImgLinks[i],
-                                            loadingBuilder:
-                                                (BuildContext context,
-                                                    Widget child,
-                                                    ImageChunkEvent
-                                                        loadingProgress) {
+                                            currImgLinks[i],
+                                            loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent loadingProgress) {
                                               if (loadingProgress == null)
                                                 return child;
                                               return Center(
@@ -147,13 +193,10 @@ class _GalleryPageState extends State<GalleryPage> {
                                                   width: 250.0,
                                                   height: 250.0,
                                                   child: Center(
-                                                      child:
-                                                          CircularProgressIndicator(
-                                                    valueColor:
-                                                        AlwaysStoppedAnimation<
-                                                                Color>(
-                                                            Colors.black),
-                                                  )),
+                                                      child: CircularProgressIndicator(
+                                                              valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                                                      )
+                                                  ),
                                                 ),
                                               );
                                             },
@@ -172,9 +215,7 @@ class _GalleryPageState extends State<GalleryPage> {
                                         pageBuilder:
                                             (BuildContext context, _, __) {
                                           return ImgFullScreen(
-                                            linkSource: (!isPrevBtnExist)
-                                                ? featuredLinks[i]
-                                                : currImgLinks[i],
+                                            linkSource: currImgLinks[i],
                                             tag: i.toString(),
                                           );
                                         }));
