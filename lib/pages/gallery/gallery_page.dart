@@ -167,6 +167,7 @@ class _GalleryPageState extends State<GalleryPage> {
                             child: Text("Belum ada Foto yang tersedia",
                                 style: TextStyle(fontFamily: 'DrukWideBold')))
                         : GridView.count(
+                            primary: true,
                             shrinkWrap: true,
                             mainAxisSpacing: space / 1.5,
                             crossAxisSpacing: space / 1.5,
