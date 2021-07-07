@@ -54,6 +54,7 @@ class SupportDialog extends StatefulWidget {
 class _SupportDialogState extends State<SupportDialog> {
   bool _isAnonym = false;
   bool _isLoading = false;
+  bool _isEmpty = false;
   TextEditingController contentTEC = new TextEditingController();
   TextEditingController namaPanitTEC = new TextEditingController();
 
@@ -69,12 +70,9 @@ class _SupportDialogState extends State<SupportDialog> {
 
     Function handleOnClick = () async {
       if (widget.isAdmin && namaPanitTEC.text == "") {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('There was an error when sending your support'),
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
+        setState(() {
+          _isEmpty = true;
+        });
         return;
       }
       setState(() {
@@ -160,6 +158,14 @@ class _SupportDialogState extends State<SupportDialog> {
                 maxLines: 1,
               ),
             ),
+          if (_isEmpty)
+            Text(
+              "Jangan lupa isi gais!",
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                color: Colors.red,
+              ),
+            )
         ],
       ),
       actions: <Widget>[
