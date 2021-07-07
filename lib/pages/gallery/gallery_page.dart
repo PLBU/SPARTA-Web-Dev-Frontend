@@ -22,6 +22,7 @@ class _GalleryPageState extends State<GalleryPage> {
   bool isPrevBtnExist = false;
   bool isNextBtnExist = true;
   String _chosenDay = 'Day 0';
+  bool _isLoading = true;
 
   @override
   void initState() {
@@ -32,6 +33,7 @@ class _GalleryPageState extends State<GalleryPage> {
       this.currImgLinks = allImgLinks;
       if (allImgLinks.length <= imgPerPage) isNextBtnExist = false;
       else isNextBtnExist= true;
+      _isLoading = false;
     });
   }
 
@@ -135,6 +137,7 @@ class _GalleryPageState extends State<GalleryPage> {
                             }).toList(),
                             onChanged: (String value){
                               setState(() {
+                                _isLoading = true;
                                 isPrevBtnExist = false;
                                 _chosenDay = value;
                                 imgLinksResp = fetchImgLinks(_chosenDay);
@@ -144,6 +147,7 @@ class _GalleryPageState extends State<GalleryPage> {
                                   this.currImgLinks = allImgLinks;
                                   if (allImgLinks.length <= imgPerPage) isNextBtnExist = false;
                                   else isNextBtnExist= true;
+                                  _isLoading = false;
                                 });
                               });
                             }
@@ -156,104 +160,112 @@ class _GalleryPageState extends State<GalleryPage> {
               SizedBox(height: space*1.5),
 
               /* GALLERY */
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: space * 2.5),
-                child:  (allImgLinks.length == 0)
-                        ? Container(
-                            alignment: Alignment.center,
-                            height: MediaQuery.of(context).size.height -
-                                MyNavigationBar().preferredSize.height -
-                                8 * space,
-                            child: Text("Belum ada Foto yang tersedia",
-                                style: TextStyle(fontFamily: 'DrukWideBold')))
-                        : GridView.count(
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            mainAxisSpacing: space / 1.5,
-                            crossAxisSpacing: space / 1.5,
-                            crossAxisCount: 3,
-                            children: [
-                              for (var i = 0; i < ((currFirstIdx < allImgLinks.length - imgPerPage + 1) 
-                                                      ? imgPerPage 
-                                                      : allImgLinks.length - currFirstIdx); i++)
-                                GestureDetector(
-                                  child: Hero(
-                                    transitionOnUserGestures: true,
-                                    tag: 'imageHero' + i.toString(),
-                                    child: Container(
-                                      margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                                      child: MyContainer(
-                                        child: FittedBox(
-                                          child: Image.network(
-                                            currImgLinks[i],
-                                            loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent loadingProgress) {
-                                              if (loadingProgress == null)
-                                                return child;
-                                              return Center(
-                                                child: Container(
-                                                  width: 250.0,
-                                                  height: 250.0,
-                                                  child: Center(
-                                                      child: CircularProgressIndicator(
-                                                              valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-                                                      )
-                                                  ),
+              (!_isLoading)
+              ? Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: space * 2.5),
+                      child:  (allImgLinks.length == 0)
+                              ? Container(
+                                  alignment: Alignment.center,
+                                  height: MediaQuery.of(context).size.height -
+                                      MyNavigationBar().preferredSize.height -
+                                      8 * space,
+                                  child: Text("Belum ada Foto yang tersedia",
+                                      style: TextStyle(fontFamily: 'DrukWideBold')))
+                              : GridView.count(
+                                  physics: NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  mainAxisSpacing: space / 1.5,
+                                  crossAxisSpacing: space / 1.5,
+                                  crossAxisCount: 3,
+                                  children: [
+                                    for (var i = 0; i < ((currFirstIdx < allImgLinks.length - imgPerPage + 1) 
+                                                            ? imgPerPage 
+                                                            : allImgLinks.length - currFirstIdx); i++)
+                                      GestureDetector(
+                                        child: Hero(
+                                          transitionOnUserGestures: true,
+                                          tag: 'imageHero' + i.toString(),
+                                          child: Container(
+                                            margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                                            child: MyContainer(
+                                              child: FittedBox(
+                                                child: Image.network(
+                                                  currImgLinks[i],
+                                                  loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent loadingProgress) {
+                                                    if (loadingProgress == null)
+                                                      return child;
+                                                    return Center(
+                                                      child: Container(
+                                                        width: 250.0,
+                                                        height: 250.0,
+                                                        child: Center(
+                                                            child: CircularProgressIndicator(
+                                                                    valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                                                            )
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
                                                 ),
-                                              );
-                                            },
+                                                fit: BoxFit.cover,
+                                                clipBehavior: Clip.antiAlias,
+                                              ),
+                                              width: 128,
+                                              height: 128,
+                                            ),
                                           ),
-                                          fit: BoxFit.cover,
-                                          clipBehavior: Clip.antiAlias,
                                         ),
-                                        width: 128,
-                                        height: 128,
-                                      ),
-                                    ),
-                                  ),
-                                  onTap: () {
-                                    Navigator.of(context).push(PageRouteBuilder(
-                                        opaque: false,
-                                        pageBuilder:
-                                            (BuildContext context, _, __) {
-                                          return ImgFullScreen(
-                                            linkSource: currImgLinks[i],
-                                            tag: i.toString(),
-                                          );
-                                        }));
-                                  },
-                                )
-                            ],
-                          ),
-              ),
-              SizedBox(height: space * 2),
+                                        onTap: () {
+                                          Navigator.of(context).push(PageRouteBuilder(
+                                              opaque: false,
+                                              pageBuilder:
+                                                  (BuildContext context, _, __) {
+                                                return ImgFullScreen(
+                                                  linkSource: currImgLinks[i],
+                                                  tag: i.toString(),
+                                                );
+                                              }));
+                                        },
+                                      )
+                                  ],
+                                ),
+                    ),
+                    SizedBox(height: space * 2),
 
-              /* BUTTONS */
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
+                    /* BUTTONS */
                     Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          SizedBox(width: space * 2.5),
-                          if (isPrevBtnExist)
-                            MyButton(
-                              handler: prevPage,
-                              buttonType: ButtonType.white,
-                              text: 'Prev Page',
-                            )
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                SizedBox(width: space * 2.5),
+                                if (isPrevBtnExist)
+                                  MyButton(
+                                    handler: prevPage,
+                                    buttonType: ButtonType.white,
+                                    text: 'Prev Page',
+                                  )
+                              ]),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                if (isNextBtnExist)
+                                  MyButton(
+                                    handler: nextPage,
+                                    buttonType: ButtonType.white,
+                                    text: 'Next Page',
+                                  ),
+                                SizedBox(width: space * 2.5),
+                              ]),
                         ]),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          if (isNextBtnExist)
-                            MyButton(
-                              handler: nextPage,
-                              buttonType: ButtonType.white,
-                              text: 'Next Page',
-                            ),
-                          SizedBox(width: space * 2.5),
-                        ]),
-                  ]),
+                  ],
+                )
+              : CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+              ),
               SizedBox(height: space),
             ]);
           }
