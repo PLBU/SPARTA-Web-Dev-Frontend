@@ -153,7 +153,7 @@ class _GalleryPageState extends State<GalleryPage> {
                   ),
                 ),
               ),
-              SizedBox(height: space),
+              SizedBox(height: space*1.5),
 
               /* GALLERY */
               Container(
