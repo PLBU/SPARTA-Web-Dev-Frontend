@@ -264,8 +264,14 @@ class _GalleryPageState extends State<GalleryPage> {
                         ]),
                   ],
                 )
-              : CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+              : Column(
+                children: [
+                  SizedBox(height: space*3),
+                  CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                  ),
+                  SizedBox(height: space*3),
+                ],
               ),
               SizedBox(height: space),
             ]);
