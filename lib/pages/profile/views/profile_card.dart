@@ -39,7 +39,7 @@ class _ProfileCardState extends State<ProfileCard> {
     DeviceType deviceType = UIUtils.getDeviceType(context);
     String jwt = context.read(AuthState.jwt).state;
     String type = context.read(AuthState.type).state;
-    double imageWidth = (deviceType == DeviceType.desktop) ? 240 : 120;
+    double imageWidth = (deviceType == DeviceType.desktop) ? 280 : 144;
     double containerWidth = (deviceType == DeviceType.desktop) ? 960 : 344;
     double space = (deviceType == DeviceType.desktop) ? 32 : 16;
     Map<String, TextEditingController> mapOfTEC = {
@@ -294,13 +294,13 @@ class PortraitLayout extends StatelessWidget {
                   FaIcon(
                     FontAwesomeIcons.instagramSquare,
                     color: Colors.black,
-                    size: 24,
+                    size: 20,
                   ),
                   ProfileText(
                     text:
                         (user.instagram == "") ? ' -' : (' @' + user.instagram),
                     fontFamily: 'DrukWideBold',
-                    fontSize: 15,
+                    fontSize: 14,
                   ),
                 ],
               ),
@@ -308,19 +308,6 @@ class PortraitLayout extends StatelessWidget {
                 if (user.instagram != '')
                   launch('https://www.instagram.com/${user.instagram}');
               },
-            ),
-            Spacer(),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(Icons.cake),
-                ProfileText(
-                  text:
-                      ' ${user.tanggalLahir.day.toString()}/${user.tanggalLahir.month.toString()}/${user.tanggalLahir.year.toString()}',
-                  fontFamily: 'DrukWideBold',
-                  fontSize: 15,
-                ),
-              ],
             ),
           ],
         ),

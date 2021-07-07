@@ -49,13 +49,15 @@ class ProfileInfo extends StatelessWidget {
                   ],
                 ),
                 onTap: () {
-                  if (user.instagram != '') launch('https://www.instagram.com/${user.instagram}');
+                  if (user.instagram != '')
+                    launch('https://www.instagram.com/${user.instagram}');
                 },
               ),
               Spacer(),
               Icon(Icons.cake),
               ProfileText(
-                text: ' ${user.tanggalLahir.day.toString()}/${user.tanggalLahir.month.toString()}/${user.tanggalLahir.year.toString()}',
+                text:
+                    ' ${user.tanggalLahir.day.toString()}/${user.tanggalLahir.month.toString()}/${user.tanggalLahir.year.toString()}',
                 fontFamily: 'DrukWideBold',
                 fontSize: 20,
               ),
@@ -63,7 +65,8 @@ class ProfileInfo extends StatelessWidget {
           ),
         if (deviceType == DeviceType.desktop) SizedBox(height: space),
         (deviceType == DeviceType.desktop)
-            ? MyHeadingText(content: user.namaLengkap, textAlign: TextAlign.left)
+            ? MyHeadingText(
+                content: user.namaLengkap, textAlign: TextAlign.left)
             : ProfileText(
                 text: user.namaLengkap,
                 fontSize: 19,
@@ -74,9 +77,21 @@ class ProfileInfo extends StatelessWidget {
           text: 'Nama Panggilan: ' + user.namaPanggilan,
           fontSize: (deviceType != DeviceType.desktop) ? 14 : 19,
         ),
+        if (deviceType != DeviceType.desktop) SizedBox(height: 0.25 * space),
+        if (deviceType != DeviceType.desktop)
+          ProfileText(
+            text: 'Ultah: ' +
+                '${user.tanggalLahir.day.toString()}/${user.tanggalLahir.month.toString()}/${user.tanggalLahir.year.toString()}',
+            fontSize: 14,
+          ),
         SizedBox(height: 0.25 * space),
         ProfileText(
           text: 'NIM: ' + user.nim.toString(),
+          fontSize: (deviceType != DeviceType.desktop) ? 14 : 19,
+        ),
+        SizedBox(height: 0.25 * space),
+        ProfileText(
+          text: 'Jurusan: ' + user.jurusan.toString(),
           fontSize: (deviceType != DeviceType.desktop) ? 14 : 19,
         ),
         SizedBox(height: 0.25 * space),
