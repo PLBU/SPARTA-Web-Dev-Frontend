@@ -10,7 +10,7 @@ import 'package:sparta/utils/ui_utils.dart';
 
 void showSupportDialog(BuildContext context, String nickname, String userId) {
   final jwt = context.read(AuthState.jwt).state;
-  final admin = context.read(AuthState.type).state;
+  final type = context.read(AuthState.type).state;
 
   if (jwt != null)
     showDialog(
@@ -20,7 +20,7 @@ void showSupportDialog(BuildContext context, String nickname, String userId) {
           userId: userId,
           jwt: jwt,
           nickname: nickname,
-          isAdmin: admin != null,
+          isAdmin: type == 'admin',
         );
       },
     );
@@ -68,6 +68,15 @@ class _SupportDialogState extends State<SupportDialog> {
             : 40;
 
     Function handleOnClick = () async {
+      if (widget.isAdmin && namaPanitTEC.text == "") {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('There was an error when sending your support'),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+        return;
+      }
       setState(() {
         _isLoading = true;
       });
@@ -109,6 +118,7 @@ class _SupportDialogState extends State<SupportDialog> {
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           MyTextField(
             width: 360,
@@ -141,19 +151,14 @@ class _SupportDialogState extends State<SupportDialog> {
               ],
             ),
           if (widget.isAdmin)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  width: 240,
-                  child: MyTextField(
-                    labelText: "Send as",
-                    controller: namaPanitTEC,
-                    minLines: 1,
-                    maxLines: 1,
-                  ),
-                )
-              ],
+            Container(
+              width: 240,
+              child: MyTextField(
+                labelText: "Send as",
+                controller: namaPanitTEC,
+                minLines: 1,
+                maxLines: 1,
+              ),
             ),
         ],
       ),
