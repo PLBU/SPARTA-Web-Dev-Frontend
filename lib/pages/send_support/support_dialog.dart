@@ -16,7 +16,12 @@ void showSupportDialog(BuildContext context, String nickname, String userId) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return SupportDialog(userId: userId, jwt: jwt, nickname: nickname, isAdmin: admin!=null,);
+        return SupportDialog(
+          userId: userId,
+          jwt: jwt,
+          nickname: nickname,
+          isAdmin: admin != null,
+        );
       },
     );
   else
