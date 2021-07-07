@@ -1,15 +1,22 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:sparta/utils/network_util.dart';
 
-Future<bool> sendSupport(bool isAnonym, String penerima, String text, String jwt) async {
+Future<bool> sendSupport(
+    bool isAnonym, String penerima, String text, String jwt) async {
   final Map<String, String> body = {'penerima': penerima, 'text': text};
-  final headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer $jwt'};
+  final headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $jwt'
+  };
   final encoding = Encoding.getByName('utf-8');
   String jsonBody = json.encode(body);
 
   final response = await http.post(
-    (isAnonym) ? NetworkUtil.getApiUrl(route: 'supports', urlParams: 'anonymous') : NetworkUtil.getApiUrl(route: 'supports'),
+    (isAnonym)
+        ? NetworkUtil.getApiUrl(route: 'supports', urlParams: 'anonymous')
+        : NetworkUtil.getApiUrl(route: 'supports'),
     body: jsonBody,
     headers: headers,
     encoding: encoding,
@@ -17,5 +24,34 @@ Future<bool> sendSupport(bool isAnonym, String penerima, String text, String jwt
 
   if (response.statusCode == 201) {
     return true;
-  } else return false;
+  } else
+    return false;
+}
+
+Future<bool> sendSupportPanit(
+    String penerima, String text, String jwt, String nickname) async {
+  final Map<String, String> body = {
+    'penerima': penerima,
+    'text': text,
+    'namaPengirim': nickname
+  };
+  inspect(body);
+  final headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $jwt'
+  };
+  final encoding = Encoding.getByName('utf-8');
+  String jsonBody = json.encode(body);
+
+  final response = await http.post(
+    NetworkUtil.getApiUrl(route: 'supports/admin'),
+    body: jsonBody,
+    headers: headers,
+    encoding: encoding,
+  );
+
+  if (response.statusCode == 201) {
+    return true;
+  } else
+    return false;
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sparta/models/assignment.dart';
 import 'package:sparta/provider/auth_state.dart';
 import 'package:sparta/widgets/my_button.dart';
 import 'package:sparta/pages/send_support/services/index.dart';
@@ -9,12 +10,18 @@ import 'package:sparta/utils/ui_utils.dart';
 
 void showSupportDialog(BuildContext context, String nickname, String userId) {
   final jwt = context.read(AuthState.jwt).state;
+  final type = context.read(AuthState.type).state;
 
   if (jwt != null)
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return SupportDialog(userId: userId, jwt: jwt, nickname: nickname);
+        return SupportDialog(
+          userId: userId,
+          jwt: jwt,
+          nickname: nickname,
+          isAdmin: type == 'admin',
+        );
       },
     );
   else
@@ -29,14 +36,16 @@ void showSupportDialog(BuildContext context, String nickname, String userId) {
 class SupportDialog extends StatefulWidget {
   const SupportDialog({
     Key key,
-    @required this.userId,
-    @required this.jwt,
-    @required this.nickname,
+    this.userId,
+    this.jwt,
+    this.nickname,
+    this.isAdmin,
   }) : super(key: key);
 
   final String userId;
   final String jwt;
   final String nickname;
+  final bool isAdmin;
 
   @override
   _SupportDialogState createState() => _SupportDialogState();
@@ -45,11 +54,14 @@ class SupportDialog extends StatefulWidget {
 class _SupportDialogState extends State<SupportDialog> {
   bool _isAnonym = false;
   bool _isLoading = false;
+  bool _isEmpty = false;
   TextEditingController contentTEC = new TextEditingController();
+  TextEditingController namaPanitTEC = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     DeviceType deviceType = UIUtils.getDeviceType(context);
+
     double space = (deviceType == DeviceType.mobile)
         ? 10
         : (deviceType == DeviceType.tablet)
@@ -57,10 +69,28 @@ class _SupportDialogState extends State<SupportDialog> {
             : 40;
 
     Function handleOnClick = () async {
+      if (widget.isAdmin && namaPanitTEC.text == "") {
+        setState(() {
+          _isEmpty = true;
+        });
+        return;
+      }
       setState(() {
         _isLoading = true;
       });
-      final bool success = await sendSupport(_isAnonym, widget.userId, contentTEC.text, widget.jwt);
+      final bool success = !widget.isAdmin
+          ? await sendSupport(
+              _isAnonym,
+              widget.userId,
+              contentTEC.text,
+              widget.jwt,
+            )
+          : await sendSupportPanit(
+              widget.userId,
+              contentTEC.text,
+              widget.jwt,
+              namaPanitTEC.text,
+            );
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
@@ -86,6 +116,7 @@ class _SupportDialogState extends State<SupportDialog> {
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           MyTextField(
             width: 360,
@@ -95,23 +126,48 @@ class _SupportDialogState extends State<SupportDialog> {
             maxLength: 300,
             hintText: 'Type your support message here!',
           ),
-          Row(
-            children: [
-              SizedBox(width: (deviceType == DeviceType.mobile) ? 0 : 8,),
-              Checkbox(
-                activeColor: Colors.black,
-                checkColor: Colors.white,
-                value: _isAnonym,
-                onChanged: (value){
-                  setState(() {
-                    _isAnonym = value;
-                  });
-                },),
-              SizedBox(width: space/4,),
-              Text("Send as anonymous"),
-            ],
-          ),
-      ],),
+          if (!widget.isAdmin)
+            Row(
+              children: [
+                SizedBox(
+                  width: (deviceType == DeviceType.mobile) ? 0 : 8,
+                ),
+                Checkbox(
+                  activeColor: Colors.black,
+                  checkColor: Colors.white,
+                  value: _isAnonym,
+                  onChanged: (value) {
+                    setState(() {
+                      _isAnonym = value;
+                    });
+                  },
+                ),
+                SizedBox(
+                  width: space / 4,
+                ),
+                Text("Send as anonymous"),
+              ],
+            ),
+          if (widget.isAdmin)
+            Container(
+              width: 240,
+              child: MyTextField(
+                labelText: "Send as",
+                controller: namaPanitTEC,
+                minLines: 1,
+                maxLines: 1,
+              ),
+            ),
+          if (_isEmpty)
+            Text(
+              "Jangan lupa isi gais!",
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                color: Colors.red,
+              ),
+            )
+        ],
+      ),
       actions: <Widget>[
         MyButton(
           isLoading: _isLoading,

@@ -9,11 +9,13 @@ class SupportCard extends StatelessWidget {
     this.suppInfo,
     this.isPengirim,
     this.user,
+    this.namaPengirim,
   });
 
   final String suppInfo;
   final bool isPengirim;
   final User user;
+  final String namaPengirim;
 
   @override
   Widget build(BuildContext context) {
@@ -61,11 +63,17 @@ class SupportCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   (user == null)
-                    ? Text('Anonymous',
-                        style: TextStyle(
-                        fontSize: respFont * 1.25,
-                        fontWeight: FontWeight.bold,
-                      ))
+                    ? (namaPengirim == null) 
+                      ? Text('Anonymous',
+                          style: TextStyle(
+                          fontSize: respFont * 1.25,
+                          fontWeight: FontWeight.bold,
+                        ))
+                      : Text(namaPengirim,
+                          style: TextStyle(
+                          fontSize: respFont * 1.25,
+                          fontWeight: FontWeight.bold,
+                        ))
                     : Text(this.user.nim + " " + this.user.namaLengkap,
                         style: TextStyle(
                           fontSize: respFont * 1.25,
