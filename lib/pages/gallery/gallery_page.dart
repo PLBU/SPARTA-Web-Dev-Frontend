@@ -88,11 +88,12 @@ class _GalleryPageState extends State<GalleryPage> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: space * 2.5),
                 child: MyContainer(
+                  height: (deviceType == DeviceType.mobile) ? space*4 : null,
                   padding: EdgeInsets.fromLTRB(
                     space/2, 
-                    (deviceType == DeviceType.desktop) ? 15.0 : 7.0, 
-                    space/2, 
-                    (deviceType == DeviceType.desktop) ? 15.0 : 7.0, ),
+                    (deviceType == DeviceType.desktop) ? 15.0 : (deviceType == DeviceType.tablet) ? 7.0 : 3.0, 
+                    space/2,
+                    (deviceType == DeviceType.desktop) ? 15.0 : (deviceType == DeviceType.tablet) ? 7.0 : 3.0, ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
