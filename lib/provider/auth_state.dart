@@ -72,6 +72,8 @@ class AuthState {
     var responseBody = json.decode(response.body);
 
     if (response.statusCode == 200) {
+      User user = User.fromJson(responseBody['user']);
+
       context.read(jwt).state = responseBody['token'];
       storage.setString('jwt', responseBody['token']);
 
@@ -79,24 +81,25 @@ class AuthState {
       storage.setString('type', responseBody['type']);
 
       if (responseBody['type'] != 'admin') {
-        context.read(currentUser).state = User.fromJson(responseBody['user']);
+        context.read(currentUser).state = user;
         storage.setString('currentUser', json.encode(responseBody['user']));
       }
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-              'Sorry for the inconvenience, we refactored our Profile Picture code for better performance, please kindly upload again your picture that contains your face.'),
-          behavior: SnackBarBehavior.floating,
-          action: SnackBarAction(
-            label: 'Okay',
-            onPressed: () {
-              ScaffoldMessenger.of(context).hideCurrentSnackBar();
-            },
+      if (user.picture == null)
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+                'Sorry for the inconvenience, we refactored our Profile Picture code for better performance, please kindly upload again your picture that contains your face.'),
+            behavior: SnackBarBehavior.floating,
+            action: SnackBarAction(
+              label: 'Okay',
+              onPressed: () {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              },
+            ),
+            duration: Duration(seconds: 20),
           ),
-          duration: Duration(seconds: 20),
-        ),
-      );
+        );
     } else {
       throw Exception(responseBody['error']);
     }
