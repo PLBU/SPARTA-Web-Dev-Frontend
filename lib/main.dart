@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sparta/pages/profile/profile_page.dart';
+import 'package:sparta/pages/street_view/street_view_page.dart';
 import 'package:sparta/pages/support/support_page.dart';
 import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/provider/route_state.dart';
@@ -77,15 +78,15 @@ class MyApp extends StatelessWidget {
                                           ? AuthPage()
                                           : (routeComponents[1] == 'supports')
                                               ? SupportPage()
-                                              : (routeComponents[1] ==
-                                                      'profile')
-                                                  ? ProfilePage(
-                                                      id: routeComponents.last)
-                                                  : Center(
-                                                      child: MyTitle(
-                                                        text: "404 Not Found",
+                                              : (routeComponents[1] == 'profile')
+                                                  ? ProfilePage(id: routeComponents.last)
+                                                  : (routeComponents[1] == 'street-view')
+                                                    ? StreetViewPage()
+                                                    : Center(
+                                                        child: MyTitle(
+                                                          text: "404 Not Found",
+                                                        ),
                                                       ),
-                                                    ),
                     );
                   },
                   settings: settings,

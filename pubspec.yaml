@@ -37,6 +37,7 @@ dependencies:
   jwt_decoder: ^2.0.1
   mouse_parallax: ^1.1.0
   font_awesome_flutter: ^9.1.0
+  universal_ui: ^0.0.8
 
 dev_dependencies:
   flutter_test:
@@ -56,6 +57,7 @@ flutter:
     - assets/images/
     - assets/images/landing_art/
     - assets/images/panitia/
+    - assets/html/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
