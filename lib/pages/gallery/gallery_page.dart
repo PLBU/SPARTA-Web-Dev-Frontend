@@ -130,6 +130,8 @@ class _GalleryPageState extends State<GalleryPage> {
                             items: <String>[
                               'Day 0',
                               'Day 1',
+                              'Day 2',
+                              'Day 3',
                             ].map<DropdownMenuItem<String>>((String value){
                               return DropdownMenuItem<String>(
                                 value: value,
