@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sparta/pages/scoreboard/views/score_input.dart';
 import 'package:sparta/provider/auth_state.dart';
 import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/models/user.dart';
@@ -84,6 +87,61 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
     );
   }
 
+  void editBulkScore(
+    String kelFilter,
+    String nimFilter,
+    String skor,
+    String jwt,
+    BuildContext context,
+  ) async {
+    bool success;
+    int score = int.tryParse(skor);
+    List<int> kel = [];
+    List<String> nim = [];
+
+    if (kelFilter != null && kelFilter != "") {
+      print("masuk kel");
+      kelFilter = kelFilter.replaceAll(" ", "");
+      var groups = (kelFilter.indexOf(';') >= 0)
+          ? kelFilter.split(';')
+          : (kelFilter.indexOf('\n') >= 0)
+              ? kelFilter.split('\n')
+              : [kelFilter];
+      for (var item in groups) {
+        if (item != "") kel.add(int.tryParse(item.replaceAll(";\n", "")));
+      }
+    } else
+      kel = null;
+
+    if (nimFilter != null && nimFilter != "") {
+      nimFilter = nimFilter.replaceAll(" ", "");
+      var groups = (nimFilter.indexOf(';') >= 0)
+          ? nimFilter.split(';')
+          : (nimFilter.indexOf('\n') >= 0)
+              ? nimFilter.split('\n')
+              : [nimFilter];
+      for (var item in groups) {
+        if (item != "") nim.add(item.replaceAll(";\n", ""));
+      }
+    } else
+      nim = null;
+
+    if (score != null) {
+      success = await updateBulkScores(score, kel, nim, jwt);
+    } else {
+      success = false;
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: success
+            ? Text('Score updated!')
+            : Text('Error, fail to update score!'),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     DeviceType deviceType = UIUtils.getDeviceType(context);
@@ -100,6 +158,8 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
 
     return Consumer(builder: (context, watch, child) {
       final currentUser = watch(AuthState.currentUser).state;
+      final type = watch(AuthState.type).state;
+      final jwt = watch(AuthState.jwt).state;
 
       return FutureBuilder(
         future: users,
@@ -115,18 +175,18 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
                   SizedBox(height: space),
                   MyTitle(text: "SCOREBOARD", logo: "#"),
                   SizedBox(height: space * 1.5),
-                  if (topThree != null)
-                    TopThree(
-                      this.topThree[0],
-                      this.topThree[1],
-                      this.topThree[2],
-                    )
-                  else
-                    TopThree(
-                      snapshot.data[0],
-                      snapshot.data[1],
-                      snapshot.data[2],
-                    ),
+                  // if (topThree != null)
+                  //   TopThree(
+                  //     this.topThree[0],
+                  //     this.topThree[1],
+                  //     this.topThree[2],
+                  //   )
+                  // else
+                  //   TopThree(
+                  //     snapshot.data[0],
+                  //     snapshot.data[1],
+                  //     snapshot.data[2],
+                  //   ),
                   SizedBox(height: space * 1.5),
                   ScoreboardSearch(
                     submitHandler: configureSearch,
@@ -134,6 +194,12 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
                     respFont: respFont,
                     connectionState: snapshot.connectionState,
                   ),
+                  if (type == 'admin') SizedBox(height: space * 1.5),
+                  if (type == 'admin')
+                    ScoreInput(
+                      jwt: jwt,
+                      editBulkScore: editBulkScore,
+                    ),
                   SizedBox(height: space * 1.5),
                   if (snapshot.connectionState == ConnectionState.done)
                     ScoreboardView(
