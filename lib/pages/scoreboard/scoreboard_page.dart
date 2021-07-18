@@ -175,18 +175,18 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
                   SizedBox(height: space),
                   MyTitle(text: "SCOREBOARD", logo: "#"),
                   SizedBox(height: space * 1.5),
-                  // if (topThree != null)
-                  //   TopThree(
-                  //     this.topThree[0],
-                  //     this.topThree[1],
-                  //     this.topThree[2],
-                  //   )
-                  // else
-                  //   TopThree(
-                  //     snapshot.data[0],
-                  //     snapshot.data[1],
-                  //     snapshot.data[2],
-                  //   ),
+                  if (topThree != null)
+                    TopThree(
+                      this.topThree[0],
+                      this.topThree[1],
+                      this.topThree[2],
+                    )
+                  else
+                    TopThree(
+                      snapshot.data[0],
+                      snapshot.data[1],
+                      snapshot.data[2],
+                    ),
                   SizedBox(height: space * 1.5),
                   ScoreboardSearch(
                     submitHandler: configureSearch,
