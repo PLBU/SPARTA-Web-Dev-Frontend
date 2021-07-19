@@ -327,7 +327,7 @@ class PortraitLayout extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: space,
+          height: 1.5 * space,
         ),
         ProfilePic(
           imageWidth: imageWidth,
