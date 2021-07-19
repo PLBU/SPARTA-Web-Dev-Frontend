@@ -53,6 +53,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/icons/
+    - assets/icons/badges/
     - assets/images/
     - assets/images/landing_art/
     - assets/images/panitia/
