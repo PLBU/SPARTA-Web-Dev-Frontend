@@ -20,7 +20,7 @@ class _StreetViewPageState extends State<StreetViewPage> {
             (int id) => html.IFrameElement()
           ..width = MediaQuery.of(context).size.width.toString()
           ..height = MediaQuery.of(context).size.height.toString()
-          ..src = 'assets/html/index.html'
+          ..src = 'assets/html/funday.html'
           ..style.border = 'none');
 
     return SizedBox(
