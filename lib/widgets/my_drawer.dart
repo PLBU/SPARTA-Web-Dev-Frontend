@@ -62,6 +62,10 @@ class MyDrawer extends StatelessWidget {
             text: "Gallery",
             routeName: "/gallery",
           ),
+          MyDrawerItem(
+            text: "Street view",
+            routeName: "/street-view",
+          ),
           Container(
             margin: EdgeInsets.all(24),
             padding: EdgeInsets.symmetric(horizontal: 48),
