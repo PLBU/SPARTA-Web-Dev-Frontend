@@ -6,7 +6,7 @@ var streetView;
 function initialize() {
   var depanGerbangITBPanoId = 'XhBZcEx30ydVFFxtUm7NjQ'
   var panoOptions = {
-    pano: 'czc8aA0q5ppaMqdaiUwyzQ',
+    pano: depanGerbangITBPanoId,
     pov: {
       heading: 0,
       pitch: 0
@@ -22,19 +22,19 @@ function initialize() {
   // [Marker's caption, lattitude, longitude, icon location]
   var locations = [
 	// McD Dago
-	['<div style="width: 170px;">"Selamat, kamu berhasil menemukan sebuah pos!<br><br>https://meet.google.com/qcy-etzr-djd</div>', -6.8850286, 107.613365, "img/pos 1.png"],
+	['<div style="width: 170px;">"Selamat, kamu berhasil menemukan sebuah pos!<br><br>https://meet.google.com/qcy-etzr-djd</div>', -6.8850286, 107.613365, "images/pos1.png"],
 	
 	// SansCo
-	['<div style="width: 170px;">"Selamat, kamu berhasil menemukan sebuah pos!<br><br>https://meet.google.com/yhp-xtah-tot</div>', -6.8746285, 107.6185988, "img/pos 2.png"], 
+	['<div style="width: 170px;">"Selamat, kamu berhasil menemukan sebuah pos!<br><br>https://meet.google.com/yhp-xtah-tot</div>', -6.8746285, 107.6185988, "images/pos2.png"], 
 	
 	// Rektorat
-	['<div style="width: 170px;">"Selamat, kamu berhasil menemukan sebuah pos!<br><br>https://meet.google.com/cij-hfod-kvd</div>', -6.8991961, 107.6093933, "img/pos 3.png"], 
+	['<div style="width: 170px;">"Selamat, kamu berhasil menemukan sebuah pos!<br><br>https://meet.google.com/cij-hfod-kvd</div>', -6.8991961, 107.6093933, "images/pos3.png"], 
 	
 	// Boromeus
-	['<div style="width: 170px;">"Selamat, kamu berhasil menemukan sebuah pos!<br><br>https://meet.google.com/rcq-hbvn-xrh</div>', -6.8940635, 107.6130451, "img/pos 4.png"],
+	['<div style="width: 170px;">"Selamat, kamu berhasil menemukan sebuah pos!<br><br>https://meet.google.com/rcq-hbvn-xrh</div>', -6.8940635, 107.6130451, "images/pos4.png"],
 	
 	// Borma
-	['<div style="width: 170px;">"Selamat, kamu berhasil menemukan sebuah pos!<br><br>https://meet.google.com/hoi-wpck-xuj</div>', -6.8768636,107.6177492, "img/pos 5.png"],
+	['<div style="width: 170px;">"Selamat, kamu berhasil menemukan sebuah pos!<br><br>https://meet.google.com/hoi-wpck-xuj</div>', -6.8768636,107.6177492, "images/pos5.png"],
   ];
 
 
@@ -62,7 +62,7 @@ function initialize() {
     markers[i].setMap(pano);
   }
 
-  pano.setPano('czc8aA0q5ppaMqdaiUwyzQ');
+  pano.setPano(depanGerbangITBPanoId);
 
   google.maps.event.addDomListener(window, 'load', initialize);
 }
