@@ -63,7 +63,7 @@ class MyDrawer extends StatelessWidget {
             routeName: "/gallery",
           ),
           MyDrawerItem(
-            text: "Street view",
+            text: "HMIF Atlas",
             routeName: "/street-view",
           ),
           Container(
