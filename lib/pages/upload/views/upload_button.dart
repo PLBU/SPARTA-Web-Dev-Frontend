@@ -29,6 +29,10 @@ class UploadButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DeviceType deviceType = UIUtils.getDeviceType(context);
+    bool isExpired = this
+        .assignment
+        .deadline
+        .isBefore(DateTime.now().subtract(Duration(days: 3)));
 
     return Container(
       width: this.width,
@@ -47,7 +51,7 @@ class UploadButton extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Container(
-                      width: (this.assignment.deadline.isAfter(DateTime.now().subtract(Duration(days: 3))))
+                      width: (!isExpired)
                           ? (!this.submitted)
                               ? this.width * 0.4
                               : this.width * 0.6
@@ -75,12 +79,14 @@ class UploadButton extends StatelessWidget {
                               : Text(
                                   this.fileName != null
                                       ? this.fileName
-                                      : "Pilih File..",
+                                      : isExpired
+                                          ? "Telat Bro Sis.."
+                                          : "Pilih File..",
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(fontFamily: "Roboto"),
                                 ),
                     ),
-                    if (!this.submitted)
+                    if (!this.submitted && !isExpired)
                       MyButton(
                         handler: this.fileHandler,
                         text: "Change",
@@ -91,9 +97,8 @@ class UploadButton extends StatelessWidget {
               ),
             ),
           ),
-          if (this.assignment.deadline.isAfter(DateTime.now().subtract(Duration(days: 3))))
-            SizedBox(width: this.width * 0.05),
-          if (this.assignment.deadline.isAfter(DateTime.now().subtract(Duration(days: 3))))
+          if (!isExpired) SizedBox(width: this.width * 0.05),
+          if (!isExpired)
             MyButton(
               handler: this.submitHandler,
               text: this.submitted ? "Resubmit" : "Submit",
