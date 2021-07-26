@@ -16,22 +16,23 @@ class GalleryPage extends StatefulWidget {
 class _GalleryPageState extends State<GalleryPage> {
   final imgPerPage = 12;
   int currFirstIdx = 0;
-  Future<List<String>> imgLinksResp;
-  List<String> allImgLinks;
+  Future<List<List<String>>> imgLinksResp;
+  List<List<String>> allImgLinks;
   List<String> currImgLinks = [];
   bool isPrevBtnExist = false;
   bool isNextBtnExist = true;
-  String _chosenDay = 'Day 0';
+  String _chosenDayText = 'Day 0';
+  int _chosenDay = 0;
   bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    imgLinksResp = fetchImgLinks(_chosenDay);
-    imgLinksResp.then((List<String> allImgLinks) {
+    imgLinksResp = fetchImgLinks();
+    imgLinksResp.then((List<List<String>> allImgLinks) {
       this.allImgLinks = allImgLinks;
-      this.currImgLinks = allImgLinks;
-      if (allImgLinks.length <= imgPerPage) isNextBtnExist = false;
+      this.currImgLinks = allImgLinks[_chosenDay];
+      if (allImgLinks[_chosenDay].length <= imgPerPage) isNextBtnExist = false;
       else isNextBtnExist= true;
       _isLoading = false;
     });
@@ -56,7 +57,7 @@ class _GalleryPageState extends State<GalleryPage> {
         currFirstIdx -= imgPerPage;
         currImgLinks = [];
         for (var i = currFirstIdx; i < currFirstIdx + imgPerPage; i++) {
-          currImgLinks.add(allImgLinks[i]);
+          currImgLinks.add(allImgLinks[_chosenDay][i]);
         }
         isNextBtnExist = true;
         if (currFirstIdx <= 0) isPrevBtnExist = false;
@@ -66,13 +67,13 @@ class _GalleryPageState extends State<GalleryPage> {
     void nextPage() {
       setState(() {
         currFirstIdx += imgPerPage;
-        if (currFirstIdx >= allImgLinks.length - imgPerPage)
+        if (currFirstIdx >= allImgLinks[_chosenDay].length - imgPerPage)
           isNextBtnExist = false;
         isPrevBtnExist = true;
 
         currImgLinks = [];
         for (var i = currFirstIdx; i < currFirstIdx + imgPerPage; i++) {
-          if (i < allImgLinks.length) currImgLinks.add(allImgLinks[i]);
+          if (i < allImgLinks[_chosenDay].length) currImgLinks.add(allImgLinks[_chosenDay][i]);
         }
       });
     }
@@ -120,7 +121,7 @@ class _GalleryPageState extends State<GalleryPage> {
                         ),
                         child: DropdownButton(
                             isExpanded: true,
-                            value: _chosenDay,
+                            value: _chosenDayText,
                             underline: Container(color: Colors.white, height: 1.0),
                             style: TextStyle(
                               fontFamily: 'Roboto',
@@ -128,8 +129,7 @@ class _GalleryPageState extends State<GalleryPage> {
                               color: Colors.black,
                             ),
                             items: <String>[
-                              'Day 0',
-                              'Day 1',
+                              for(var i=0; i<9; i++) if(allImgLinks[i].isNotEmpty) 'Day ' + i.toString(),
                             ].map<DropdownMenuItem<String>>((String value){
                               return DropdownMenuItem<String>(
                                 value: value,
@@ -140,16 +140,13 @@ class _GalleryPageState extends State<GalleryPage> {
                               setState(() {
                                 _isLoading = true;
                                 isPrevBtnExist = false;
-                                _chosenDay = value;
-                                imgLinksResp = fetchImgLinks(_chosenDay);
-                                imgLinksResp.then((List<String> allImgLinks) {
-                                  currFirstIdx = 0;
-                                  this.allImgLinks = allImgLinks;
-                                  this.currImgLinks = allImgLinks;
-                                  if (allImgLinks.length <= imgPerPage) isNextBtnExist = false;
-                                  else isNextBtnExist= true;
-                                  _isLoading = false;
-                                });
+                                _chosenDayText = value;
+                                _chosenDay = int.parse(value.split(' ')[1]);
+                                currFirstIdx = 0;
+                                this.currImgLinks = allImgLinks[_chosenDay];
+                                if (allImgLinks[_chosenDay].length <= imgPerPage) isNextBtnExist = false;
+                                else isNextBtnExist= true;
+                                _isLoading = false;
                               });
                             }
                           ),
@@ -166,7 +163,7 @@ class _GalleryPageState extends State<GalleryPage> {
                   children: [
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: space * 2.5),
-                      child:  (allImgLinks.length == 0)
+                      child:  (allImgLinks[_chosenDay].length == 0)
                               ? Container(
                                   alignment: Alignment.center,
                                   height: MediaQuery.of(context).size.height -
@@ -181,9 +178,9 @@ class _GalleryPageState extends State<GalleryPage> {
                                   crossAxisSpacing: space / 1.5,
                                   crossAxisCount: 3,
                                   children: [
-                                    for (var i = 0; i < ((currFirstIdx < allImgLinks.length - imgPerPage + 1) 
+                                    for (var i = 0; i < ((currFirstIdx < allImgLinks[_chosenDay].length - imgPerPage + 1) 
                                                             ? imgPerPage 
-                                                            : allImgLinks.length - currFirstIdx); i++)
+                                                            : allImgLinks[_chosenDay].length - currFirstIdx); i++)
                                       GestureDetector(
                                         child: Hero(
                                           transitionOnUserGestures: true,

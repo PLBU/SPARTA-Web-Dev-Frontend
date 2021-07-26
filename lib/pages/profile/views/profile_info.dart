@@ -105,42 +105,39 @@ class ProfileInfo extends StatelessWidget {
           fontSize: (deviceType != DeviceType.desktop) ? 14 : 19,
         ),
         (deviceType == DeviceType.desktop) ? Spacer() : SizedBox(height: space),
-        Padding(
-          padding: EdgeInsets.only(bottom: space),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  ProfileText(
-                    text: 'Skor',
-                    fontSize: (deviceType != DeviceType.desktop) ? 15 : 20,
-                  ),
-                  Spacer(),
-                  ProfileText(
-                    fontSize: (deviceType != DeviceType.desktop) ? 15 : 20,
-                    text: user.skor.toString() +
-                        '/${currentLevel.nextLevelRequiredScore}',
-                  )
-                ],
+        Column(
+          children: [
+            Row(
+              children: [
+                ProfileText(
+                  text: 'Skor',
+                  fontSize: (deviceType != DeviceType.desktop) ? 15 : 20,
+                ),
+                Spacer(),
+                ProfileText(
+                  fontSize: (deviceType != DeviceType.desktop) ? 15 : 20,
+                  text: user.skor.toString() +
+                      '/${currentLevel.nextLevelRequiredScore}',
+                )
+              ],
+            ),
+            Container(
+              alignment: Alignment.centerLeft,
+              width: double.infinity,
+              height: 15,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black, width: 0.5),
               ),
-              Container(
-                alignment: Alignment.centerLeft,
-                width: double.infinity,
-                height: 15,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black, width: 0.5),
-                ),
-                child: FractionallySizedBox(
-                  heightFactor: 1,
-                  widthFactor:
-                      (user.skor / currentLevel.nextLevelRequiredScore > 1)
-                          ? 1
-                          : user.skor / currentLevel.nextLevelRequiredScore,
-                  child: Container(color: Colors.black),
-                ),
-              )
-            ],
-          ),
+              child: FractionallySizedBox(
+                heightFactor: 1,
+                widthFactor:
+                    (user.skor / currentLevel.nextLevelRequiredScore > 1)
+                        ? 1
+                        : user.skor / currentLevel.nextLevelRequiredScore,
+                child: Container(color: Colors.black),
+              ),
+            )
+          ],
         ),
       ],
     );

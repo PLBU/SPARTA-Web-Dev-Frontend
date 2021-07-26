@@ -2,6 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sparta/models/level.dart';
 import 'package:sparta/models/user.dart';
 import 'package:sparta/pages/profile/services/index.dart';
 import 'package:sparta/pages/profile/views/profile_info_edit.dart';
@@ -95,7 +96,9 @@ class _ProfileCardState extends State<ProfileCard> {
         newPassword: mapOfTEC['password'].text,
       );
 
-      Future<bool> profilePicResponse = (widget.user.picture == null) ? postProfilePic(jwt, _imageBytes) : updateProfilePic(jwt, _imageBytes);
+      Future<bool> profilePicResponse = (widget.user.picture == null)
+          ? postProfilePic(jwt, _imageBytes)
+          : updateProfilePic(jwt, _imageBytes);
 
       final success = await Future.wait([updateResponse, profilePicResponse]);
 
@@ -145,11 +148,18 @@ class _ProfileCardState extends State<ProfileCard> {
 
     return MyContainer(
       width: containerWidth,
-      padding: EdgeInsets.all(1.25 * space),
+      padding: EdgeInsets.only(
+        top: 0,
+        left: 1.25 * space,
+        bottom: space,
+        right: 1.25 * space,
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if (deviceType == DeviceType.desktop) Image.asset('assets/icons/badges/${Level(widget.user.skor).levelName}.png', width: 72,),
+          if (deviceType == DeviceType.desktop) SizedBox(height: 0.5 * space,),
           if (deviceType == DeviceType.desktop)
             LandscapeLayout(
               imageWidth: imageWidth,
@@ -172,6 +182,7 @@ class _ProfileCardState extends State<ProfileCard> {
               mapOfTEC: mapOfTEC,
               user: widget.user,
             ),
+          SizedBox(height: space,),
           (type == 'admin')
               ? IntrinsicWidth(
                   child: Column(
@@ -194,7 +205,8 @@ class _ProfileCardState extends State<ProfileCard> {
                   ),
                 )
               : Row(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     if (widget.self)
                       (_isEditing)
@@ -284,6 +296,7 @@ class PortraitLayout extends StatelessWidget {
       children: [
         Row(
           mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             InkWell(
               focusColor: Colors.transparent,
@@ -309,10 +322,12 @@ class PortraitLayout extends StatelessWidget {
                   launch('https://www.instagram.com/${user.instagram}');
               },
             ),
+            Spacer(),
+            Image.asset('assets/icons/badges/${Level(user.skor).levelName}.png', width: 40,),
           ],
         ),
         SizedBox(
-          height: space,
+          height: 1.5 * space,
         ),
         ProfilePic(
           imageWidth: imageWidth,

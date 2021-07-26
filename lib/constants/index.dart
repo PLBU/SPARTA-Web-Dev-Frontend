@@ -28,4 +28,8 @@ const allAssets = [
   AssetImage('assets/icons/sparta_head.png'),
   AssetImage('assets/icons/square.png'),
   AssetImage('assets/icons/small_square.png'),
+  AssetImage('assets/icons/badges/Crypteia.png'),
+  AssetImage('assets/icons/badges/Hebontes.png'),
+  AssetImage('assets/icons/badges/Paides.png'),
+  AssetImage('assets/icons/badges/Paidiskoi.png'),
 ];

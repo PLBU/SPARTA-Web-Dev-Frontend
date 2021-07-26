@@ -56,6 +56,10 @@ class _LoginState extends State<Login> {
       });
     }
 
+    void handleSubmit(String value) {
+      handleButton();
+    }
+
     return MyContainer(
       width: containerWidth,
       height: containerHeight,
@@ -88,6 +92,7 @@ class _LoginState extends State<Login> {
               color: Colors.black,
             ),
             controller: emailTEC,
+            submitHandler: handleSubmit,
           ),
           SizedBox(height: 0.5*space),
           MyTextField(
@@ -99,6 +104,7 @@ class _LoginState extends State<Login> {
               color: Colors.black,
             ),
             controller: passwordTEC,
+            submitHandler: handleSubmit,
           ),
           SizedBox(height: 0.5*space),
           if (_invalidInput)
