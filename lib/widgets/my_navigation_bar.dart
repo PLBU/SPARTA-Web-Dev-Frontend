@@ -56,6 +56,10 @@ class MyNavigationBar extends StatelessWidget implements PreferredSizeWidget {
           text: "Gallery",
           routeName: "/gallery",
         ),
+        MyNavBarItem(
+          text: "HMIF Atlas",
+          routeName: "/street-view",
+        ),
         MyNavBarItemAuth(currentUser, type),
       ];
 
