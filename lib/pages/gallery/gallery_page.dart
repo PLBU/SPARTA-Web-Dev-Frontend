@@ -129,7 +129,13 @@ class _GalleryPageState extends State<GalleryPage> {
                               color: Colors.black,
                             ),
                             items: <String>[
-                              for(var i=0; i<9; i++) if(allImgLinks[i].isNotEmpty) 'Day ' + i.toString(),
+                              for(var i=0; i<12; i++) (allImgLinks[i].isNotEmpty) && (i<=8)
+                                ? 'Day ' + i.toString()
+                                : (allImgLinks[i].isNotEmpty) && (i==9)
+                                  ? 'Day 8.5'
+                                  : (allImgLinks[i].isNotEmpty)
+                                  ? 'Day ' + i.toString()
+                                  : null,
                             ].map<DropdownMenuItem<String>>((String value){
                               return DropdownMenuItem<String>(
                                 value: value,
