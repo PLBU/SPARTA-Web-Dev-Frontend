@@ -19,6 +19,7 @@ class _GalleryPageState extends State<GalleryPage> {
   Future<List<List<String>>> imgLinksResp;
   List<List<String>> allImgLinks;
   List<String> currImgLinks = [];
+  List<String> dropDownItems = [];
   bool isPrevBtnExist = false;
   bool isNextBtnExist = true;
   String _chosenDayText = 'Day 0';
@@ -32,6 +33,13 @@ class _GalleryPageState extends State<GalleryPage> {
     imgLinksResp.then((List<List<String>> allImgLinks) {
       this.allImgLinks = allImgLinks;
       this.currImgLinks = allImgLinks[_chosenDay];
+
+      for (int i=0; i<12; i++){
+        if ((allImgLinks[i].isNotEmpty) && (i<=8)) dropDownItems.add('Day ' + i.toString());
+        else if ((allImgLinks[i].isNotEmpty) && (i==9)) dropDownItems.add('Day 8.5'); 
+        else if (allImgLinks[i].isNotEmpty) dropDownItems.add('Day ' + (i-1).toString()); 
+      }
+
       if (allImgLinks[_chosenDay].length <= imgPerPage) isNextBtnExist = false;
       else isNextBtnExist= true;
       _isLoading = false;
@@ -128,15 +136,7 @@ class _GalleryPageState extends State<GalleryPage> {
                               fontSize: respText,
                               color: Colors.black,
                             ),
-                            items: <String>[
-                              for(var i=0; i<12; i++) (allImgLinks[i].isNotEmpty) && (i<=8)
-                                ? 'Day ' + i.toString()
-                                : (allImgLinks[i].isNotEmpty) && (i==9)
-                                  ? 'Day 8.5'
-                                  : (allImgLinks[i].isNotEmpty)
-                                  ? 'Day ' + i.toString()
-                                  : null,
-                            ].map<DropdownMenuItem<String>>((String value){
+                            items: dropDownItems.map<DropdownMenuItem<String>>((String value){
                               return DropdownMenuItem<String>(
                                 value: value,
                                 child: Text(value),
