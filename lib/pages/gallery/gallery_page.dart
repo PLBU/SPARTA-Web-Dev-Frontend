@@ -147,7 +147,11 @@ class _GalleryPageState extends State<GalleryPage> {
                                 _isLoading = true;
                                 isPrevBtnExist = false;
                                 _chosenDayText = value;
-                                _chosenDay = int.parse(value.split(' ')[1]);
+                                _chosenDay = (value != "Day 8.5") && (int.parse(value.split(' ')[1]) <= 8)
+                                  ? int.parse(value.split(' ')[1])
+                                  : (value != "Day 8.5") && (int.parse(value.split(' ')[1]) > 9)
+                                  ? int.parse(value.split(' ')[1]) + 1
+                                  : 9;
                                 currFirstIdx = 0;
                                 this.currImgLinks = allImgLinks[_chosenDay];
                                 if (allImgLinks[_chosenDay].length <= imgPerPage) isNextBtnExist = false;
