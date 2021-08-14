@@ -8,7 +8,7 @@ Future<List<List<String>>> fetchImgLinks() async{
     final response = await http.get(uri);
     var list = jsonDecode(response.body) as List;
     List<List<String>> imgLinks = [];
-    for (var i=0; i<9; i++){
+    for (var i=0; i<12; i++){
       List<String> currLinks = list[i].cast<String>();
       imgLinks.add(currLinks);
     }
