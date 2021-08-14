@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sparta/utils/ui_utils.dart';
 import 'package:sparta/utils/nav_util.dart';
@@ -91,27 +92,20 @@ class TopCard extends StatelessWidget {
                         'assets/images/blank_profile.jpg',
                         fit: BoxFit.cover,
                       )
-                    : Image.network(
-                        this.user.picture,
+                    : CachedNetworkImage(
+                        imageUrl: this.user.picture,
                         fit: BoxFit.cover,
-                        loadingBuilder: (
-                          BuildContext context,
-                          Widget child,
-                          ImageChunkEvent loadingProgress,
-                        ) {
-                          if (loadingProgress == null)
-                            return child;
-                          else
-                            return Center(
-                              child: Container(
-                                width: 32,
-                                height: 32,
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.black),
-                                ),
+                        placeholder: (BuildContext context, _) {
+                          return Center(
+                            child: Container(
+                              width: 32,
+                              height: 32,
+                              child: CircularProgressIndicator(
+                                valueColor:
+                                    AlwaysStoppedAnimation<Color>(Colors.black),
                               ),
-                            );
+                            ),
+                          );
                         },
                       ),
               ),

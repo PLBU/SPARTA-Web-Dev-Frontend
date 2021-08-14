@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sparta/models/user.dart';
 
@@ -32,27 +33,20 @@ class ProfilePic extends StatelessWidget {
                 fit: BoxFit.cover,
               )
             : (user.picture != null)
-                ? Image.network(
-                    user.picture,
+                ? CachedNetworkImage(
+                    imageUrl: user.picture,
                     fit: BoxFit.cover,
-                    loadingBuilder: (
-                      BuildContext context,
-                      Widget child,
-                      ImageChunkEvent loadingProgress,
-                    ) {
-                      if (loadingProgress == null)
-                        return child;
-                      else
-                        return Center(
-                          child: Container(
-                            width: 32,
-                            height: 32,
-                            child: CircularProgressIndicator(
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(Colors.black),
-                            ),
+                    placeholder: (BuildContext context, _) {
+                      return Center(
+                        child: Container(
+                          width: 32,
+                          height: 32,
+                          child: CircularProgressIndicator(
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.black),
                           ),
-                        );
+                        ),
+                      );
                     },
                   )
                 : Image.asset(
