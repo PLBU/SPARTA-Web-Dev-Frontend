@@ -25,7 +25,7 @@ const allAssets = [
   AssetImage('assets/images/landing_art/pt_left_art.png'),
   AssetImage('assets/images/landing_art/pt_right_art.png'),
   AssetImage('assets/images/landing_art/scroll.png'),
-  AssetImage('assets/images/ads/ads_1.png'),
+  AssetImage('assets/images/ads/ads_batch1.png'),
   AssetImage('assets/icons/sparta_head.png'),
   AssetImage('assets/icons/square.png'),
   AssetImage('assets/icons/small_square.png'),

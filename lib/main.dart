@@ -164,7 +164,7 @@ class BasePage extends StatelessWidget {
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    FittedBox(child: Image.asset('assets/images/ads/ads_1.png', height: 600,), fit: BoxFit.scaleDown),
+                    FittedBox(child: Image.asset('assets/images/ads/ads_batch1.png', height: 600,), fit: BoxFit.scaleDown),
                     SizedBox(height: 16,),
                     MyButton(
                       buttonType: ButtonType.black,
