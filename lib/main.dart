@@ -28,7 +28,6 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  bool showAds = true;
   // This widget is the root of your application.
   Future<dynamic> loadAllImage(BuildContext context) async {
     final loader = document.getElementsByClassName('loader');
@@ -69,8 +68,8 @@ class MyApp extends StatelessWidget {
 
                     RouteState.changeRouteState('/' + routeComponents[1]);
 
-                    if (showAds) {
-                      showAds = false;
+                    if (AuthState.storage.containsKey('hmif_goods')) {
+                      AuthState.storage.remove('hmif_goods');
                       return BasePage(
                         (routeComponents[1] == '')
                             ? HomePage()

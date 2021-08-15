@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sparta/models/assignment.dart';
 import 'package:sparta/provider/auth_state.dart';
 import 'package:sparta/widgets/my_button.dart';
 import 'package:sparta/pages/send_support/services/index.dart';
