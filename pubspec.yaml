@@ -38,6 +38,7 @@ dependencies:
   mouse_parallax: ^1.1.0
   font_awesome_flutter: ^9.1.0
   universal_ui: ^0.0.8
+  cached_network_image: ^3.1.0
 
 dev_dependencies:
   flutter_test:
@@ -56,6 +57,7 @@ flutter:
     - assets/icons/
     - assets/icons/badges/
     - assets/images/
+    - assets/images/hmif_goods/
     - assets/images/landing_art/
     - assets/images/panitia/
     - assets/html/

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sparta/widgets/my_button.dart';
 import 'package:sparta/widgets/my_container.dart';
@@ -199,20 +200,16 @@ class _GalleryPageState extends State<GalleryPage> {
                                             margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
                                             child: MyContainer(
                                               child: FittedBox(
-                                                child: Image.network(
-                                                  currImgLinks[i],
-                                                  loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent loadingProgress) {
-                                                    if (loadingProgress == null)
-                                                      return child;
-                                                    return Center(
-                                                      child: Container(
-                                                        width: 250.0,
-                                                        height: 250.0,
-                                                        child: Center(
-                                                            child: CircularProgressIndicator(
-                                                                    valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-                                                            )
-                                                        ),
+                                                child: CachedNetworkImage(
+                                                  imageUrl: currImgLinks[i],
+                                                  placeholder: (BuildContext context, _) {
+                                                    return Container(
+                                                      width: 250.0,
+                                                      height: 250.0,
+                                                      child: Center(
+                                                          child: CircularProgressIndicator(
+                                                                  valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                                                          )
                                                       ),
                                                     );
                                                   },
@@ -313,7 +310,7 @@ class ImgFullScreen extends StatelessWidget {
           transitionOnUserGestures: true,
           tag: 'imageHero' + this.tag,
           child: FittedBox(
-            child: Image.network(linkSource),
+            child: CachedNetworkImage(imageUrl: linkSource),
             fit: BoxFit.contain,
           ),
         ),
