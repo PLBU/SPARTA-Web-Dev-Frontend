@@ -33,6 +33,6 @@ class Level {
       }
     });
 
-    this.nextLevelRequiredScore = listOfLevel[(level != 5) ? level : level - 1]['requiredScore'];
+    this.nextLevelRequiredScore = listOfLevel[(level != 4) ? level : level - 1]['requiredScore'];
   }
 }
