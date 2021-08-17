@@ -11,10 +11,10 @@ class ScoreboardDialog extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
       actionsPadding: EdgeInsets.only(bottom: 24, right: 12),
       title: Text(
-        'Kamu berhasil menemukan sebuah rahasia!',
+        'Wat is dis ?!',
         style: TextStyle(fontFamily: 'DrukWideBold'),
       ),
-      content: Text(this.content),
+      content: Center(child: SelectableText(this.content)),
     );
   }
 }
