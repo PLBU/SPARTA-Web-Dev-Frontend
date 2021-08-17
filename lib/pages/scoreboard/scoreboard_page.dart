@@ -32,7 +32,7 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
     '539124': 'yIN',
     '661442': 'qwW',
     '486080': 'gEr',
-    '152399': 'lpoM',
+    '152399': 'loPM',
   };
   final searchBarTEC = TextEditingController();
 
@@ -63,7 +63,7 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return ScoreboardDialog(input.replaceAll(" ", ""));
+          return ScoreboardDialog(this.codes[input.replaceAll(" ", "")]);
         },
       );
       
