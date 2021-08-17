@@ -9,6 +9,7 @@ import 'package:sparta/pages/scoreboard/services/index.dart';
 import 'package:sparta/pages/scoreboard/views/top_three.dart';
 import 'package:sparta/pages/scoreboard/views/scoreboard.dart';
 import 'package:sparta/pages/scoreboard/views/scoreboard_search.dart';
+import 'package:sparta/pages/scoreboard/views/scoreboard_dialog.dart';
 
 class ScoreboardPage extends StatefulWidget {
   ScoreboardPage();
@@ -22,6 +23,17 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
   List<User> allUser;
   List<User> topThree;
   Map<String, int> ranks;
+  Map<String, String> codes = {
+    '144835': 'aZ',
+    '899037': 'DF',
+    '821451': 'xEE',
+    '963887': 'qW',
+    '170821': 'wU',
+    '539124': 'yIN',
+    '661442': 'qwW',
+    '486080': 'gEr',
+    '152399': 'loPM',
+  };
   final searchBarTEC = TextEditingController();
 
   @override
@@ -47,6 +59,17 @@ class _ScoreboardPageState extends State<ScoreboardPage> {
   }
 
   void configureSearch(String input) {
+    if (codes.keys.contains(input.replaceAll(" ", ""))) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return ScoreboardDialog(this.codes[input.replaceAll(" ", "")]);
+        },
+      );
+      
+      return;
+    }
+
     var temp = {};
     if (input != null && input.indexOf('=') >= 0) {
       input = input.replaceAll(" ", "");
