@@ -11,10 +11,13 @@ class ScoreboardDialog extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
       actionsPadding: EdgeInsets.only(bottom: 24, right: 12),
       title: Text(
-        'Wat is dis ?!',
+        'Wayolo apa ni ?!',
         style: TextStyle(fontFamily: 'DrukWideBold'),
       ),
-      content: Center(child: SelectableText(this.content)),
+      content: SelectableText(
+        this.content,
+        textAlign: TextAlign.center,
+      ),
     );
   }
 }
