@@ -18,8 +18,6 @@ class AuthState {
   static Future<void> init() async {
     storage = await SharedPreferences.getInstance();
 
-    storage.setBool('hmif_goods', true);
-
     if (storage.containsKey('jwt') &&
         (storage.containsKey('currentUser') || storage.containsKey('type'))) {
       String savedJwt = storage.getString('jwt');

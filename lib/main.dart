@@ -68,68 +68,33 @@ class MyApp extends StatelessWidget {
 
                     RouteState.changeRouteState('/' + routeComponents[1]);
 
-                    if (AuthState.storage.containsKey('hmif_goods')) {
-                      AuthState.storage.remove('hmif_goods');
-                      return BasePage(
-                        (routeComponents[1] == '')
-                            ? HomePage()
-                            : (routeComponents[1] == 'scoreboard')
-                                ? ScoreboardPage()
-                                : (routeComponents[1] == 'upload-tugas')
-                                    ? UploadPage()
-                                    : (routeComponents[1] == 'gallery')
-                                        ? GalleryPage()
-                                        : (routeComponents[1] == 'auth')
-                                            ? AuthPage()
-                                            : (routeComponents[1] == 'supports')
-                                                ? SupportPage()
-                                                : (routeComponents[1] ==
-                                                        'profile')
-                                                    ? ProfilePage(
-                                                        id: routeComponents
-                                                            .last)
-                                                    : (routeComponents[1] ==
-                                                            'street-view')
-                                                        ? StreetViewPage()
-                                                        : Center(
-                                                            child: MyTitle(
-                                                              text:
-                                                                  "404 Not Found",
-                                                            ),
+                    return BasePage(
+                      (routeComponents[1] == '')
+                          ? HomePage()
+                          : (routeComponents[1] == 'scoreboard')
+                              ? ScoreboardPage()
+                              : (routeComponents[1] == 'upload-tugas')
+                                  ? UploadPage()
+                                  : (routeComponents[1] == 'gallery')
+                                      ? GalleryPage()
+                                      : (routeComponents[1] == 'auth')
+                                          ? AuthPage()
+                                          : (routeComponents[1] == 'supports')
+                                              ? SupportPage()
+                                              : (routeComponents[1] ==
+                                                      'profile')
+                                                  ? ProfilePage(
+                                                      id: routeComponents.last)
+                                                  : (routeComponents[1] ==
+                                                          'street-view')
+                                                      ? StreetViewPage()
+                                                      : Center(
+                                                          child: MyTitle(
+                                                            text:
+                                                                "404 Not Found",
                                                           ),
-                        true,
-                      );
-                    } else {
-                      return BasePage(
-                        (routeComponents[1] == '')
-                            ? HomePage()
-                            : (routeComponents[1] == 'scoreboard')
-                                ? ScoreboardPage()
-                                : (routeComponents[1] == 'upload-tugas')
-                                    ? UploadPage()
-                                    : (routeComponents[1] == 'gallery')
-                                        ? GalleryPage()
-                                        : (routeComponents[1] == 'auth')
-                                            ? AuthPage()
-                                            : (routeComponents[1] == 'supports')
-                                                ? SupportPage()
-                                                : (routeComponents[1] ==
-                                                        'profile')
-                                                    ? ProfilePage(
-                                                        id: routeComponents
-                                                            .last)
-                                                    : (routeComponents[1] ==
-                                                            'street-view')
-                                                        ? StreetViewPage()
-                                                        : Center(
-                                                            child: MyTitle(
-                                                              text:
-                                                                  "404 Not Found",
-                                                            ),
-                                                          ),
-                        false,
-                      );
-                    }
+                                                        ),
+                    );
                   },
                   settings: settings,
                 );
@@ -143,43 +108,13 @@ class MyApp extends StatelessWidget {
 }
 
 class BasePage extends StatelessWidget {
-  const BasePage(this.pageContent, this.ads);
+  const BasePage(this.pageContent);
 
   final Widget pageContent;
-  final bool ads;
 
   @override
   Widget build(BuildContext context) {
     DeviceType deviceType = UIUtils.getDeviceType(context);
-
-    if (ads) {
-      Future.delayed(
-        Duration(milliseconds: 500),
-        () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    FittedBox(child: Image.asset('assets/images/hmif_goods/batch1.png', height: 600,), fit: BoxFit.scaleDown),
-                    SizedBox(height: 16,),
-                    MyButton(
-                      buttonType: ButtonType.black,
-                      text: "CEK SEKARANG",
-                      handler: () async {
-                        await launch("https://instagram.com/hmif.goods");
-                      },
-                    )
-                  ],
-                ),
-              );
-            },
-          );
-        },
-      );
-    }
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
