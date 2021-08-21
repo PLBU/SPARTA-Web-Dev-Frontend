@@ -35,7 +35,7 @@ class _GalleryPageState extends State<GalleryPage> {
       this.allImgLinks = allImgLinks;
       this.currImgLinks = allImgLinks[_chosenDay];
 
-      for (int i=0; i<12; i++){
+      for (int i=0; i<13; i++){
         if ((allImgLinks[i].isNotEmpty) && (i<=8)) dropDownItems.add('Day ' + i.toString());
         else if ((allImgLinks[i].isNotEmpty) && (i==9)) dropDownItems.add('Day 8.5'); 
         else if (allImgLinks[i].isNotEmpty) dropDownItems.add('Day ' + (i-1).toString()); 
@@ -150,7 +150,7 @@ class _GalleryPageState extends State<GalleryPage> {
                                 _chosenDayText = value;
                                 _chosenDay = (value != "Day 8.5") && (int.parse(value.split(' ')[1]) <= 8)
                                   ? int.parse(value.split(' ')[1])
-                                  : (value != "Day 8.5") && (int.parse(value.split(' ')[1]) > 9)
+                                  : (value != "Day 8.5") && (int.parse(value.split(' ')[1]) >= 9)
                                   ? int.parse(value.split(' ')[1]) + 1
                                   : 9;
                                 currFirstIdx = 0;
