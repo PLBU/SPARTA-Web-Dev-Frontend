@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class NetworkUtil {
-  static const String BASE_URI = 'sparta-backend.herokuapp.com';
+  static const String BASE_URI = 'spartabe.fly.dev';
 
   static Uri getApiUrl({
     @required String route,
